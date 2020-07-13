@@ -891,7 +891,53 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnInventariarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventariarActionPerformed
         // TODO add your handling code here:
-        String idCSV = "" + cbxIdArchivo.getSelectedItem();
+        String nombreCSV = "" + cbxArchivo.getSelectedItem();
+
+        DefaultTableModel m;
+        Conexion conexion = new Conexion();
+        Connection con = conexion.getConexion();
+
+        PreparedStatement ps = null;
+        ResultSet rs;
+
+        String sql = "SELECT * FROM mueble AS MUE, "
+                + "batch b INNER JOIN device as D ON b.BATID=D.BATID "
+                + "WHERE B.BATARCHIVOIMPORTADO = '" + nombreCSV + "' "
+                + "AND MUE.MUECODIGOETIQUETA = D.DEVIDENTIFIER";
+        try {
+            String titulo[] = {"Nro.", "CÓDIGO", "DESCRIPCIÓN", "CÓDIGO ETIQUETA", "SERIE", "MARCA"};
+            m = new DefaultTableModel(null, titulo);
+            JTable p = new JTable(m);
+            String fila[] = new String[6];
+
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            int index = 1;
+            while (rs.next()) {
+                fila[0] = String.valueOf(index);
+                fila[1] = rs.getString("MUE.MUEID");
+                fila[2] = rs.getString("MUE.MUEDESCRIPCION");
+                fila[3] = rs.getString("MUE.MUECODIGOETIQUETA");
+                m.addRow(fila);
+                index++;
+            }
+            jtDatos.setModel(m);
+            TableRowSorter<TableModel> ordenar = new TableRowSorter<TableModel>(m);
+            jtDatos.setRowSorter(ordenar);
+            this.jtDatos.setModel(m);
+
+        } catch (SQLException e) {
+            System.err.println(e);
+        } finally {
+            try {
+                con.close();
+                System.out.println("Conexión cerrada");
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+
 
     }//GEN-LAST:event_btnInventariarActionPerformed
 
