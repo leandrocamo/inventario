@@ -713,6 +713,7 @@ public class Principal extends javax.swing.JFrame {
         nuevomueble objp;
         try {
             objp = new nuevomueble(null);
+            objp.txtTitulo.setText("CREAR NUEVO MUEBLE");
             objp.setVisible(true);
         } catch (ParseException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
@@ -817,12 +818,14 @@ public class Principal extends javax.swing.JFrame {
         int seleccion = jtDatos.getSelectedRow();
 //        pnlImportar.setVisible(false);
 //        pnlPrincipal.setVisible(true);
+
         if (seleccion > -1) {
             String idMueble = (String) jtDatos.getValueAt(seleccion, 1);
 //            System.out.println("Datos: " + idMueble);
             nuevomueble objNuevoMueble;
             try {
                 objNuevoMueble = new nuevomueble(idMueble);
+                objNuevoMueble.txtTitulo.setText("EDITAR MUEBLE");
                 objNuevoMueble.setVisible(true);
             } catch (ParseException ex) {
                 Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
@@ -910,10 +913,10 @@ public class Principal extends javax.swing.JFrame {
                 + "AND B.BATARCHIVOIMPORTADO = '" + nombreCSV + "' "
                 + "AND MUE.MUECODIGOETIQUETA = D.DEVIDENTIFIER";
 //        System.out.println("Prueba: " + sql);
-        String titulo[] = {"Nro.", "CÓDIGO", "DESCRIPCIÓN", "CÓDIGO ETIQUETA", "SERIE", "MARCA"};
+        String titulo[] = {"Nro.", "CÓDIGO", "DESCRIPCIÓN", "CÓDIGO ETIQUETA", "OBSERVACIÓN", "SERIE", "MARCA", "UBICACION", "AREA DEPENDENCIA", "USUARIO"};
         m = new DefaultTableModel(null, titulo);
         JTable p = new JTable(m);
-        String fila[] = new String[6];
+        String fila[] = new String[10];
         int index = 1;
         try {
 
@@ -921,11 +924,19 @@ public class Principal extends javax.swing.JFrame {
             rs = ps.executeQuery();
 
             while (rs.next()) {
+                //INCLUIR LAS COLUMNAS QUE DESEEN TAMBIEN SE DEBE INCLUIR
+                //MAS ABAJO
                 fila[0] = String.valueOf(index);
                 fila[1] = rs.getString("MUE.MUEID");
                 fila[2] = rs.getString("MUE.MUEDESCRIPCION");
                 fila[3] = rs.getString("MUE.MUECODIGOETIQUETA");
                 fila[4] = "Inventariado...";
+                fila[5] = rs.getString("MUE.MUESERIE");
+                fila[6] = rs.getString("MAR.MARNOMBRE");
+                fila[7] = rs.getString("UBI.UBINOMBRE");
+                fila[8] = rs.getString("AXD.ADNOMBRE");
+                fila[9] = rs.getString("USU.USUUSUARIO");
+                
                 m.addRow(fila);
                 index++;
             }
