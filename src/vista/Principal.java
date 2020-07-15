@@ -87,12 +87,10 @@ public class Principal extends javax.swing.JFrame {
         String sql = "SELECT * FROM batch WHERE BATESTADO = 1 ORDER BY BATFECHA ASC";
         try {
             cbxArchivo.addItem("Seleccione una opción...");
-            cbxIdArchivo.addItem("0");
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
                 cbxArchivo.addItem("" + rs.getObject("BATARCHIVOIMPORTADO"));
-                cbxIdArchivo.addItem("" + rs.getObject("BATID"));
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se obtuvo los registros del Batch.\n" + ex, "Error", JOptionPane.WARNING_MESSAGE);
@@ -136,16 +134,17 @@ public class Principal extends javax.swing.JFrame {
         PreparedStatement ps = null;
         ResultSet rs;
 
-        String sql = "SELECT * "
-                + "FROM mueble as MUE "
-                + "INNER JOIN color as COL ON COL.COLID = MUE.COLID "
-                + "INNER JOIN cuentacontable as CC ON CC.CCID = MUE.CCID "
-                + "INNER JOIN tipomueble as TM ON TM.TMID = MUE.TMID "
-                + "INNER JOIN estado as EST ON EST.ESTID = MUE.ESTID "
-                + "INNER JOIN ubicacion as UBI ON UBI.UBIID = MUE.UBIID "
-                + "INNER JOIN marca as MAR ON MAR.MARID = MUE.MARID "
-                + "WHERE MUE.MUEESTADO = 1 "
-                + "ORDER BY MUE.MUEDESCRIPCION ASC";
+        String sql = "SELECT * FROM mueble MUE \n"
+                + "INNER JOIN ubicacion UBI ON UBI.UBIID=MUE.UBIID \n"
+                + "INNER JOIN areadependencia AXD ON AXD.ADID=UBI.ADID \n"
+                + "INNER JOIN usuario USU ON USU.ADID=AXD.ADID\n"
+                + "INNER JOIN color as COL ON COL.COLID = MUE.COLID \n"
+                + "INNER JOIN cuentacontable as CC ON CC.CCID = MUE.CCID \n"
+                + "INNER JOIN tipomueble as TM ON TM.TMID = MUE.TMID \n"
+                + "INNER JOIN estado as EST ON EST.ESTID = MUE.ESTID \n"
+                + "INNER JOIN marca as MAR ON MAR.MARID = MUE.MARID \n"
+                + "WHERE MUE.MUEESTADO = 1 ORDER BY MUE.MUEDESCRIPCION ASC";
+//       System.out.println("all|| " + sql);
         try {
             String titulo[] = {"Nro.", "CÓDIGO", "DESCRIPCIÓN", "CÓDIGO ETIQUETA", "SERIE", "MARCA"};
             m = new DefaultTableModel(null, titulo);
@@ -400,9 +399,8 @@ public class Principal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         cbxArchivo = new javax.swing.JComboBox<>();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableInventariado = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        cbxIdArchivo = new javax.swing.JComboBox<>();
         btnInventariar = new javax.swing.JButton();
         btnCrearNuevo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
@@ -510,8 +508,8 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Principal", pnlPrincipal);
@@ -570,7 +568,7 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(txtPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGuardar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -590,7 +588,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableInventariado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -601,7 +599,7 @@ public class Principal extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane4.setViewportView(jTable2);
+        jScrollPane4.setViewportView(jTableInventariado);
 
         jLabel3.setText("Escojar el inventario:");
 
@@ -625,8 +623,6 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(cbxArchivo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(cbxIdArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(btnInventariar)))
                 .addContainerGap())
         );
@@ -637,10 +633,9 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(cbxIdArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnInventariar))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -739,12 +734,14 @@ public class Principal extends javax.swing.JFrame {
 
         String sql = "SELECT * "
                 + "FROM mueble as MUE "
-                + "INNER JOIN color as COL ON COL.COLID = MUE.COLID "
-                + "INNER JOIN cuentacontable as CC ON CC.CCID = MUE.CCID "
-                + "INNER JOIN tipomueble as TM ON TM.TMID = MUE.TMID "
-                + "INNER JOIN estado as EST ON EST.ESTID = MUE.ESTID "
-                + "INNER JOIN ubicacion as UBI ON UBI.UBIID = MUE.UBIID "
-                + "INNER JOIN marca as MAR ON MAR.MARID = MUE.MARID "
+                + "INNER JOIN ubicacion UBI ON UBI.UBIID=MUE.UBIID \n"
+                + "INNER JOIN areadependencia AXD ON AXD.ADID=UBI.ADID \n"
+                + "INNER JOIN usuario USU ON USU.ADID=AXD.ADID\n"
+                + "INNER JOIN color as COL ON COL.COLID = MUE.COLID \n"
+                + "INNER JOIN cuentacontable as CC ON CC.CCID = MUE.CCID \n"
+                + "INNER JOIN tipomueble as TM ON TM.TMID = MUE.TMID \n"
+                + "INNER JOIN estado as EST ON EST.ESTID = MUE.ESTID \n"
+                + "INNER JOIN marca as MAR ON MAR.MARID = MUE.MARID \n"
                 + "WHERE MUE.MUEESTADO = 1 "
                 + "AND MUE.MUEDESCRIPCION LIKE '%" + textoBuscar + "%' "
                 + "OR MUE.MUECODIGOETIQUETA LIKE '%" + textoBuscar + "%' "
@@ -890,7 +887,6 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxArchivoMousePressed
 
     private void btnInventariarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventariarActionPerformed
-        // TODO add your handling code here:
         String nombreCSV = "" + cbxArchivo.getSelectedItem();
 
         DefaultTableModel m;
@@ -900,32 +896,79 @@ public class Principal extends javax.swing.JFrame {
         PreparedStatement ps = null;
         ResultSet rs;
 
-        String sql = "SELECT * FROM mueble AS MUE, "
+        String sql = "SELECT * FROM mueble AS MUE "
+                + "INNER JOIN ubicacion UBI ON UBI.UBIID=MUE.UBIID \n"
+                + "INNER JOIN areadependencia AXD ON AXD.ADID=UBI.ADID \n"
+                + "INNER JOIN usuario USU ON USU.ADID=AXD.ADID\n"
+                + "INNER JOIN color as COL ON COL.COLID = MUE.COLID \n"
+                + "INNER JOIN cuentacontable as CC ON CC.CCID = MUE.CCID \n"
+                + "INNER JOIN tipomueble as TM ON TM.TMID = MUE.TMID \n"
+                + "INNER JOIN estado as EST ON EST.ESTID = MUE.ESTID \n"
+                + "INNER JOIN marca as MAR ON MAR.MARID = MUE.MARID, \n"
                 + "batch b INNER JOIN device as D ON b.BATID=D.BATID "
-                + "WHERE B.BATARCHIVOIMPORTADO = '" + nombreCSV + "' "
+                + "WHERE MUE.MUEESTADO = 1 "
+                + "AND B.BATARCHIVOIMPORTADO = '" + nombreCSV + "' "
                 + "AND MUE.MUECODIGOETIQUETA = D.DEVIDENTIFIER";
+//        System.out.println("Prueba: " + sql);
+        String titulo[] = {"Nro.", "CÓDIGO", "DESCRIPCIÓN", "CÓDIGO ETIQUETA", "SERIE", "MARCA"};
+        m = new DefaultTableModel(null, titulo);
+        JTable p = new JTable(m);
+        String fila[] = new String[6];
+        int index = 1;
         try {
-            String titulo[] = {"Nro.", "CÓDIGO", "DESCRIPCIÓN", "CÓDIGO ETIQUETA", "SERIE", "MARCA"};
-            m = new DefaultTableModel(null, titulo);
-            JTable p = new JTable(m);
-            String fila[] = new String[6];
 
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
 
-            int index = 1;
             while (rs.next()) {
                 fila[0] = String.valueOf(index);
                 fila[1] = rs.getString("MUE.MUEID");
                 fila[2] = rs.getString("MUE.MUEDESCRIPCION");
                 fila[3] = rs.getString("MUE.MUECODIGOETIQUETA");
+                fila[4] = "Inventariado...";
                 m.addRow(fila);
                 index++;
             }
-            jtDatos.setModel(m);
+            jTableInventariado.setModel(m);
             TableRowSorter<TableModel> ordenar = new TableRowSorter<TableModel>(m);
-            jtDatos.setRowSorter(ordenar);
-            this.jtDatos.setModel(m);
+            jTableInventariado.setRowSorter(ordenar);
+            this.jTableInventariado.setModel(m);
+
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        try {
+
+            sql = "SELECT * FROM mueble as MUE "
+                    + "INNER JOIN color as COL ON COL.COLID = MUE.COLID "
+                    + "INNER JOIN cuentacontable as CC ON CC.CCID = MUE.CCID "
+                    + "INNER JOIN tipomueble as TM ON TM.TMID = MUE.TMID "
+                    + "INNER JOIN estado as EST ON EST.ESTID = MUE.ESTID "
+                    + "INNER JOIN ubicacion as UBI ON UBI.UBIID = MUE.UBIID "
+                    + "INNER JOIN marca as MAR ON MAR.MARID = MUE.MARID "
+                    + "WHERE MUE.MUEESTADO = 1 "
+                    + "AND MUE.MUECODIGOETIQUETA NOT IN (SELECT D.DEVIDENTIFIER FROM batch as B "
+                    + "INNER JOIN device as D ON b.BATID=D.BATID "
+                    + "WHERE B.BATARCHIVOIMPORTADO = '" + nombreCSV + "') "
+                    + "ORDER BY MUE.MUEDESCRIPCION ASC";
+
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+//            int index = 1;
+            while (rs.next()) {
+                fila[0] = String.valueOf(index);
+                fila[1] = rs.getString("MUE.MUEID");
+                fila[2] = rs.getString("MUE.MUEDESCRIPCION");
+                fila[3] = rs.getString("MUE.MUECODIGOETIQUETA");
+                fila[4] = "No existe fisicamente.";
+                m.addRow(fila);
+                index++;
+            }
+            jTableInventariado.setModel(m);
+            TableRowSorter<TableModel> ordenar = new TableRowSorter<TableModel>(m);
+            jTableInventariado.setRowSorter(ordenar);
+            this.jTableInventariado.setModel(m);
 
         } catch (SQLException e) {
             System.err.println(e);
@@ -990,7 +1033,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnInventariar;
     private javax.swing.JComboBox<String> cbxArchivo;
-    private javax.swing.JComboBox<String> cbxIdArchivo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -1004,7 +1046,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTableInventariado;
     public javax.swing.JTable jtDatos;
     private javax.swing.JTable jtableCSV;
     private javax.swing.JPanel pnlImportar;
