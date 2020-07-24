@@ -17,15 +17,15 @@ public class PrincipalController implements ActionListener {
 
     public PrincipalController(Principal frmInicio) {
         this.vistaPrincipal = frmInicio;
-        this.vistaPrincipal.btnBuscar.addActionListener(this);
+//        this.vistaPrincipal.btnBuscar.addActionListener(this);
     }
 
   
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == vistaPrincipal.btnBuscar) {
-            
-        }
+//        if (e.getSource() == vistaPrincipal.btnBuscar) {
+//            
+//        }
     }
 
 }

@@ -66,7 +66,6 @@
                   <Component id="btningresar" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                   <Component id="btncancelar" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

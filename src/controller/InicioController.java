@@ -6,7 +6,6 @@ import javax.swing.JOptionPane;
 import modelo.*;
 import vista.*;
 
-
 public class InicioController implements ActionListener {
 
     private InicioModel iniciom;
@@ -24,7 +23,7 @@ public class InicioController implements ActionListener {
     public void iniciar() {
         frmInicio.setTitle("Inicio");
         frmInicio.setLocationRelativeTo(null);
-
+        frmInicio.setResizable(false);//bloquea cambiar el tamaño de la pantalla
     }
 
     @Override
@@ -33,15 +32,15 @@ public class InicioController implements ActionListener {
             iniciom.setUsuario(frmInicio.txtusuario.getText());
             iniciom.setContrasenia(frmInicio.txtcontrasenia.getText());
             if (inicioconsultam.buscarUsuario(iniciom)) {
-//                JOptionPane.showMessageDialog(null, "Ingreso");
                 Principal frmPrincipal = new Principal();
-                frmInicio.setVisible(false);
+                frmPrincipal.setTitle("SGI || Sistema de Gestión de Inventario");
                 frmPrincipal.setVisible(true);
-                Principal vistaPrincipal = new Principal();
-                PrincipalConsultaModel modeloPrincipalConsulta = new PrincipalConsultaModel();
-                PrincipalController controladorPrincipal = new PrincipalController(frmPrincipal);
-                
-                
+                frmPrincipal.setExtendedState(6);
+                frmInicio.setVisible(false);
+//                Principal vistaPrincipal = new Principal();
+//                PrincipalConsultaModel modeloPrincipalConsulta = new PrincipalConsultaModel();
+//                PrincipalController controladorPrincipal = new PrincipalController(frmPrincipal);
+
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró registro");
             }

@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista;
 
-import modelo.Conexion;
 import clases.TextPrompt;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,16 +8,13 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-//import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 import javax.swing.JOptionPane;
+import modelo.Conexion;
 
-public class nuevomueble extends javax.swing.JFrame {
+public class pnlNuevoMueble extends javax.swing.JPanel {
 
     Conexion conexion = new Conexion();
-    private boolean marcaGuardar = true;
+    public boolean marcaGuardar = true;
     private String idMueble = "";
     private int contadorColor = 0;
     private int contadorMarca = 0;
@@ -31,13 +22,12 @@ public class nuevomueble extends javax.swing.JFrame {
     private int contadorEstado = 0;
     private int contadorCuentaContable = 0;
     private int contadorUbicacion = 0;
-    private Principal p = new Principal();
+//    private Principal p = new Principal();
 
-    public nuevomueble(String idMueble) throws ParseException {
+    public pnlNuevoMueble(String idMueble) throws ParseException {
+//        public pnlNuevoMueble(String idMueble) throws ParseException {
         initComponents();
-        this.setLocationRelativeTo(null);//centrar el app en la pantalla
-        this.setResizable(false);//bloquea cambiar el tamaño de la pantalla
-//        //Envía PlaceHorlder
+////        //Envía PlaceHorlder
         TextPrompt prueba1 = new TextPrompt("Código Etiqueta", txtCodigoEtiqueta);
         TextPrompt prueba2 = new TextPrompt("Descripción del equipo o mueble", txtDescripcion);
         TextPrompt prueba3 = new TextPrompt("Serie o códgo único del equipo o mueble", txtSerie);
@@ -49,7 +39,8 @@ public class nuevomueble extends javax.swing.JFrame {
         cbxIdEstado.setVisible(false);
         cbxIdCuentaContable.setVisible(false);
         cbxIdUbicacion.setVisible(false);
-//        
+
+//        idMueble = null;
         if (idMueble == null) {
             color();
             marca();
@@ -310,11 +301,127 @@ public class nuevomueble extends javax.swing.JFrame {
     }
 
     public Date convertirFecha(Date fechaEnviada) {
-//        Date date = txtFechaCompra.getDate();
         long d = fechaEnviada.getTime();
         java.sql.Date fecha = new java.sql.Date(d);
-//        Date fechacompra = fecha;
         return fecha;
+    }
+
+    public boolean guardarRegistro() {
+        int color = opcionCombo(cbxColor.getSelectedIndex(), "color", Integer.parseInt("" + cbxIdColor.getSelectedItem()));
+        int marca = opcionCombo(cbxMarca.getSelectedIndex(), "marca", Integer.parseInt("" + cbxIdMarca.getSelectedItem()));
+        int tipoMueble = opcionCombo(cbxTipoMueble.getSelectedIndex(), "tipo de mueble", Integer.parseInt("" + cbxIdTipoMueble.getSelectedItem()));
+        int estado = opcionCombo(cbxEstado.getSelectedIndex(), "estado del mueble", Integer.parseInt("" + cbxIdEstado.getSelectedItem()));
+        int cuentaContable = opcionCombo(cbxCuentaContable.getSelectedIndex(), "Cuenta Contable", Integer.parseInt("" + cbxIdCuentaContable.getSelectedItem()));
+        int ubicacion = opcionCombo(cbxUbicacion.getSelectedIndex(), "ubicación", Integer.parseInt("" + cbxIdUbicacion.getSelectedItem()));
+
+        String codigoetiqueta = txtCodigoEtiqueta.getText();
+        String descripcion = txtDescripcion.getText();
+        String serie = txtSerie.getText();
+
+        Date fechaCompra = convertirFecha(txtFechaCompra.getDate());
+        Date fechaFabricacion = convertirFecha(txtFechaFabricacion.getDate());
+        Date fechaExpiracion = convertirFecha(txtFechaExpiracion.getDate());
+
+        String FD = txtFD.getText();
+        String FO = txtFO.getText();
+        String valornuevo = txtValorNuevo.getText();
+        String valorcomercial = txtValorComercial.getText();
+        String valorremanente = txtValorRemanente.getText();
+        String cantidad = txtCantidad.getText();
+        String valorunitario = txtValorUnitario.getText();
+        String valortotal = txtValorTotal.getText();
+
+        PreparedStatement ps = null;
+        Connection con = conexion.getConexion();
+
+        if (cbxColor.getSelectedIndex() != 0
+                && cbxMarca.getSelectedIndex() != 0
+                && cbxTipoMueble.getSelectedIndex() != 0
+                && cbxEstado.getSelectedIndex() != 0
+                && cbxCuentaContable.getSelectedIndex() != 0
+                && cbxEstado.getSelectedIndex() != 0) {
+
+            if (this.marcaGuardar) {
+                String sql = "INSERT INTO mueble VALUES (NULL, "
+                        + "'" + cuentaContable + "', "
+                        + "'" + tipoMueble + "', "
+                        + "'" + estado + "', "
+                        + "'" + ubicacion + "', "
+                        + "'" + marca + "', "
+                        + "'" + color + "', "
+                        + "'" + codigoetiqueta + "', "
+                        + "'" + descripcion + "', "
+                        + "'" + serie + "', "
+                        + "'" + fechaCompra + "', "
+                        + "'" + fechaFabricacion + "', "
+                        + "'" + fechaExpiracion + "', "
+                        + "'" + FD + "', "
+                        + "'" + FO + "', "
+                        + "'" + valornuevo + "', "
+                        + "'" + valorcomercial + "', "
+                        + "'" + valorremanente + "', "
+                        + "'" + cantidad + "', "
+                        + "'" + valorunitario + "', "
+                        + "'" + valortotal + "', "
+                        + "'1') ";
+//                System.out.println(sql);
+                try {
+                    ps = con.prepareStatement(sql);
+                    ps.execute();
+
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "No se pudo ingresar el mueble\n" + ex, "Error (U244)", JOptionPane.WARNING_MESSAGE);
+                } finally {
+                    try {
+                        con.close();
+                        System.out.println("Conexión cerrada.");
+                    } catch (SQLException e) {
+                        System.err.println(e);
+                    }
+                }
+            } else {
+                String sql = "UPDATE mueble MUE "
+                        + "SET CCID = '" + cuentaContable + "', "
+                        + "TMID = '" + tipoMueble + "', "
+                        + "ESTID = '" + estado + "', "
+                        + "UBIID = '" + ubicacion + "', "
+                        + "MARID = '" + marca + "', "
+                        + "COLID = '" + color + "', "
+                        + "MUECODIGOETIQUETA = '" + codigoetiqueta + "', "
+                        + "MUEDESCRIPCION = '" + descripcion + "', "
+                        + "MUESERIE = '" + serie + "', "
+                        + "MUEFECHACOMPRA = '" + fechaCompra + "', "
+                        + "MUEFECHAFABRICACION = '" + fechaFabricacion + "', "
+                        + "MUEFECHAEXPIRACION = '" + fechaExpiracion + "', "
+                        + "MUEFD = '" + FD + "', "
+                        + "MUEFO = '" + FO + "', "
+                        + "MUEVALORNUEVO = '" + valornuevo + "', "
+                        + "MUEVALORCOMERCIAL = '" + valorcomercial + "', "
+                        + "MUEVALORREMANENTE = '" + valorremanente + "', "
+                        + "MUECANTIDAD = '" + cantidad + "', "
+                        + "MUEVALORUNITARIO = '" + valorunitario + "', "
+                        + "MUEVALORTOTAL = '" + valortotal + "' "
+                        + "WHERE MUE.MUEID = " + this.idMueble;
+//                System.out.println(sql);
+                try {
+                    ps = con.prepareStatement(sql);
+                    ps.execute();
+
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "No se pudo actualizar el mueble.\n" + ex, "Error", JOptionPane.WARNING_MESSAGE);
+                } finally {
+                    try {
+                        con.close();
+                        System.out.println("Conexión cerrada.");
+                    } catch (SQLException e) {
+                        System.err.println(e);
+                    }
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -370,27 +477,27 @@ public class nuevomueble extends javax.swing.JFrame {
         txtValorTotal = new javax.swing.JFormattedTextField();
         jLabel21 = new javax.swing.JLabel();
         txtCantidad = new javax.swing.JFormattedTextField();
-        btnGuardar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
         txtValorNuevo = new javax.swing.JFormattedTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-
         txtTitulo.setBackground(new java.awt.Color(102, 153, 255));
-        txtTitulo.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        txtTitulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtTitulo.setText("Crear mueble");
+        txtTitulo.setText("MUEBLE");
 
         jLabel2.setText("Código etiqueta:");
+
+        txtCodigoEtiqueta.setText("300833B2DDD9014000000103");
 
         jLabel3.setText("Descripción:");
 
         txtDescripcion.setColumns(1);
         txtDescripcion.setRows(1);
+        txtDescripcion.setText("TELEVISIÓN PARA EL LABORATORIO DE ELECTRÓNICA");
         jScrollPane1.setViewportView(txtDescripcion);
 
         jLabel4.setText("Serie");
 
+        txtSerie.setText("POR DEFINIR");
         txtSerie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSerieActionPerformed(evt);
@@ -461,8 +568,8 @@ public class nuevomueble extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCodigoEtiqueta)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                            .addComponent(txtCodigoEtiqueta, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1)
                             .addComponent(txtSerie)
                             .addComponent(cbxColor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbxMarca, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -472,18 +579,17 @@ public class nuevomueble extends javax.swing.JFrame {
                             .addComponent(txtFechaFabricacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtFechaExpiracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cbxIdColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbxIdMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbxIdTipoMueble, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbxIdCuentaContable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbxIdUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cbxIdEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbxIdColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbxIdMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbxIdTipoMueble, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbxIdCuentaContable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbxIdUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbxIdEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -536,10 +642,9 @@ public class nuevomueble extends javax.swing.JFrame {
                     .addComponent(cbxIdMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxIdTipoMueble, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxIdCuentaContable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxIdUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxIdEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addComponent(cbxIdUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxIdEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel12.setText("Cuenta contable:");
@@ -560,6 +665,7 @@ public class nuevomueble extends javax.swing.JFrame {
 
         jLabel14.setText("FD:");
 
+        txtFD.setText("FD");
         txtFD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFDActionPerformed(evt);
@@ -567,6 +673,8 @@ public class nuevomueble extends javax.swing.JFrame {
         });
 
         jLabel15.setText("FO:");
+
+        txtFO.setText("FO");
 
         jLabel16.setText("Valor nuevo:");
 
@@ -592,31 +700,23 @@ public class nuevomueble extends javax.swing.JFrame {
             }
         });
 
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel21))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCantidad)
+                            .addComponent(txtValorTotal)
+                            .addComponent(txtValorUnitario)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -627,29 +727,19 @@ public class nuevomueble extends javax.swing.JFrame {
                         .addComponent(txtValorComercial))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel14)
+                            .addComponent(jLabel16)
                             .addComponent(jLabel15)
-                            .addComponent(jLabel16))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbxCuentaContable, 0, 227, Short.MAX_VALUE)
-                            .addComponent(cbxUbicacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtFD)
-                            .addComponent(txtFO)
-                            .addComponent(txtValorNuevo)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel20)
-                            .addComponent(jLabel19)
-                            .addComponent(jLabel21))
-                        .addGap(26, 26, 26)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCantidad)
-                            .addComponent(txtValorUnitario)
-                            .addComponent(txtValorTotal))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel12))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtFO, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtFD, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbxUbicacion, javax.swing.GroupLayout.Alignment.LEADING, 0, 247, Short.MAX_VALUE)
+                            .addComponent(txtValorNuevo)
+                            .addComponent(cbxCuentaContable, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -694,15 +784,11 @@ public class nuevomueble extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
                     .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -710,10 +796,10 @@ public class nuevomueble extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -723,141 +809,10 @@ public class nuevomueble extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        //Evaluamos si escogio una opcion en los comboBox
-//        boolean error = false;
-        int color = opcionCombo(cbxColor.getSelectedIndex(), "color", Integer.parseInt("" + cbxIdColor.getSelectedItem()));
-        int marca = opcionCombo(cbxMarca.getSelectedIndex(), "marca", Integer.parseInt("" + cbxIdMarca.getSelectedItem()));
-        int tipoMueble = opcionCombo(cbxTipoMueble.getSelectedIndex(), "tipo de mueble", Integer.parseInt("" + cbxIdTipoMueble.getSelectedItem()));
-        int estado = opcionCombo(cbxEstado.getSelectedIndex(), "estado del mueble", Integer.parseInt("" + cbxIdEstado.getSelectedItem()));
-        int cuentaContable = opcionCombo(cbxCuentaContable.getSelectedIndex(), "Cuenta Contable", Integer.parseInt("" + cbxIdCuentaContable.getSelectedItem()));
-        int ubicacion = opcionCombo(cbxUbicacion.getSelectedIndex(), "ubicación", Integer.parseInt("" + cbxIdUbicacion.getSelectedItem()));
-
-        String codigoetiqueta = txtCodigoEtiqueta.getText();
-        String descripcion = txtDescripcion.getText();
-        String serie = txtSerie.getText();
-
-        Date fechaCompra = convertirFecha(txtFechaCompra.getDate());
-        Date fechaFabricacion = convertirFecha(txtFechaFabricacion.getDate());
-        Date fechaExpiracion = convertirFecha(txtFechaExpiracion.getDate());
-
-        String FD = txtFD.getText();
-        String FO = txtFO.getText();
-        String valornuevo = txtValorNuevo.getText();
-        String valorcomercial = txtValorComercial.getText();
-        String valorremanente = txtValorRemanente.getText();
-        String cantidad = txtCantidad.getText();
-        String valorunitario = txtValorUnitario.getText();
-        String valortotal = txtValorTotal.getText();
-
-        PreparedStatement ps = null;
-        Connection con = conexion.getConexion();
-
-        if (cbxColor.getSelectedIndex() != 0
-                && cbxMarca.getSelectedIndex() != 0
-                && cbxTipoMueble.getSelectedIndex() != 0
-                && cbxEstado.getSelectedIndex() != 0
-                && cbxCuentaContable.getSelectedIndex() != 0
-                && cbxEstado.getSelectedIndex() != 0) {
-
-            if (this.marcaGuardar) {
-                String sql = "INSERT INTO mueble VALUES (NULL, "
-                        + "'" + cuentaContable + "', "
-                        + "'" + tipoMueble + "', "
-                        + "'" + estado + "', "
-                        + "'" + ubicacion + "', "
-                        + "'" + marca + "', "
-                        + "'" + color + "', "
-                        + "'" + codigoetiqueta + "', "
-                        + "'" + descripcion + "', "
-                        + "'" + serie + "', "
-                        + "'" + fechaCompra + "', "
-                        + "'" + fechaFabricacion + "', "
-                        + "'" + fechaExpiracion + "', "
-                        + "'" + FD + "', "
-                        + "'" + FO + "', "
-                        + "'" + valornuevo + "', "
-                        + "'" + valorcomercial + "', "
-                        + "'" + valorremanente + "', "
-                        + "'" + cantidad + "', "
-                        + "'" + valorunitario + "', "
-                        + "'" + valortotal + "', "
-                        + "'1') ";
-                try {
-                    ps = con.prepareStatement(sql);
-                    ps.execute();
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "No se pudo ingresar el mueble\n" + ex, "Error (U244)", JOptionPane.WARNING_MESSAGE);
-                } finally {
-                    try {
-                        con.close();
-                        System.out.println("Conexión cerrada.");
-                    } catch (SQLException e) {
-                        System.err.println(e);
-                    }
-                }
-                if (JOptionPane.showConfirmDialog(this, "El mueble fue registrado.\n¿Desea ingresar otro mueble?", "Confirmación", JOptionPane.YES_NO_OPTION) == 0) {
-                    //Limpiar los txt y los comboBox para que el usuario ingrese un nuevo registro.
-                    //corregir
-
-                } else {
-                    dispose();
-                }
-            } else {
-                String sql = "UPDATE mueble MUE "
-                        + "SET CCID = '" + cuentaContable + "', "
-                        + "TMID = '" + tipoMueble + "', "
-                        + "ESTID = '" + estado + "', "
-                        + "UBIID = '" + ubicacion + "', "
-                        + "MARID = '" + marca + "', "
-                        + "COLID = '" + color + "', "
-                        + "MUECODIGOETIQUETA = '" + codigoetiqueta + "', "
-                        + "MUEDESCRIPCION = '" + descripcion + "', "
-                        + "MUESERIE = '" + serie + "', "
-                        + "MUEFECHACOMPRA = '" + fechaCompra + "', "
-                        + "MUEFECHAFABRICACION = '" + fechaFabricacion + "', "
-                        + "MUEFECHAEXPIRACION = '" + fechaExpiracion + "', "
-                        + "MUEFD = '" + FD + "', "
-                        + "MUEFO = '" + FO + "', "
-                        + "MUEVALORNUEVO = '" + valornuevo + "', "
-                        + "MUEVALORCOMERCIAL = '" + valorcomercial + "', "
-                        + "MUEVALORREMANENTE = '" + valorremanente + "', "
-                        + "MUECANTIDAD = '" + cantidad + "', "
-                        + "MUEVALORUNITARIO = '" + valorunitario + "', "
-                        + "MUEVALORTOTAL = '" + valortotal + "' "
-                        + "WHERE MUE.MUEID = " + this.idMueble;
-                try {
-                    ps = con.prepareStatement(sql);
-                    ps.execute();
-                    //corregir
-                    //A pesar que el código parece que está bien, no funciona
-//                    p.btnActualizar.doClick();
-                    dispose();
-
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "No se pudo actualizar el mueble.\n" + ex, "Error", JOptionPane.WARNING_MESSAGE);
-                } finally {
-                    try {
-                        con.close();
-                        System.out.println("Conexión cerrada.");
-                    } catch (SQLException e) {
-                        System.err.println(e);
-                    }
-                }
-            }
-        }
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        dispose();
-
-    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSerieActionPerformed
         // TODO add your handling code here:
@@ -869,19 +824,8 @@ public class nuevomueble extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbxColorActionPerformed
 
-    private void txtFDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFDActionPerformed
-
-    private void txtValorComercialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorComercialActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtValorComercialActionPerformed
-
-    private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCantidadActionPerformed
-
     private void cbxMarcaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxMarcaItemStateChanged
+
     }//GEN-LAST:event_cbxMarcaItemStateChanged
 
     private void cbxMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMarcaActionPerformed
@@ -914,57 +858,32 @@ public class nuevomueble extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbxUbicacionActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(nuevomueble.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(nuevomueble.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(nuevomueble.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(nuevomueble.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void txtFDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFDActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-//                new nuevomueble().setVisible(true);
+    private void txtValorComercialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorComercialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtValorComercialActionPerformed
 
-            }
-        });
-    }
+    private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCantidadActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnGuardar;
     public javax.swing.JComboBox cbxColor;
-    private javax.swing.JComboBox cbxCuentaContable;
-    private javax.swing.JComboBox cbxEstado;
+    public javax.swing.JComboBox cbxCuentaContable;
+    public javax.swing.JComboBox cbxEstado;
     public javax.swing.JComboBox<String> cbxIdColor;
-    private javax.swing.JComboBox<String> cbxIdCuentaContable;
-    private javax.swing.JComboBox<String> cbxIdEstado;
-    private javax.swing.JComboBox<String> cbxIdMarca;
-    private javax.swing.JComboBox<String> cbxIdTipoMueble;
-    private javax.swing.JComboBox<String> cbxIdUbicacion;
-    private javax.swing.JComboBox cbxMarca;
-    private javax.swing.JComboBox cbxTipoMueble;
-    private javax.swing.JComboBox cbxUbicacion;
+    public javax.swing.JComboBox<String> cbxIdCuentaContable;
+    public javax.swing.JComboBox<String> cbxIdEstado;
+    public javax.swing.JComboBox<String> cbxIdMarca;
+    public javax.swing.JComboBox<String> cbxIdTipoMueble;
+    public javax.swing.JComboBox<String> cbxIdUbicacion;
+    public javax.swing.JComboBox cbxMarca;
+    public javax.swing.JComboBox cbxTipoMueble;
+    public javax.swing.JComboBox cbxUbicacion;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -988,20 +907,20 @@ public class nuevomueble extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JFormattedTextField txtCantidad;
-    private javax.swing.JTextField txtCodigoEtiqueta;
-    private javax.swing.JTextArea txtDescripcion;
-    private javax.swing.JTextField txtFD;
-    private javax.swing.JTextField txtFO;
-    private com.toedter.calendar.JDateChooser txtFechaCompra;
-    private com.toedter.calendar.JDateChooser txtFechaExpiracion;
-    private com.toedter.calendar.JDateChooser txtFechaFabricacion;
-    private javax.swing.JTextField txtSerie;
+    public javax.swing.JFormattedTextField txtCantidad;
+    public javax.swing.JTextField txtCodigoEtiqueta;
+    public javax.swing.JTextArea txtDescripcion;
+    public javax.swing.JTextField txtFD;
+    public javax.swing.JTextField txtFO;
+    public com.toedter.calendar.JDateChooser txtFechaCompra;
+    public com.toedter.calendar.JDateChooser txtFechaExpiracion;
+    public com.toedter.calendar.JDateChooser txtFechaFabricacion;
+    public javax.swing.JTextField txtSerie;
     public javax.swing.JLabel txtTitulo;
-    private javax.swing.JFormattedTextField txtValorComercial;
-    private javax.swing.JFormattedTextField txtValorNuevo;
-    private javax.swing.JFormattedTextField txtValorRemanente;
-    private javax.swing.JFormattedTextField txtValorTotal;
-    private javax.swing.JFormattedTextField txtValorUnitario;
+    public javax.swing.JFormattedTextField txtValorComercial;
+    public javax.swing.JFormattedTextField txtValorNuevo;
+    public javax.swing.JFormattedTextField txtValorRemanente;
+    public javax.swing.JFormattedTextField txtValorTotal;
+    public javax.swing.JFormattedTextField txtValorUnitario;
     // End of variables declaration//GEN-END:variables
 }
