@@ -33,75 +33,28 @@ import java.sql.SQLException;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import modelo.TablaPnlPrincipal;
 
-public class pnlInicio extends javax.swing.JPanel {
+public class pnlPrincipal extends javax.swing.JPanel {
 
     Conexion conexion = new Conexion();
+    TablaPnlPrincipal tabla = new TablaPnlPrincipal();
 
-    public pnlInicio() {
+    public pnlPrincipal() {
         initComponents();
         initComponents();
-        cargarDatos();
+        tabla.visualizarMuebles(jTableMuebles);
 //        this.setExtendedState(6);
         btnGuardar.setVisible(false);
         cargarDatosBatch();
     }
 
-    public void cargarDatos() {
-        DefaultTableModel m;
-        Conexion conexion = new Conexion();
-        Connection con = conexion.getConexion();
+    public void rederizarTablas() {
+        tabla.visualizarMuebles(jTableMuebles);
 
-        PreparedStatement ps = null;
-        ResultSet rs;
-
-        String sql = "SELECT * FROM mueble MUE \n"
-                + "INNER JOIN ubicacion UBI ON UBI.UBIID=MUE.UBIID \n"
-                + "INNER JOIN areadependencia AXD ON AXD.ADID=UBI.ADID \n"
-                + "INNER JOIN usuario USU ON USU.ADID=AXD.ADID\n"
-                + "INNER JOIN color as COL ON COL.COLID = MUE.COLID \n"
-                + "INNER JOIN cuentacontable as CC ON CC.CCID = MUE.CCID \n"
-                + "INNER JOIN tipomueble as TM ON TM.TMID = MUE.TMID \n"
-                + "INNER JOIN estado as EST ON EST.ESTID = MUE.ESTID \n"
-                + "INNER JOIN marca as MAR ON MAR.MARID = MUE.MARID \n"
-                + "WHERE MUE.MUEESTADO = 1 ORDER BY MUE.MUEDESCRIPCION ASC";
-//       System.out.println("all|| " + sql);
-        try {
-            String titulo[] = {"Nro.", "CÓDIGO", "DESCRIPCIÓN", "CÓDIGO ETIQUETA", "SERIE", "MARCA"};
-            m = new DefaultTableModel(null, titulo);
-            JTable p = new JTable(m);
-            String fila[] = new String[6];
-
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-
-            int index = 1;
-            while (rs.next()) {
-                fila[0] = String.valueOf(index);
-                fila[1] = rs.getString("MUE.MUEID");
-                fila[2] = rs.getString("MUE.MUEDESCRIPCION");
-                fila[3] = rs.getString("MUE.MUECODIGOETIQUETA");
-                fila[4] = rs.getString("MAR.MARNOMBRE");
-                fila[5] = rs.getString("MUE.MUESERIE");
-                m.addRow(fila);
-                index++;
-            }
-            jtDatos.setModel(m);
-            TableRowSorter<TableModel> ordenar = new TableRowSorter<TableModel>(m);
-            jtDatos.setRowSorter(ordenar);
-            this.jtDatos.setModel(m);
-
-        } catch (SQLException e) {
-            System.err.println(e);
-        } finally {
-            try {
-                con.close();
-                System.out.println("Conexión cerrada");
-            } catch (SQLException e) {
-                System.err.println(e);
-            }
-        }
-
+    }
+    public void cargarRegistrosBuscar(String TextBuscar){
+        tabla.visualizarMueblesBuscar(jTableMuebles, TextBuscar);
     }
 
     public void cargarDatosBatch() {
@@ -121,7 +74,7 @@ public class pnlInicio extends javax.swing.JPanel {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada.");
+                System.out.println("Conexión cerrada - cargarDatosBatch().");
             } catch (SQLException e) {
                 System.err.println(e);
             }
@@ -137,8 +90,8 @@ public class pnlInicio extends javax.swing.JPanel {
     }
 
     public void eliminarDatos() {
-        DefaultTableModel tb = (DefaultTableModel) jtDatos.getModel();
-        int a = jtDatos.getRowCount() - 1;
+        DefaultTableModel tb = (DefaultTableModel) jTableMuebles.getModel();
+        int a = jTableMuebles.getRowCount() - 1;
         for (int i = a; i >= 0; i--) {
             tb.removeRow(tb.getRowCount() - 1);
         }
@@ -222,7 +175,7 @@ public class pnlInicio extends javax.swing.JPanel {
 
         try {
             con.close();
-            System.out.println("Conexión cerrada.");
+            System.out.println("Conexión cerrada - guardarCVSaBDD().");
         } catch (SQLException e) {
             System.err.println(e);
         }
@@ -289,14 +242,12 @@ public class pnlInicio extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnActualizar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         pnlPrincipal = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jtDatos = new javax.swing.JTable();
+        jTableMuebles = new javax.swing.JTable();
         btnBuscar = new javax.swing.JButton();
         pnlImportar = new javax.swing.JPanel();
         btnExaminar = new javax.swing.JButton();
@@ -310,20 +261,6 @@ public class pnlInicio extends javax.swing.JPanel {
         jTableInventariado = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         btnInventariar = new javax.swing.JButton();
-
-        btnActualizar.setText("Actualizar");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("Buscar:");
 
@@ -339,7 +276,7 @@ public class pnlInicio extends javax.swing.JPanel {
             }
         });
 
-        jtDatos.setModel(new javax.swing.table.DefaultTableModel(
+        jTableMuebles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -350,14 +287,23 @@ public class pnlInicio extends javax.swing.JPanel {
 
             }
         ));
-        jtDatos.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableMuebles.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtDatosMouseClicked(evt);
+                jTableMueblesMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(jtDatos);
+        jScrollPane2.setViewportView(jTableMuebles);
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                btnBuscarAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -528,34 +474,17 @@ public class pnlInicio extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnActualizar)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        cargarDatos();
-    }//GEN-LAST:event_btnActualizarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        eliminarDatosImportar();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
 
@@ -567,72 +496,72 @@ public class pnlInicio extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtBuscarKeyPressed
 
-    private void jtDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtDatosMouseClicked
+    private void jTableMueblesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMueblesMouseClicked
 
-    }//GEN-LAST:event_jtDatosMouseClicked
+    }//GEN-LAST:event_jTableMueblesMouseClicked
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String textoBuscar = txtBuscar.getText();
-        eliminarDatos();
-
-        DefaultTableModel m;
-        Conexion conexion = new Conexion();
-        Connection con = conexion.getConexion();
-
-        PreparedStatement ps = null;
-        ResultSet rs;
-
-        String sql = "SELECT * "
-                + "FROM mueble as MUE "
-                + "INNER JOIN ubicacion UBI ON UBI.UBIID=MUE.UBIID \n"
-                + "INNER JOIN areadependencia AXD ON AXD.ADID=UBI.ADID \n"
-                + "INNER JOIN usuario USU ON USU.ADID=AXD.ADID\n"
-                + "INNER JOIN color as COL ON COL.COLID = MUE.COLID \n"
-                + "INNER JOIN cuentacontable as CC ON CC.CCID = MUE.CCID \n"
-                + "INNER JOIN tipomueble as TM ON TM.TMID = MUE.TMID \n"
-                + "INNER JOIN estado as EST ON EST.ESTID = MUE.ESTID \n"
-                + "INNER JOIN marca as MAR ON MAR.MARID = MUE.MARID \n"
-                + "WHERE MUE.MUEESTADO = 1 "
-                + "AND MUE.MUEDESCRIPCION LIKE '%" + textoBuscar + "%' "
-                + "OR MUE.MUECODIGOETIQUETA LIKE '%" + textoBuscar + "%' "
-                + "OR MUE.MUESERIE = '%" + textoBuscar + "%' "
-                + "OR MAR.MARNOMBRE LIKE '%" + textoBuscar + "%'  "
-                + "ORDER BY MUE.MUEDESCRIPCION ASC";
-        try {
-            String titulo[] = {"Nro.", "CÓDIGO", "DESCRIPCIÓN", "CÓDIGO ETIQUETA", "SERIE", "MARCA"};
-            m = new DefaultTableModel(null, titulo);
-            JTable p = new JTable(m);
-            String fila[] = new String[6];
-
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-
-            int index = 1;
-            while (rs.next()) {
-                fila[0] = String.valueOf(index);
-                fila[1] = rs.getString("MUE.MUEID");
-                fila[2] = rs.getString("MUE.MUEDESCRIPCION");
-                fila[3] = rs.getString("MUE.MUECODIGOETIQUETA");
-                fila[4] = rs.getString("MAR.MARNOMBRE");
-                fila[5] = rs.getString("MUE.MUESERIE");
-                m.addRow(fila);
-                index++;
-            }
-            jtDatos.setModel(m);
-            TableRowSorter<TableModel> ordenar = new TableRowSorter<TableModel>(m);
-            jtDatos.setRowSorter(ordenar);
-            this.jtDatos.setModel(m);
-
-        } catch (SQLException e) {
-            System.err.println(e);
-        } finally {
-            try {
-                con.close();
-                System.out.println("Conexión cerrada - cargarDatos()");
-            } catch (SQLException e) {
-                System.err.println(e);
-            }
-        }
+//        String textoBuscar = txtBuscar.getText();
+//        eliminarDatos();
+//
+//        DefaultTableModel m;
+//        Conexion conexion = new Conexion();
+//        Connection con = conexion.getConexion();
+//
+//        PreparedStatement ps = null;
+//        ResultSet rs;
+//
+//        String sql = "SELECT * "
+//                + "FROM mueble as MUE "
+//                + "INNER JOIN ubicacion UBI ON UBI.UBIID=MUE.UBIID \n"
+//                + "INNER JOIN areadependencia AXD ON AXD.ADID=UBI.ADID \n"
+//                + "INNER JOIN usuario USU ON USU.ADID=AXD.ADID\n"
+//                + "INNER JOIN color as COL ON COL.COLID = MUE.COLID \n"
+//                + "INNER JOIN cuentacontable as CC ON CC.CCID = MUE.CCID \n"
+//                + "INNER JOIN tipomueble as TM ON TM.TMID = MUE.TMID \n"
+//                + "INNER JOIN estado as EST ON EST.ESTID = MUE.ESTID \n"
+//                + "INNER JOIN marca as MAR ON MAR.MARID = MUE.MARID \n"
+//                + "WHERE MUE.MUEESTADO = 1 "
+//                + "AND MUE.MUEDESCRIPCION LIKE '%" + textoBuscar + "%' "
+//                + "OR MUE.MUECODIGOETIQUETA LIKE '%" + textoBuscar + "%' "
+//                + "OR MUE.MUESERIE = '%" + textoBuscar + "%' "
+//                + "OR MAR.MARNOMBRE LIKE '%" + textoBuscar + "%'  "
+//                + "ORDER BY MUE.MUEDESCRIPCION ASC";
+//        try {
+//            String titulo[] = {"Nro.", "CÓDIGO", "DESCRIPCIÓN", "CÓDIGO ETIQUETA", "SERIE", "MARCA"};
+//            m = new DefaultTableModel(null, titulo);
+//            JTable p = new JTable(m);
+//            String fila[] = new String[6];
+//
+//            ps = con.prepareStatement(sql);
+//            rs = ps.executeQuery();
+//
+//            int index = 1;
+//            while (rs.next()) {
+//                fila[0] = String.valueOf(index);
+//                fila[1] = rs.getString("MUE.MUEID");
+//                fila[2] = rs.getString("MUE.MUEDESCRIPCION");
+//                fila[3] = rs.getString("MUE.MUECODIGOETIQUETA");
+//                fila[4] = rs.getString("MAR.MARNOMBRE");
+//                fila[5] = rs.getString("MUE.MUESERIE");
+//                m.addRow(fila);
+//                index++;
+//            }
+//            jTableMuebles.setModel(m);
+//            TableRowSorter<TableModel> ordenar = new TableRowSorter<TableModel>(m);
+//            jTableMuebles.setRowSorter(ordenar);
+//            this.jTableMuebles.setModel(m);
+//
+//        } catch (SQLException e) {
+//            System.err.println(e);
+//        } finally {
+//            try {
+//                con.close();
+//                System.out.println("Conexión cerrada - cargarDatos()");
+//            } catch (SQLException e) {
+//                System.err.println(e);
+//            }
+//        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnExaminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExaminarActionPerformed
@@ -768,7 +697,7 @@ public class pnlInicio extends javax.swing.JPanel {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada");
+                System.out.println("Conexión cerrada - btnInventariar");
             } catch (SQLException e) {
                 System.err.println(e);
             }
@@ -776,15 +705,17 @@ public class pnlInicio extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnInventariarActionPerformed
 
+    private void btnBuscarAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_btnBuscarAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarAncestorAdded
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton btnActualizar;
     public javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnExaminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnInventariar;
     private javax.swing.JComboBox<String> cbxArchivo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
@@ -793,7 +724,7 @@ public class pnlInicio extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableInventariado;
-    public javax.swing.JTable jtDatos;
+    public javax.swing.JTable jTableMuebles;
     private javax.swing.JTable jtableCSV;
     private javax.swing.JPanel pnlImportar;
     private javax.swing.JPanel pnlPrincipal;

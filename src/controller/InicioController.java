@@ -2,20 +2,24 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.*;
 import vista.*;
 
 public class InicioController implements ActionListener {
 
-    private InicioModel iniciom;
-    private InicioConsultaModel inicioconsultam;
-    private Inicio frmInicio;
+    private Inicio iniciom;
+    private ConsultaInicio inicioconsultam;
+    private frmInicio frmInicio;
 
-    public InicioController(InicioModel modelo, InicioConsultaModel modt, Inicio frm) {
+    public InicioController(Inicio modelo, ConsultaInicio modt, frmInicio frm) {
         this.iniciom = modelo;
         this.inicioconsultam = modt;
         this.frmInicio = frm;
+        
         this.frmInicio.btningresar.addActionListener(this);
         this.frmInicio.btncancelar.addActionListener(this);
     }
@@ -31,16 +35,18 @@ public class InicioController implements ActionListener {
         if (e.getSource() == frmInicio.btningresar) {
             iniciom.setUsuario(frmInicio.txtusuario.getText());
             iniciom.setContrasenia(frmInicio.txtcontrasenia.getText());
-            if (inicioconsultam.buscarUsuario(iniciom)) {
-                Principal frmPrincipal = new Principal();
-                frmPrincipal.setTitle("SGI || Sistema de Gestión de Inventario");
-                frmPrincipal.setVisible(true);
-                frmPrincipal.setExtendedState(6);
-                frmInicio.setVisible(false);
-//                Principal vistaPrincipal = new Principal();
-//                PrincipalConsultaModel modeloPrincipalConsulta = new PrincipalConsultaModel();
-//                PrincipalController controladorPrincipal = new PrincipalController(frmPrincipal);
 
+            if (inicioconsultam.buscarUsuario(iniciom)) {
+                frmInicio.setVisible(false);
+                try {
+                    pnlPrincipal panelPrincipal = new pnlPrincipal();
+                    pnlNuevoMueble panelNuevoM = new pnlNuevoMueble(null);
+                    frmPrincipal vPrincipal = new frmPrincipal();
+                    frmPrincipalController ctrlPrincipal = new frmPrincipalController(panelPrincipal, panelNuevoM, vPrincipal);
+                    ctrlPrincipal.iniciar();
+                } catch (ParseException ex) {
+                    Logger.getLogger(InicioController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró registro");
             }

@@ -5,9 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class InicioConsultaModel extends Conexion {
+public class ConsultaInicio extends Conexion {
 
-    public boolean buscarUsuario(InicioModel modeloInicio) {
+    public boolean buscarUsuario(Inicio modeloInicio) {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
@@ -27,7 +27,7 @@ public class InicioConsultaModel extends Conexion {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada.");
+                System.out.println("Conexión cerrada - buscarUsuario()");
             } catch (SQLException e) {
                 System.err.println(e);
             }

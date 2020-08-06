@@ -25,7 +25,7 @@ public class pnlNuevoMueble extends javax.swing.JPanel {
 //    private Principal p = new Principal();
 
     public pnlNuevoMueble(String idMueble) throws ParseException {
-//        public pnlNuevoMueble(String idMueble) throws ParseException {
+
         initComponents();
 ////        //Envía PlaceHorlder
         TextPrompt prueba1 = new TextPrompt("Código Etiqueta", txtCodigoEtiqueta);
@@ -82,7 +82,7 @@ public class pnlNuevoMueble extends javax.swing.JPanel {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada.");
+                System.out.println("Conexión cerrada - color().");
             } catch (SQLException e) {
                 System.err.println(e);
             }
@@ -110,7 +110,7 @@ public class pnlNuevoMueble extends javax.swing.JPanel {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada.");
+                System.out.println("Conexión cerrada - marca().");
             } catch (SQLException e) {
                 System.err.println(e);
             }
@@ -137,7 +137,7 @@ public class pnlNuevoMueble extends javax.swing.JPanel {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada.");
+                System.out.println("Conexión cerrada - tipoMueble().");
             } catch (SQLException e) {
                 System.err.println(e);
             }
@@ -165,7 +165,7 @@ public class pnlNuevoMueble extends javax.swing.JPanel {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada.");
+                System.out.println("Conexión cerrada - estado().");
             } catch (SQLException e) {
                 System.err.println(e);
             }
@@ -192,7 +192,7 @@ public class pnlNuevoMueble extends javax.swing.JPanel {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada.");
+                System.out.println("Conexión cerrada - cuentacontable().");
             } catch (SQLException e) {
                 System.err.println(e);
             }
@@ -220,7 +220,7 @@ public class pnlNuevoMueble extends javax.swing.JPanel {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada.");
+                System.out.println("Conexión cerrada - ubicacion().");
             } catch (SQLException e) {
                 System.err.println(e);
             }
@@ -293,7 +293,7 @@ public class pnlNuevoMueble extends javax.swing.JPanel {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada.");
+                System.out.println("Conexión cerrada - enviarDatosConsulta().");
             } catch (SQLException e) {
                 System.err.println(e);
             }
@@ -374,7 +374,7 @@ public class pnlNuevoMueble extends javax.swing.JPanel {
                 } finally {
                     try {
                         con.close();
-                        System.out.println("Conexión cerrada.");
+                        System.out.println("Conexión cerrada - guardarRegistro() - Nuevo.");
                     } catch (SQLException e) {
                         System.err.println(e);
                     }
@@ -402,7 +402,7 @@ public class pnlNuevoMueble extends javax.swing.JPanel {
                         + "MUEVALORUNITARIO = '" + valorunitario + "', "
                         + "MUEVALORTOTAL = '" + valortotal + "' "
                         + "WHERE MUE.MUEID = " + this.idMueble;
-//                System.out.println(sql);
+                System.out.println(sql);
                 try {
                     ps = con.prepareStatement(sql);
                     ps.execute();
@@ -412,7 +412,7 @@ public class pnlNuevoMueble extends javax.swing.JPanel {
                 } finally {
                     try {
                         con.close();
-                        System.out.println("Conexión cerrada.");
+                        System.out.println("Conexión cerrada - guardarRegistro() - Editar.");
                     } catch (SQLException e) {
                         System.err.println(e);
                     }
@@ -568,7 +568,7 @@ public class pnlNuevoMueble extends javax.swing.JPanel {
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCodigoEtiqueta, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+                            .addComponent(txtCodigoEtiqueta, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
                             .addComponent(jScrollPane1)
                             .addComponent(txtSerie)
                             .addComponent(cbxColor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -736,7 +736,7 @@ public class pnlNuevoMueble extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtFO, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtFD, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbxUbicacion, javax.swing.GroupLayout.Alignment.LEADING, 0, 247, Short.MAX_VALUE)
+                            .addComponent(cbxUbicacion, javax.swing.GroupLayout.Alignment.LEADING, 0, 282, Short.MAX_VALUE)
                             .addComponent(txtValorNuevo)
                             .addComponent(cbxCuentaContable, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())

@@ -84,7 +84,7 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtCodigoEtiqueta" alignment="0" pref="492" max="32767" attributes="0"/>
+                              <Component id="txtCodigoEtiqueta" alignment="0" pref="457" max="32767" attributes="0"/>
                               <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtSerie" alignment="0" max="32767" attributes="0"/>
                               <Component id="cbxColor" alignment="0" max="32767" attributes="0"/>
@@ -454,7 +454,7 @@
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="txtFO" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtFD" alignment="0" max="32767" attributes="0"/>
-                              <Component id="cbxUbicacion" alignment="0" pref="247" max="32767" attributes="0"/>
+                              <Component id="cbxUbicacion" alignment="0" pref="282" max="32767" attributes="0"/>
                               <Component id="txtValorNuevo" max="32767" attributes="0"/>
                               <Component id="cbxCuentaContable" alignment="1" max="32767" attributes="0"/>
                           </Group>
