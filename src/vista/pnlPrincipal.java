@@ -49,7 +49,7 @@ public class pnlPrincipal extends javax.swing.JPanel {
         cargarDatosBatch();
     }
 
-    public void rederizarTablas() {
+    public void renderizarTablas() {
         tabla.visualizarMuebles(jTableMuebles);
 
     }

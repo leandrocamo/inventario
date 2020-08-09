@@ -9,6 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import modelo.ConsultaPnlPrincipalMuebles;
+import modelo.PnlPrincipal;
 import vista.frmPrincipal;
 import vista.pnlNuevoMueble;
 import vista.pnlPrincipal;
@@ -70,23 +72,27 @@ public class frmPrincipalController implements ActionListener {
                         JButton boton = (JButton) value;
 
                         if (boton.getName().equals("m")) {
-//                            System.out.println("Click en el boton modificar > " + mueID);                           
                             try {
                                 panelNuevoMueble = new pnlNuevoMueble("" + mueID);
+                                panelPrincipal.setVisible(false);
+                                vPrincipal.pnlNavegacionSuperior.setVisible(false);
+                                vPrincipal.pnlNavegacionInferior.setVisible(true);
+                                panelNuevoMueble.setVisible(true);
+                                panelNuevoMueble.txtTitulo.setText("Actualización de Mueble");
+                                vPrincipal.pnlContenedor.add(panelNuevoMueble);
+                                vPrincipal.pnlContenedor.validate();
                             } catch (ParseException ex) {
                                 Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                            panelPrincipal.setVisible(false);
-                            vPrincipal.pnlNavegacionSuperior.setVisible(false);
-                            vPrincipal.pnlNavegacionInferior.setVisible(true);
-                            panelNuevoMueble.setVisible(true);
-                            panelNuevoMueble.txtTitulo.setText("Actualización de Mueble");
-                            vPrincipal.pnlContenedor.add(panelNuevoMueble);
-                            vPrincipal.pnlContenedor.validate();
                         }
                         if (boton.getName().equals("e")) {
-                            //JOptionPane.showConfirmDialog(null, "Desea eliminar este registro", "Confirmar", JOptionPane.OK_CANCEL_OPTION);
-                            System.out.println("Click en el boton eliminar > " + mueID);
+                            if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(null, "Desea eliminar este registro", "Confirmar", JOptionPane.YES_NO_OPTION)) {
+                                ConsultaPnlPrincipalMuebles cpm = new ConsultaPnlPrincipalMuebles();
+                                PnlPrincipal pp = new PnlPrincipal();
+                                pp.setMueId("" + mueID);
+                                cpm.eliminarMueble(pp);
+                                panelPrincipal.renderizarTablas();
+                            }
                         }
                     }
                 }
@@ -114,7 +120,7 @@ public class frmPrincipalController implements ActionListener {
             regresarPantallas();
         } else if (e.getSource() == vPrincipal.btnGuardarNuevoMueble) {
             if (panelNuevoMueble.guardarRegistro() && panelNuevoMueble.marcaGuardar) {
-                if (JOptionPane.OK_OPTION != JOptionPane.showConfirmDialog(null, "Registro guardado. Deseas guardar otra actividad?")) {
+                if (JOptionPane.OK_OPTION != JOptionPane.showConfirmDialog(null, "Registro guardado. Deseas guardar otra actividad?", "Confirmar", JOptionPane.YES_NO_CANCEL_OPTION)) {
                     regresarPantallas();
                 } else {
                     //REGRESAR AL PNLNUEVOMUEBLE Y LIMPIRAR LOS TEXT FIELDS
@@ -124,7 +130,7 @@ public class frmPrincipalController implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Los registros se actualizaron con éxito.");
                 regresarPantallas();
             }
-            panelPrincipal.rederizarTablas();
+            panelPrincipal.renderizarTablas();
         } else if (e.getSource() == panelPrincipal.btnBuscar) {
             panelPrincipal.cargarRegistrosBuscar(panelPrincipal.txtBuscar.getText());
 //            panelPrincipal.rederizarTablas();

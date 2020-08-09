@@ -78,7 +78,7 @@ public class TablaPnlPrincipal {
         dt.addColumn("ACCIÓN");
         dt.addColumn("Eliminar");
 
-        JButton btn_modificar = new JButton("Modificar");
+        JButton btn_modificar = new JButton("Editar");
         btn_modificar.setName("m");
         JButton btn_eliminar = new JButton("Eliminar");
         btn_eliminar.setName("e");
