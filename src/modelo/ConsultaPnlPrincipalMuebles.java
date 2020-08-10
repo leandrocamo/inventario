@@ -8,31 +8,6 @@ import java.util.ArrayList;
 
 public class ConsultaPnlPrincipalMuebles extends Conexion {
 
-//    public boolean eliminarMuebla(PnlPrincipa pp) {
-//        PreparedStatement ps = null;
-//        Connection con = getConexion();
-//        //String sql =UPDATE `mueble` SET `MUEESTADO` = '1' WHERE `mueble`.`MUEID` = 337;
-//        String sql = "UPDATE mueble SET MUESTADO=0, TRAESTADO=? WHERE TRAID=?";
-//
-//        try {
-//            ps = con.prepareStatement(sql);
-//            ps.setString(1, tra.getTranombre());
-//            ps.setInt(2, tra.getTraestado());
-//            ps.execute();
-//            return true;
-//
-//        } catch (SQLException e) {
-//            System.err.println(e);
-//            return false;
-//        } finally {
-//            try {
-//                con.close();
-//            } catch (SQLException e) {
-//                System.err.println(e);
-//            }
-//        }
-//    
-//    }
     public void eliminarMueble(PnlPrincipal pp) {
         Connection con = getConexion();
         String sql = "DELETE FROM mueble WHERE MUEID = ?;";

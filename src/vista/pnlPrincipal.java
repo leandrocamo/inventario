@@ -33,7 +33,7 @@ import java.sql.SQLException;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import modelo.TablaPnlPrincipal;
+import Tabla.TablaPnlPrincipal;
 
 public class pnlPrincipal extends javax.swing.JPanel {
 

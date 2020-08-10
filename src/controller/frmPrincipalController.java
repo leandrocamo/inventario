@@ -14,12 +14,14 @@ import modelo.PnlPrincipal;
 import vista.frmPrincipal;
 import vista.pnlNuevoMueble;
 import vista.pnlPrincipal;
+import vista.pnlUsuarioDetalle;
 
 public class frmPrincipalController implements ActionListener {
 
     pnlPrincipal panelPrincipal;
     pnlNuevoMueble panelNuevoMueble;
     frmPrincipal vPrincipal;
+    pnlUsuarioDetalle pud = null;
     int clic_tabla = 0;
 
     public frmPrincipalController(pnlPrincipal panelPrincipal, pnlNuevoMueble panelNuevoMueble, frmPrincipal vPrincipal) {
@@ -31,6 +33,11 @@ public class frmPrincipalController implements ActionListener {
         this.vPrincipal.btnGuardarNuevoMueble.addActionListener(this);
         this.vPrincipal.btnCancelar.addActionListener(this);
         this.panelPrincipal.btnBuscar.addActionListener(this);
+
+        this.vPrincipal.btnUsuario.addActionListener(this);
+        this.vPrincipal.btnGuardarUsuario.addActionListener(this);
+        this.vPrincipal.btnNuevoUsuario.addActionListener(this);
+
     }
 
     public void iniciar() {
@@ -42,6 +49,8 @@ public class frmPrincipalController implements ActionListener {
         vPrincipal.pnlContenedor.add(panelPrincipal);
         vPrincipal.pnlNavegacionInferior.setVisible(false);
         clicJTableMuebles();
+        vPrincipal.btnNuevoMueble.setVisible(true);
+        vPrincipal.btnNuevoUsuario.setVisible(false);
     }
 
     public void regresarPantallas() {
@@ -134,6 +143,17 @@ public class frmPrincipalController implements ActionListener {
         } else if (e.getSource() == panelPrincipal.btnBuscar) {
             panelPrincipal.cargarRegistrosBuscar(panelPrincipal.txtBuscar.getText());
 //            panelPrincipal.rederizarTablas();
+        } else if (e.getSource() == vPrincipal.btnUsuario) {
+            pud = new pnlUsuarioDetalle();
+            panelPrincipal.setVisible(false);
+            panelNuevoMueble.setVisible(false);
+            pud.setVisible(true);
+            vPrincipal.pnlContenedor.add(pud);
+            vPrincipal.pnlNavegacionInferior.setVisible(false);
+
+            vPrincipal.btnNuevoMueble.setVisible(false);
+            vPrincipal.btnNuevoUsuario.setVisible(true);
+
         }
     }
 }

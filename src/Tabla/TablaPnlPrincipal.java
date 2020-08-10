@@ -1,4 +1,4 @@
-package modelo;
+package Tabla;
 
 import java.util.ArrayList;
 import javax.swing.JButton;
@@ -7,6 +7,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import modelo.ConsultaPnlPrincipalMuebles;
+import modelo.PnlPrincipal;
 
 public class TablaPnlPrincipal {
 
