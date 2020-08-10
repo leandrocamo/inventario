@@ -1,6 +1,6 @@
 package modelo;
 
-public class Inicio {
+public class InicioSesion {
     private String usuario;
     private String contrasenia;
 

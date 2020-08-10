@@ -5,9 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ConsultaInicio extends Conexion {
+public class ConsultaInicioSesion extends Conexion {
 
-    public boolean buscarUsuario(Inicio modeloInicio) {
+    public boolean buscarUsuario(InicioSesion modeloInicio) {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();

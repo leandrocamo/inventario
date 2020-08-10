@@ -29,9 +29,20 @@ public class ClasesUtilizadas {
     public boolean validarCombo(int opcion, String cbxNombre) {
 
         if (opcion == 0) {
-            JOptionPane.showMessageDialog(null, "Seleccione una opción de " + cbxNombre + "."  + opcion, "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Seleccione una opción de " + cbxNombre + "." + opcion, "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {
+            return true;
+        }
+    }
+
+    public boolean validarCampoVacio(String textoEvaluar) {
+        if (textoEvaluar.isEmpty()) {
+            //El campo esta vacio,
+            JOptionPane.showMessageDialog(null, "No deje campos vacios.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else {
+            //El campo tiene texto
             return true;
         }
     }

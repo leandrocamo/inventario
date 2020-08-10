@@ -22,8 +22,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnNuevoUsuario = new javax.swing.JButton();
         pnlNavegacionInferior = new javax.swing.JPanel();
         btnGuardarNuevoMueble = new javax.swing.JButton();
-        btnGuardarUsuario = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        btnGuardarUsuario = new javax.swing.JButton();
+        btnCancelarUsuario = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         btnInicio = new javax.swing.JMenuItem();
@@ -104,11 +105,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         pnlNavegacionInferior.add(btnGuardarNuevoMueble);
 
+        btnCancelar.setText("Cancelar");
+        pnlNavegacionInferior.add(btnCancelar);
+
         btnGuardarUsuario.setText("Guardar");
         pnlNavegacionInferior.add(btnGuardarUsuario);
 
-        btnCancelar.setText("Cancelar");
-        pnlNavegacionInferior.add(btnCancelar);
+        btnCancelarUsuario.setText("Cancelar");
+        pnlNavegacionInferior.add(btnCancelarUsuario);
 
         jMenu1.setText("Opciones");
 
@@ -217,6 +221,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnCancelar;
+    public javax.swing.JButton btnCancelarUsuario;
     public javax.swing.JButton btnGuardarNuevoMueble;
     public javax.swing.JButton btnGuardarUsuario;
     public javax.swing.JMenuItem btnInicio;

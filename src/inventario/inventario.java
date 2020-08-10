@@ -1,22 +1,19 @@
-
 package inventario;
 
-import modelo.Inicio;
-import modelo.ConsultaInicio;
-import vista.frmInicio;
-import controller.InicioController;
-
+import controller.InicioSesionController;
+import modelo.ConsultaInicioSesion;
+import modelo.InicioSesion;
+import vista.FrmInicioSesion;
 
 public class inventario {
 
-
     public static void main(String[] args) {
-        Inicio imodelo = new Inicio();
-        ConsultaInicio icmodelo = new ConsultaInicio();
-        frmInicio ivista = new frmInicio();
-        InicioController controller = new InicioController(imodelo, icmodelo, ivista);
-        controller.iniciar();
-        ivista.setVisible(true);
+        InicioSesion modeloIS = new InicioSesion();
+        ConsultaInicioSesion modeloCIS = new ConsultaInicioSesion();
+        FrmInicioSesion vistaFIS = new FrmInicioSesion();
+        InicioSesionController controllerISC = new InicioSesionController(modeloIS, modeloCIS, vistaFIS);
+        controllerISC.iniciarVista();
+        vistaFIS.setVisible(true);
     }
-    
+
 }
