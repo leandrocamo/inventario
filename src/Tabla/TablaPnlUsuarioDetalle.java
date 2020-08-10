@@ -41,9 +41,9 @@ public class TablaPnlUsuarioDetalle {
         PnlUsuarioDetalle pud = new PnlUsuarioDetalle();
         ArrayList<PnlUsuarioDetalle> list = null;
         if (textoBuscar == null) {
-            list = cpud.ListarUsuarios();
+            list = cpud.ListarBuscarUsuario(null);
         } else {
-            list = cpud.BuscarUsuario(textoBuscar);
+            list = cpud.ListarBuscarUsuario(textoBuscar);
         }
 
         if (list.size() > 0) {
