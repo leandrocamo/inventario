@@ -34,6 +34,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import Tabla.TablaPnlPrincipal;
+import clases.TextPrompt;
 
 public class pnlPrincipal extends javax.swing.JPanel {
 
@@ -44,6 +45,7 @@ public class pnlPrincipal extends javax.swing.JPanel {
         initComponents();
         initComponents();
         tabla.visualizarMuebles(jTableMuebles);
+        TextPrompt p1 = new TextPrompt("Ingrese un texto para buscar.", txtBuscar);
 //        this.setExtendedState(6);
         btnGuardar.setVisible(false);
         cargarDatosBatch();

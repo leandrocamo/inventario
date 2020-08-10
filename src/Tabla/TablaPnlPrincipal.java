@@ -16,7 +16,7 @@ public class TablaPnlPrincipal {
 
     public void visualizarMuebles(JTable jtableMuebles) {
 
-        jtableMuebles.setDefaultRenderer(Object.class, new Modelo.Render());
+        jtableMuebles.setDefaultRenderer(Object.class, new Tabla.Render());
         DefaultTableModel dt = new DefaultTableModel() {
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -65,7 +65,7 @@ public class TablaPnlPrincipal {
 
     public void visualizarMueblesBuscar(JTable jtableMuebles, String textoBuscar) {
 
-        jtableMuebles.setDefaultRenderer(Object.class, new Modelo.Render());
+        jtableMuebles.setDefaultRenderer(Object.class, new Tabla.Render());
         DefaultTableModel dt = new DefaultTableModel() {
             public boolean isCellEditable(int row, int column) {
                 return false;

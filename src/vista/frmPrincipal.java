@@ -26,7 +26,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        btnInicio = new javax.swing.JMenuItem();
         btnUsuario = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
@@ -112,13 +112,13 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Opciones");
 
-        jMenuItem2.setText("Inicio");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        btnInicio.setText("Inicio");
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                btnInicioActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(btnInicio);
 
         btnUsuario.setText("Usuario");
         btnUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -165,9 +165,9 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
     }//GEN-LAST:event_btnUsuarioActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
 
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnNuevoMuebleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoMuebleActionPerformed
 
@@ -219,13 +219,13 @@ public class frmPrincipal extends javax.swing.JFrame {
     public javax.swing.JButton btnCancelar;
     public javax.swing.JButton btnGuardarNuevoMueble;
     public javax.swing.JButton btnGuardarUsuario;
+    public javax.swing.JMenuItem btnInicio;
     public javax.swing.JButton btnNuevoMueble;
     public javax.swing.JButton btnNuevoUsuario;
     public javax.swing.JMenuItem btnUsuario;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     public javax.swing.JLabel lblTitulo;

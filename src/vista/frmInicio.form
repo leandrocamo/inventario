@@ -89,7 +89,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtusuario">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ivlecamo"/>
+        <Property name="text" type="java.lang.String" value="lc.snap10@gmail.com"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

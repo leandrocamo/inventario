@@ -402,7 +402,7 @@ public class pnlNuevoMueble extends javax.swing.JPanel {
                         + "MUEVALORUNITARIO = '" + valorunitario + "', "
                         + "MUEVALORTOTAL = '" + valortotal + "' "
                         + "WHERE MUE.MUEID = " + this.idMueble;
-                System.out.println(sql);
+//                System.out.println(sql);
                 try {
                     ps = con.prepareStatement(sql);
                     ps.execute();

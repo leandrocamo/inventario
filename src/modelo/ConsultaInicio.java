@@ -12,7 +12,7 @@ public class ConsultaInicio extends Conexion {
         ResultSet rs = null;
         Connection con = getConexion();
         String sql = "SELECT * FROM usuario "
-                + "WHERE USUUSUARIO = '" + modeloInicio.getUsuario() + "' "
+                + "WHERE USUEMAIL = '" + modeloInicio.getUsuario() + "' "
                 + "AND USUCONTRASENIA = '" + modeloInicio.getContrasenia() + "'";
         try {
             ps = con.prepareStatement(sql);

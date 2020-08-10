@@ -1,15 +1,22 @@
 package vista;
 
 import Tabla.TablaPnlUsuarioDetalle;
+import clases.TextPrompt;
+import java.awt.event.KeyEvent;
 import modelo.Conexion;
 
 public class pnlUsuarioDetalle extends javax.swing.JPanel {
 
     Conexion conexion = new Conexion();
-    Tabla.TablaPnlUsuarioDetalle tabla = new TablaPnlUsuarioDetalle();
+    TablaPnlUsuarioDetalle tabla = new TablaPnlUsuarioDetalle();
 
     public pnlUsuarioDetalle() {
         initComponents();
+        tabla.cargandoRegistrosUsuario(jTableUsuarios, null);
+        TextPrompt p1 = new TextPrompt("Ingrese un texto para buscar.", txtBuscarUsuario);
+    }
+
+    public void renderizarTablaUsuario() {
         tabla.cargandoRegistrosUsuario(jTableUsuarios, null);
     }
 
@@ -45,7 +52,11 @@ public class pnlUsuarioDetalle extends javax.swing.JPanel {
             }
         });
 
-        txtBuscarUsuario.setText("jTextField1");
+        txtBuscarUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarUsuarioKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -81,9 +92,15 @@ public class pnlUsuarioDetalle extends javax.swing.JPanel {
         tabla.cargandoRegistrosUsuario(jTableUsuarios, txtBuscarUsuario.getText());
     }//GEN-LAST:event_btnBuscarUsuarioActionPerformed
 
+    private void txtBuscarUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarUsuarioKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnBuscarUsuario.doClick();
+        }
+    }//GEN-LAST:event_txtBuscarUsuarioKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscarUsuario;
+    public javax.swing.JButton btnBuscarUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableUsuarios;

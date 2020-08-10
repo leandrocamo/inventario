@@ -15,14 +15,18 @@ import vista.frmPrincipal;
 import vista.pnlNuevoMueble;
 import vista.pnlPrincipal;
 import vista.pnlUsuarioDetalle;
+import vista.pnlUsuarioNuevo;
 
 public class frmPrincipalController implements ActionListener {
 
     pnlPrincipal panelPrincipal;
     pnlNuevoMueble panelNuevoMueble;
     frmPrincipal vPrincipal;
-    pnlUsuarioDetalle pud = null;
     int clic_tabla = 0;
+    
+    pnlUsuarioDetalle pud = new pnlUsuarioDetalle();
+    pnlUsuarioNuevo punVista  = new pnlUsuarioNuevo();
+    PnlUsuarioNuevoController punc = null;
 
     public frmPrincipalController(pnlPrincipal panelPrincipal, pnlNuevoMueble panelNuevoMueble, frmPrincipal vPrincipal) {
         this.panelPrincipal = panelPrincipal;
@@ -33,6 +37,8 @@ public class frmPrincipalController implements ActionListener {
         this.vPrincipal.btnGuardarNuevoMueble.addActionListener(this);
         this.vPrincipal.btnCancelar.addActionListener(this);
         this.panelPrincipal.btnBuscar.addActionListener(this);
+
+        this.vPrincipal.btnInicio.addActionListener(this);
 
         this.vPrincipal.btnUsuario.addActionListener(this);
         this.vPrincipal.btnGuardarUsuario.addActionListener(this);
@@ -54,10 +60,21 @@ public class frmPrincipalController implements ActionListener {
     }
 
     public void regresarPantallas() {
-        panelPrincipal.setVisible(true);
+
+        //BOTONES A MOSTAR U OCULTAR
         vPrincipal.pnlNavegacionSuperior.setVisible(true);
         vPrincipal.pnlNavegacionInferior.setVisible(false);
+        vPrincipal.btnNuevoMueble.setVisible(true);
+        vPrincipal.btnNuevoUsuario.setVisible(false);
+
+        //PANELES A MOSTRA U OCULTAR
+        panelPrincipal.setVisible(true);
         panelNuevoMueble.setVisible(false);
+        punVista.setVisible(false);
+        pud.setVisible(false);
+//        pun.setVisible(false);
+
+        //OPCION A MOSTRAR
         vPrincipal.pnlContenedor.add(panelPrincipal);
         vPrincipal.pnlContenedor.validate();
     }
@@ -112,7 +129,9 @@ public class frmPrincipalController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == vPrincipal.btnNuevoMueble) {
+        if (e.getSource() == vPrincipal.btnInicio) {
+            regresarPantallas();
+        } else if (e.getSource() == vPrincipal.btnNuevoMueble) {
             try {
                 panelNuevoMueble = new pnlNuevoMueble(null);
             } catch (ParseException ex) {
@@ -144,15 +163,51 @@ public class frmPrincipalController implements ActionListener {
             panelPrincipal.cargarRegistrosBuscar(panelPrincipal.txtBuscar.getText());
 //            panelPrincipal.rederizarTablas();
         } else if (e.getSource() == vPrincipal.btnUsuario) {
-            pud = new pnlUsuarioDetalle();
+            
             panelPrincipal.setVisible(false);
             panelNuevoMueble.setVisible(false);
+
+
             pud.setVisible(true);
             vPrincipal.pnlContenedor.add(pud);
-            vPrincipal.pnlNavegacionInferior.setVisible(false);
 
+            vPrincipal.pnlNavegacionInferior.setVisible(false);
             vPrincipal.btnNuevoMueble.setVisible(false);
             vPrincipal.btnNuevoUsuario.setVisible(true);
+
+        } else if (e.getSource() == vPrincipal.btnNuevoUsuario) {
+            
+            panelPrincipal.setVisible(false);
+            panelNuevoMueble.setVisible(false);
+            pud.setVisible(false);
+
+            punVista.setVisible(true);
+            vPrincipal.pnlContenedor.add(punVista);
+
+            vPrincipal.pnlNavegacionSuperior.setVisible(false);
+            vPrincipal.pnlNavegacionInferior.setVisible(true);
+            vPrincipal.btnNuevoMueble.setVisible(false);
+            vPrincipal.btnNuevoUsuario.setVisible(true);
+            vPrincipal.btnGuardarNuevoMueble.setVisible(false);
+            vPrincipal.btnGuardarUsuario.setVisible(true);
+
+        } else if (e.getSource() == vPrincipal.btnGuardarUsuario) {
+//            punVista = new pnlUsuarioNuevo();
+            punc = new PnlUsuarioNuevoController(punVista);
+            if (!punc.ejecutarGuardar()) {
+
+                panelPrincipal.setVisible(false);
+                panelNuevoMueble.setVisible(false);
+                punVista.setVisible(false);
+
+                vPrincipal.pnlNavegacionSuperior.setVisible(true);
+                vPrincipal.pnlNavegacionInferior.setVisible(false);
+                vPrincipal.btnNuevoMueble.setVisible(false);
+                vPrincipal.btnNuevoUsuario.setVisible(true);
+                pud.setVisible(true);
+                pud.renderizarTablaUsuario();
+                vPrincipal.pnlContenedor.add(pud);
+            }
 
         }
     }

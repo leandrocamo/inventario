@@ -14,10 +14,12 @@ public class ConsultaPnlUsuarioDetalle extends Conexion {
         ResultSet rs = null;
         Connection con = getConexion();
         String sql = null;
+        String opcion = null;
         if (textoBuscar == null) {
             sql = "SELECT * FROM usuario USU \n"
                     + "INNER JOIN areadependencia AXD ON AXD.ADID=USU.ADID \n"
                     + "WHERE USU.USUESTADO = 1 ORDER BY USU.USUUSUARIO ASC";
+            opcion = "Todo";
         } else {
             sql = "SELECT * FROM usuario USU \n"
                     + "INNER JOIN areadependencia AXD ON AXD.ADID=USU.ADID \n"
@@ -26,6 +28,7 @@ public class ConsultaPnlUsuarioDetalle extends Conexion {
                     + "OR USU.USUEMAIL LIKE '%" + textoBuscar + "%' "
                     + "OR AXD.ADNOMBRE LIKE '%" + textoBuscar + "%'  "
                     + "ORDER BY USU.USUUSUARIO ASC";
+            opcion = "Buscar";
         }
 //        System.out.println("" + sql);
         try {
@@ -46,7 +49,7 @@ public class ConsultaPnlUsuarioDetalle extends Conexion {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada - BuscarUsuario()");
+                System.out.println("Conexión cerrada - ListarBuscarUsuario() - " + opcion);
             } catch (SQLException e) {
                 System.err.println(e);
             }

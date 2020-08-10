@@ -37,7 +37,7 @@ public class frmInicio extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/001-user.png"))); // NOI18N
 
-        txtusuario.setText("ivlecamo");
+        txtusuario.setText("lc.snap10@gmail.com");
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/002-padlock.png"))); // NOI18N
 

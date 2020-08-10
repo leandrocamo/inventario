@@ -1,4 +1,4 @@
-package Modelo;
+package Tabla;
 
 import java.awt.Component;
 import javax.swing.JButton;
