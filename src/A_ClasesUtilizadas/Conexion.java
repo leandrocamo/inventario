@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class Conexion {
 
-    private final String base = "inventario";
+    private final String base = "inventario1";
     private final String user = "root";
     private final String password = "";
     private final String server = "localhost:3306";
