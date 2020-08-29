@@ -21,6 +21,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         cbxUsuario.setVisible(false);
         lblCustodio.setVisible(false);
         pnlCustodio.setVisible(false);
+        pnlCombosIDs.setVisible(false);
     }
     
     @SuppressWarnings("unchecked")
@@ -96,7 +97,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         jLabel21 = new javax.swing.JLabel();
         txtCantidad = new javax.swing.JFormattedTextField();
         jPanel23 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        pnlCombosIDs = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cbxColorID = new javax.swing.JComboBox<>();
         jLabel22 = new javax.swing.JLabel();
@@ -626,34 +627,34 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jPanel1);
 
         jLabel1.setText("COLID:");
-        jPanel2.add(jLabel1);
+        pnlCombosIDs.add(jLabel1);
 
-        jPanel2.add(cbxColorID);
+        pnlCombosIDs.add(cbxColorID);
 
         jLabel22.setText("MARID:");
-        jPanel2.add(jLabel22);
+        pnlCombosIDs.add(jLabel22);
 
-        jPanel2.add(cbxMarcaID);
+        pnlCombosIDs.add(cbxMarcaID);
 
         jLabel23.setText("TMID");
-        jPanel2.add(jLabel23);
+        pnlCombosIDs.add(jLabel23);
 
-        jPanel2.add(cbxTipoMuebleID);
+        pnlCombosIDs.add(cbxTipoMuebleID);
 
         jLabel24.setText("CCID");
-        jPanel2.add(jLabel24);
+        pnlCombosIDs.add(jLabel24);
 
-        jPanel2.add(cbxCuentaContableID);
+        pnlCombosIDs.add(cbxCuentaContableID);
 
         jLabel25.setText("ADID:");
-        jPanel2.add(jLabel25);
+        pnlCombosIDs.add(jLabel25);
 
-        jPanel2.add(cbxAreaDependenciaID);
+        pnlCombosIDs.add(cbxAreaDependenciaID);
 
         jLabel26.setText("ESTID:");
-        jPanel2.add(jLabel26);
+        pnlCombosIDs.add(jLabel26);
 
-        jPanel2.add(cbxEstadoID);
+        pnlCombosIDs.add(cbxEstadoID);
 
         btnGuardar.setText("Guardar");
         jPanel3.add(btnGuardar);
@@ -681,7 +682,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlCombosIDs, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
@@ -696,7 +697,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlCombosIDs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -870,7 +871,6 @@ public class MueblesNuevoView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel22;
@@ -888,6 +888,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
     private javax.swing.JLabel lblCustodio;
     public javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblUbicacion;
+    private javax.swing.JPanel pnlCombosIDs;
     private javax.swing.JPanel pnlCustodio;
     private javax.swing.JPanel pnlUbicacion;
     public javax.swing.JFormattedTextField txtCantidad;
