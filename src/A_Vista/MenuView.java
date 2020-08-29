@@ -88,7 +88,7 @@ public class MenuView extends javax.swing.JPanel {
 
         jPanel3.add(jPanel7);
 
-        jButton10.setText("jButton10");
+        jButton10.setText("Color");
         jPanel3.add(jButton10);
 
         jLabel4.setText("jLabel4");
@@ -107,7 +107,7 @@ public class MenuView extends javax.swing.JPanel {
 
         jPanel3.add(jPanel6);
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Tipo de Mueble");
         jPanel3.add(jButton1);
 
         jLabel5.setText("jLabel5");
@@ -126,7 +126,7 @@ public class MenuView extends javax.swing.JPanel {
 
         jPanel3.add(jPanel4);
 
-        jButton2.setText("jButton2");
+        jButton2.setText("Area Dependencia");
         jPanel3.add(jButton2);
 
         jLabel6.setText("jLabel6");

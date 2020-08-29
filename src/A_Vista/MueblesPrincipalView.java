@@ -1,5 +1,7 @@
 package A_Vista;
 
+import java.awt.event.KeyEvent;
+
 public class MueblesPrincipalView extends javax.swing.JPanel {
 
     public MueblesPrincipalView() {
@@ -29,6 +31,12 @@ public class MueblesPrincipalView extends javax.swing.JPanel {
         cbxCustodioID = new javax.swing.JComboBox<>();
 
         jLabel1.setText("Buscar:");
+
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
+        });
 
         btnBuscarPorTexto.setText("Buscar");
         btnBuscarPorTexto.addActionListener(new java.awt.event.ActionListener() {
@@ -150,6 +158,12 @@ public class MueblesPrincipalView extends javax.swing.JPanel {
     private void btnBuscarPorTextoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPorTextoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarPorTextoActionPerformed
+
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnBuscarPorTexto.doClick();
+        }
+    }//GEN-LAST:event_txtBuscarKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

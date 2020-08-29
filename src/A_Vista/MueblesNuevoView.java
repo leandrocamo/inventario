@@ -1,11 +1,28 @@
 package A_Vista;
 
-public class MueblesNuevoView extends javax.swing.JPanel {
+import A_Modelo.AreaDependenciaModel;
+import A_Modelo.MueblesNuevoModel;
+import A_Modelo.MueblesNuevoQuery;
+import A_Modelo.UbicacionModel;
+import A_Modelo.UsuarioModel;
+import java.awt.event.ItemEvent;
+import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
+public class MueblesNuevoView extends javax.swing.JPanel {
+    
     public MueblesNuevoView() {
         initComponents();
+//        AreaDependenciaModel modelArea = new AreaDependenciaModel();
+        cbxUbicacion.setVisible(false);
+        lblUbicacion.setVisible(false);
+        pnlUbicacion.setVisible(false);
+        cbxUsuario.setVisible(false);
+        lblCustodio.setVisible(false);
+        pnlCustodio.setVisible(false);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -46,9 +63,15 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         cbxCuentaContable = new javax.swing.JComboBox();
         jPanel14 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        cbxAreaDependencia = new javax.swing.JComboBox<>();
+        jPanel24 = new javax.swing.JPanel();
+        lblUbicacion = new javax.swing.JLabel();
         cbxUbicacion = new javax.swing.JComboBox();
-        jPanel15 = new javax.swing.JPanel();
+        pnlUbicacion = new javax.swing.JPanel();
+        lblCustodio = new javax.swing.JLabel();
+        cbxUsuario = new javax.swing.JComboBox<>();
+        pnlCustodio = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         txtFD = new javax.swing.JTextField();
         jPanel16 = new javax.swing.JPanel();
@@ -83,16 +106,17 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         jLabel24 = new javax.swing.JLabel();
         cbxCuentaContableID = new javax.swing.JComboBox<>();
         jLabel25 = new javax.swing.JLabel();
-        cbxUbicacionID = new javax.swing.JComboBox<>();
+        cbxAreaDependenciaID = new javax.swing.JComboBox<>();
         jLabel26 = new javax.swing.JLabel();
         cbxEstadoID = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
 
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 709));
-        jPanel1.setLayout(new java.awt.GridLayout(20, 3));
+        jPanel1.setLayout(new java.awt.GridLayout(25, 3));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Código etiqueta:");
@@ -109,7 +133,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel4);
@@ -133,7 +157,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel5);
@@ -158,7 +182,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel6);
@@ -182,7 +206,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel7);
@@ -211,7 +235,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel8);
@@ -235,7 +259,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel9);
@@ -253,7 +277,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel10);
@@ -271,7 +295,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel11);
@@ -289,7 +313,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel12);
@@ -313,7 +337,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel13);
@@ -337,15 +361,44 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel14);
 
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel13.setText("Ubicación:");
-        jPanel1.add(jLabel13);
+        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel27.setText("Área de Dependencia:");
+        jPanel1.add(jLabel27);
 
+        cbxAreaDependencia.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxAreaDependenciaItemStateChanged(evt);
+            }
+        });
+        jPanel1.add(cbxAreaDependencia);
+
+        javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
+        jPanel24.setLayout(jPanel24Layout);
+        jPanel24Layout.setHorizontalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 266, Short.MAX_VALUE)
+        );
+        jPanel24Layout.setVerticalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 29, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel24);
+
+        lblUbicacion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblUbicacion.setText("Ubicación:");
+        jPanel1.add(lblUbicacion);
+
+        cbxUbicacion.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxUbicacionItemStateChanged(evt);
+            }
+        });
         cbxUbicacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxUbicacionActionPerformed(evt);
@@ -353,18 +406,42 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         });
         jPanel1.add(cbxUbicacion);
 
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlUbicacionLayout = new javax.swing.GroupLayout(pnlUbicacion);
+        pnlUbicacion.setLayout(pnlUbicacionLayout);
+        pnlUbicacionLayout.setHorizontalGroup(
+            pnlUbicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 266, Short.MAX_VALUE)
         );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+        pnlUbicacionLayout.setVerticalGroup(
+            pnlUbicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel15);
+        jPanel1.add(pnlUbicacion);
+
+        lblCustodio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCustodio.setText("Custodio:");
+        jPanel1.add(lblCustodio);
+
+        cbxUsuario.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxUsuarioItemStateChanged(evt);
+            }
+        });
+        jPanel1.add(cbxUsuario);
+
+        javax.swing.GroupLayout pnlCustodioLayout = new javax.swing.GroupLayout(pnlCustodio);
+        pnlCustodio.setLayout(pnlCustodioLayout);
+        pnlCustodioLayout.setHorizontalGroup(
+            pnlCustodioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 266, Short.MAX_VALUE)
+        );
+        pnlCustodioLayout.setVerticalGroup(
+            pnlCustodioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 29, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(pnlCustodio);
 
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("FD:");
@@ -386,7 +463,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel16);
@@ -406,7 +483,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel17);
@@ -414,6 +491,8 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel16.setText("Valor nuevo:");
         jPanel1.add(jLabel16);
+
+        txtValorNuevo.setText("1.55");
         jPanel1.add(txtValorNuevo);
 
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
@@ -424,7 +503,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel20);
@@ -433,6 +512,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         jLabel17.setText("Valor comercial:");
         jPanel1.add(jLabel17);
 
+        txtValorComercial.setText("12.05");
         txtValorComercial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtValorComercialActionPerformed(evt);
@@ -448,7 +528,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel21);
@@ -456,6 +536,8 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel18.setText("Valor remanente:");
         jPanel1.add(jLabel18);
+
+        txtValorRemanente.setText("12.05");
         jPanel1.add(txtValorRemanente);
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
@@ -466,7 +548,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel18);
@@ -474,6 +556,13 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel19.setText("Valor unitario:");
         jPanel1.add(jLabel19);
+
+        txtValorUnitario.setText("12.05");
+        txtValorUnitario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtValorUnitarioActionPerformed(evt);
+            }
+        });
         jPanel1.add(txtValorUnitario);
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
@@ -484,7 +573,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel19);
@@ -492,6 +581,8 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel20.setText("Valor total:");
         jPanel1.add(jLabel20);
+
+        txtValorTotal.setText("12.05");
         jPanel1.add(txtValorTotal);
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
@@ -502,7 +593,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel22);
@@ -511,6 +602,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         jLabel21.setText("Cantidad:");
         jPanel1.add(jLabel21);
 
+        txtCantidad.setText("2");
         txtCantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCantidadActionPerformed(evt);
@@ -526,39 +618,39 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel23);
 
         jScrollPane1.setViewportView(jPanel1);
 
-        jLabel1.setText("ColorID:");
+        jLabel1.setText("COLID:");
         jPanel2.add(jLabel1);
 
         jPanel2.add(cbxColorID);
 
-        jLabel22.setText("MarcaID");
+        jLabel22.setText("MARID:");
         jPanel2.add(jLabel22);
 
         jPanel2.add(cbxMarcaID);
 
-        jLabel23.setText("TipoMuebleID:");
+        jLabel23.setText("TMID");
         jPanel2.add(jLabel23);
 
         jPanel2.add(cbxTipoMuebleID);
 
-        jLabel24.setText("CuentaContableID:");
+        jLabel24.setText("CCID");
         jPanel2.add(jLabel24);
 
         jPanel2.add(cbxCuentaContableID);
 
-        jLabel25.setText("UbicacionID:");
+        jLabel25.setText("ADID:");
         jPanel2.add(jLabel25);
 
-        jPanel2.add(cbxUbicacionID);
+        jPanel2.add(cbxAreaDependenciaID);
 
-        jLabel26.setText("EstadoID");
+        jLabel26.setText("ESTID:");
         jPanel2.add(jLabel26);
 
         jPanel2.add(cbxEstadoID);
@@ -568,6 +660,14 @@ public class MueblesNuevoView extends javax.swing.JPanel {
 
         btnCancelar.setText("Cancelar");
         jPanel3.add(btnCancelar);
+
+        jButton1.setText("Ingresar No Aplica");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton1);
 
         lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -592,7 +692,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(lblTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -645,10 +745,82 @@ public class MueblesNuevoView extends javax.swing.JPanel {
 
     }//GEN-LAST:event_txtCantidadActionPerformed
 
+    private void txtValorUnitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorUnitarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtValorUnitarioActionPerformed
+
+    private void cbxAreaDependenciaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxAreaDependenciaItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            AreaDependenciaModel model = (AreaDependenciaModel) cbxAreaDependencia.getSelectedItem();
+            UbicacionModel modelUbicacion = new UbicacionModel();
+            DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel(modelUbicacion.cargarUbicacion(model.getADID()));
+            cbxUbicacion.setModel(modeloCombo);
+            cbxUbicacion.setVisible(true);
+            lblUbicacion.setVisible(true);
+            pnlUbicacion.setVisible(true);
+            
+            cbxUsuario.removeAllItems();
+            cbxUsuario.setVisible(false);
+            lblCustodio.setVisible(false);
+            pnlCustodio.setVisible(false);
+            
+        }
+    }//GEN-LAST:event_cbxAreaDependenciaItemStateChanged
+
+    private void cbxUsuarioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxUsuarioItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            AreaDependenciaModel modelAreaDependencia = (AreaDependenciaModel) cbxAreaDependencia.getSelectedItem();
+            UbicacionModel modelUbicacion = (UbicacionModel) cbxUbicacion.getSelectedItem();
+            UsuarioModel modelUsuario = (UsuarioModel) cbxUsuario.getSelectedItem();
+            
+//            JOptionPane.showMessageDialog(null,modelUsuario.getUSUID());
+        }
+    }//GEN-LAST:event_cbxUsuarioItemStateChanged
+
+    private void cbxUbicacionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxUbicacionItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            UbicacionModel model = (UbicacionModel) cbxUbicacion.getSelectedItem();
+            UsuarioModel modelUsuario = new UsuarioModel();
+            DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel(modelUsuario.cargarUsuario(model.getUBIID()));
+            cbxUsuario.setModel(modeloCombo);
+            cbxUsuario.setVisible(true);
+            lblCustodio.setVisible(true);
+            pnlCustodio.setVisible(true);
+            
+        }
+    }//GEN-LAST:event_cbxUbicacionItemStateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        cbxColor.setSelectedItem("No aplica");
+        cbxCuentaContable.setSelectedItem("No aplica");
+        cbxEstado.setSelectedItem("No aplica");
+        cbxMarca.setSelectedItem("No aplica");
+        cbxTipoMueble.setSelectedItem("No aplica");
+        Date fecha = new Date();
+        txtFechaCompra.setDate(fecha);
+        txtFechaExpiracion.setDate(fecha);
+        txtFechaFabricacion.setDate(fecha);
+        
+        txtCodigoEtiqueta.setText("No aplica");
+        txtDescripcion.setText("No aplica");
+        txtSerie.setText("No aplica");
+        txtFD.setText("No aplica");
+        txtFO.setText("No aplica");
+        txtValorComercial.setText("0.00");
+        txtValorNuevo.setText("0.00");
+        txtValorRemanente.setText("0.00");
+        txtValorTotal.setText("0.00");
+        txtValorUnitario.setText("0.00");
+        txtCantidad.setText("0");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnCancelar;
     public javax.swing.JButton btnGuardar;
+    public javax.swing.JComboBox<String> cbxAreaDependencia;
+    public javax.swing.JComboBox<String> cbxAreaDependenciaID;
     public javax.swing.JComboBox cbxColor;
     public javax.swing.JComboBox<String> cbxColorID;
     public javax.swing.JComboBox cbxCuentaContable;
@@ -660,12 +832,12 @@ public class MueblesNuevoView extends javax.swing.JPanel {
     public javax.swing.JComboBox cbxTipoMueble;
     public javax.swing.JComboBox<String> cbxTipoMuebleID;
     public javax.swing.JComboBox cbxUbicacion;
-    public javax.swing.JComboBox<String> cbxUbicacionID;
+    public javax.swing.JComboBox<String> cbxUsuario;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -680,6 +852,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -693,7 +866,6 @@ public class MueblesNuevoView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
@@ -703,6 +875,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
+    private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -712,7 +885,11 @@ public class MueblesNuevoView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblCustodio;
     public javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblUbicacion;
+    private javax.swing.JPanel pnlCustodio;
+    private javax.swing.JPanel pnlUbicacion;
     public javax.swing.JFormattedTextField txtCantidad;
     public javax.swing.JTextField txtCodigoEtiqueta;
     public javax.swing.JTextArea txtDescripcion;

@@ -8,7 +8,7 @@ public class MueblesNuevoModel {
     private int CCID;
     private int TMID;
     private int ESTID;
-    private int UBIID;
+    private int USUXUBIID;
     private int MARID;
     private int COLID;
     private String MUECODIGOETIQUETA;
@@ -26,6 +26,28 @@ public class MueblesNuevoModel {
     private Double MUEVALORUNITARIO;
     private Double MUEVALORTOTAL;
     private boolean MUEESTADO;
+    private int comboID;
+    private String comboTexto;
+
+    public int getComboID() {
+        return comboID;
+    }
+
+    public void setComboID(int comboID) {
+        this.comboID = comboID;
+    }
+
+    public String getComboTexto() {
+        return comboTexto;
+    }
+
+    public void setComboTexto(String comboTexto) {
+        this.comboTexto = comboTexto;
+    }
+
+    public String toString() {
+        return this.comboTexto;
+    }
 
     public int getMUEID() {
         return MUEID;
@@ -59,12 +81,12 @@ public class MueblesNuevoModel {
         this.ESTID = ESTID;
     }
 
-    public int getUBIID() {
-        return UBIID;
+    public int getUSUXUBIID() {
+        return USUXUBIID;
     }
 
-    public void setUBIID(int UBIID) {
-        this.UBIID = UBIID;
+    public void setUSUXUBIID(int USUXUBIID) {
+        this.USUXUBIID = USUXUBIID;
     }
 
     public int getMARID() {
@@ -202,7 +224,5 @@ public class MueblesNuevoModel {
     public void setMUEESTADO(boolean MUEESTADO) {
         this.MUEESTADO = MUEESTADO;
     }
-    
-    
 
 }

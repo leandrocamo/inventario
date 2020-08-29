@@ -1,6 +1,6 @@
 package A_Modelo;
 
-import Zmodelo.Conexion;
+import A_ClasesUtilizadas.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,12 +20,12 @@ public class MueblesPrincipalQuery extends Conexion {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
-        String sql = "SELECT * FROM usuario WHERE USUESTADO = 1 ORDER BY USUAPELLIDO ASC";
+        String sql = "SELECT * FROM usuario WHERE USUESTADO = 1 ORDER BY USUAPELLIDOS ASC";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                lista.add(rs.getString("USUAPELLIDO") + " " + rs.getString("USUNOMBRE"));
+                lista.add(rs.getString("USUAPELLIDOS") + " " + rs.getString("USUNOMBRES"));
                 listaID.add(rs.getString("USUID"));
             }
             return lista;
@@ -86,16 +86,17 @@ public class MueblesPrincipalQuery extends Conexion {
         Connection con = getConexion();
         String opcion = "Todo";
 
-        String sql = "SELECT * FROM mueble MUE \n"
-                + "INNER JOIN ubicacion UBI ON UBI.UBIID=MUE.UBIID \n"
+        String sql = "SELECT * FROM mueble MUE "
+                + "INNER JOIN usuxubi UXU ON UXU.USUXUBIID=MUE.USUXUBIID \n"
+                + "INNER JOIN usuario USU ON UXU.USUID=USU.USUID \n"
+                + "INNER JOIN ubicacion UBI ON UXU.UBIID=UBI.UBIID \n"
                 + "INNER JOIN areadependencia AXD ON AXD.ADID=UBI.ADID \n"
-                + "INNER JOIN usuario USU ON USU.ADID=AXD.ADID\n"
                 + "INNER JOIN color as COL ON COL.COLID = MUE.COLID \n"
                 + "INNER JOIN cuentacontable as CC ON CC.CCID = MUE.CCID \n"
                 + "INNER JOIN tipomueble as TM ON TM.TMID = MUE.TMID \n"
                 + "INNER JOIN estado as EST ON EST.ESTID = MUE.ESTID \n"
                 + "INNER JOIN marca as MAR ON MAR.MARID = MUE.MARID \n"
-                + "WHERE MUE.MUEESTADO = 1 \n";
+                + "WHERE MUE.MUEESTADO = 1 ";
 //        JOptionPane.showMessageDialog(null, "Arreglar la consulta ya que vota el registro 28"
 //                + "\ncomo estado 0 siendo lo correcto que mando todos los estados con 1. ", "Información", JOptionPane.INFORMATION_MESSAGE);
 
@@ -136,8 +137,8 @@ public class MueblesPrincipalQuery extends Conexion {
                 MueblesPrincipalModel model = new MueblesPrincipalModel();
                 model.setNro(index++);
                 model.setUsuId(Integer.parseInt(rs.getString("USU.USUID")));
-                model.setUsuNombre(rs.getString("USU.USUNOMBRE"));
-                model.setUsuApellido(rs.getString("USU.USUAPELLIDO"));
+                model.setUsuNombre(rs.getString("USU.USUNOMBRES"));
+                model.setUsuApellido(rs.getString("USU.USUAPELLIDOS"));
                 model.setCcNombre(rs.getString("CC.CCNOMBRE"));
                 model.setMueCodigoEtiqueta(rs.getString("MUE.MUECODIGOETIQUETA"));
                 model.setMueDescripcion(rs.getString("MUE.MUEDESCRIPCION"));

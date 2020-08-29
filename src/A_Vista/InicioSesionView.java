@@ -5,6 +5,8 @@
  */
 package A_Vista;
 
+import java.awt.event.KeyEvent;
+
 /**
  *
  * @author camo
@@ -55,7 +57,17 @@ public class InicioSesionView extends javax.swing.JFrame {
         jLabel2.setText("Usuario:");
         jPanel2.add(jLabel2);
 
-        txtUsuario.setText("lc.snap10@gmail.com");
+        txtUsuario.setText("jm@gmail.com");
+        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsuarioActionPerformed(evt);
+            }
+        });
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyPressed(evt);
+            }
+        });
         jPanel2.add(txtUsuario);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -75,7 +87,12 @@ public class InicioSesionView extends javax.swing.JFrame {
         jLabel3.setText("Contraseña:");
         jPanel2.add(jLabel3);
 
-        txtContrasenia.setText("lc.snap");
+        txtContrasenia.setText("jm@gmail.com");
+        txtContrasenia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtContraseniaKeyPressed(evt);
+            }
+        });
         jPanel2.add(txtContrasenia);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -104,6 +121,22 @@ public class InicioSesionView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsuarioActionPerformed
+
+    private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtContrasenia.requestFocus();
+        }
+    }//GEN-LAST:event_txtUsuarioKeyPressed
+
+    private void txtContraseniaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraseniaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnIngresar.doClick();
+        }
+    }//GEN-LAST:event_txtContraseniaKeyPressed
 
     /**
      * @param args the command line arguments

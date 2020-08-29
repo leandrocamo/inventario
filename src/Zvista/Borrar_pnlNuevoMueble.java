@@ -7,9 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import javax.swing.JOptionPane;
 import Zmodelo.Conexion;
+import java.util.Date;
 
 public class Borrar_pnlNuevoMueble extends javax.swing.JPanel {
 

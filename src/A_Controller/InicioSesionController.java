@@ -37,8 +37,8 @@ public class InicioSesionController implements ActionListener {
         //BOTON INGRESAR
         if (e.getSource() == view.btnIngresar) {
 
-            if (claseAux.validarCampoVacio(view.txtUsuario.getText())
-                    && claseAux.validarCampoVacio(view.txtContrasenia.getText())) {
+            if (claseAux.validarCampoVacio(view.txtUsuario.getText(),"Usuario")
+                    && claseAux.validarCampoVacio(view.txtContrasenia.getText(),"Contraseña")) {
                 model.setUsuEmail(view.txtUsuario.getText());
                 model.setUsuContrsasenia(view.txtContrasenia.getText());
                 if (query.validasUsuario(model)) {
