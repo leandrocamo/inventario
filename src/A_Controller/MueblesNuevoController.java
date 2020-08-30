@@ -39,7 +39,7 @@ public class MueblesNuevoController implements ActionListener {
         this.view.cbxUbicacion.addActionListener(this);
         this.view.cbxUsuario.addActionListener(this);
         this.view.btnGuardar.addActionListener(this);
-
+        limpiarPantallaMueble();
     }
 
     public void cargarCombos() {
@@ -196,7 +196,7 @@ public class MueblesNuevoController implements ActionListener {
         boolean valorunitario = false;
         boolean valortotal = false;
         boolean cantidad = false;
-        
+
         //SE VALIDA SI LOS CAMPOS SI ESTAN VACIOS
         if (clases.validarCombo(view.cbxColor.getSelectedIndex(), "Cuenta Contable")) {
             model.setCCID(Integer.parseInt("" + view.cbxColorID.getSelectedItem()));
@@ -288,7 +288,7 @@ public class MueblesNuevoController implements ActionListener {
             model.setMUECODIGOETIQUETA(view.txtCodigoEtiqueta.getText());
             codigoEtiqueta = true;
         }
-        
+
         if (codigoEtiqueta
                 && descripcion
                 && serie
@@ -342,7 +342,7 @@ public class MueblesNuevoController implements ActionListener {
                     + "\nvalorunitario " + valorunitario
                     + "\nvalortotal " + valortotal
                     + "\n cantidad" + cantidad,
-                     "Error", JOptionPane.ERROR_MESSAGE);
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
         return marcaGlobal;
     }
