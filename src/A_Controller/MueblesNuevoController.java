@@ -309,7 +309,6 @@ public class MueblesNuevoController implements ActionListener {
                 && valorunitario
                 && valortotal
                 && cantidad) {
-            JOptionPane.showMessageDialog(null, "ENTRO.", "Error", JOptionPane.ERROR_MESSAGE);
             if (query.guardarMueble(model)) {
                 if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(null, "Registro guardado. Desea guardar otro registro?", "Confirmación", JOptionPane.YES_NO_OPTION)) {
                     limpiarPantallaMueble();
@@ -320,29 +319,6 @@ public class MueblesNuevoController implements ActionListener {
             } else {
                 JOptionPane.showMessageDialog(null, "Hubo un problema al guardar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Noooooo."
-                    + "\n codigoEtiqueta " + codigoEtiqueta
-                    + "\n descripcion " + descripcion
-                    + "\n serie  " + serie
-                    + "\n color " + color
-                    + "\n marca" + marca
-                    + "\n tipo mueble" + tipomueble
-                    + "\n fecha compra" + fechacompra
-                    + "\nfechafabricacion " + fechafabricacion
-                    + "\nfechaexpiracion " + fechaexpiracion
-                    + "\nestado " + estado
-                    + "\ncuentacontable " + cuentacontable
-                    + "\nareadependencia " + areadependencia
-                    + "\nfd " + fd
-                    + "\nfo " + fo
-                    + "\nvalornuevo " + valornuevo
-                    + "\nvalorcomercial " + valorcomercial
-                    + "\nvalorremanente " + valorremanente
-                    + "\nvalorunitario " + valorunitario
-                    + "\nvalortotal " + valortotal
-                    + "\n cantidad" + cantidad,
-                    "Error", JOptionPane.ERROR_MESSAGE);
         }
         return marcaGlobal;
     }
