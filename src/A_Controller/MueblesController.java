@@ -36,7 +36,7 @@ public class MueblesController implements ActionListener {
     private MueblesNuevoModel modelMueblesNuevo = new MueblesNuevoModel();
     private MueblesNuevoQuery queryMueblesNuevo = new MueblesNuevoQuery();
     private MueblesNuevoController controllerMueblesNuevo = new MueblesNuevoController(viewMueblesNuevo, modelMueblesNuevo, queryMueblesNuevo);
-
+    
     private int clic_tabla = 0;
 
 //    

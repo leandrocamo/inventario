@@ -28,6 +28,7 @@ public class PrincipalController implements ActionListener {
         this.viewMenu.btnBienes.addActionListener(this);
         this.viewMueble.btnRegresar.addActionListener(this);
         this.viewMenu.btnInventario.addActionListener(this);
+        this.viewInventario.btnRegresarInventario.addActionListener(this);
     }
 
     public void iniciarVista() {
@@ -71,7 +72,7 @@ public class PrincipalController implements ActionListener {
             view.PnlContenedor.validate();
 
         }
-        if (e.getSource() == viewMueble.btnRegresar) {
+        if (e.getSource() == viewMueble.btnRegresar || e.getSource() == viewInventario.btnRegresarInventario) {
             //Botón regresar a Inicio de la Vista Muebles
             panelInicio();
         }
