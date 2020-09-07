@@ -6,7 +6,11 @@ import A_Vista.MueblesPrincipalView;
 import A_Tabla.TablaMuebles;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 public class MueblesPrincipalController implements ActionListener {
 
@@ -17,6 +21,7 @@ public class MueblesPrincipalController implements ActionListener {
     private TablaMuebles tabla = new TablaMuebles();
     private String usuID = "Todos";
     private String ccID = "Todos";
+//    private int clic_tabla = 0;
 
     public MueblesPrincipalController(MueblesPrincipalView view, MueblesPrincipalModel model, MueblesPrincipalQuery query) {
         this.view = view;
@@ -33,6 +38,8 @@ public class MueblesPrincipalController implements ActionListener {
         this.view.cbxCustodio.addActionListener(this);
         this.view.btnBuscarPorTexto.addActionListener(this);
         this.view.btnBuscarPorParametro.addActionListener(this);
+        this.view.txtTotalRegistros.setText("Se encontraron " + query.totalRegistros() + " de " + query.totalRegistros() + " registros.");
+//        clicJTableMuebles();
     }
 
     public void iniciarVista() {
@@ -72,6 +79,8 @@ public class MueblesPrincipalController implements ActionListener {
 
     }
 
+    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == view.cbxCuentaContable) {
@@ -83,14 +92,14 @@ public class MueblesPrincipalController implements ActionListener {
         if (e.getSource() == view.btnBuscarPorTexto) {
             String textoBuscar = view.txtBuscar.getText();
             tabla.cargandoRegistrosMuebles(this.view.jTableMuebles, textoBuscar, "NoAplica", "NoAplica");
+            this.view.txtTotalRegistros.setText("Se encontraron " + tabla.getTotalRegistros() + " de " + query.totalRegistros() + " registros.");
         }
         if (e.getSource() == view.btnBuscarPorParametro) {
             usuID = "" + view.cbxCustodioID.getSelectedItem();
             ccID = "" + view.cbxCuentaContableID.getSelectedItem();
             tabla.cargandoRegistrosMuebles(this.view.jTableMuebles, null, ccID, usuID);
+            this.view.txtTotalRegistros.setText("Se encontraron " + tabla.getTotalRegistros() + " de " + query.totalRegistros() + " registros.");
         }
-        
-        
-        
+
     }
 }

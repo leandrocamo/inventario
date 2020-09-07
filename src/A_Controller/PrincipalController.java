@@ -2,6 +2,7 @@ package A_Controller;
 
 import A_Modelo.MueblesModel;
 import A_Modelo.MueblesQuery;
+import A_Vista.InventarioView;
 import A_Vista.MenuView;
 import A_Vista.MueblesView;
 import A_Vista.PrincipalView;
@@ -13,6 +14,7 @@ public class PrincipalController implements ActionListener {
 
     private PrincipalView view;
     private MenuView viewMenu = new MenuView();
+    private InventarioView viewInventario = new InventarioView();
     //Mueble
     private MueblesView viewMueble = new MueblesView();
     private MueblesQuery queryMueble = new MueblesQuery();
@@ -25,6 +27,7 @@ public class PrincipalController implements ActionListener {
         this.viewMenu.btnUsuario.addActionListener(this);
         this.viewMenu.btnBienes.addActionListener(this);
         this.viewMueble.btnRegresar.addActionListener(this);
+        this.viewMenu.btnInventario.addActionListener(this);
     }
 
     public void iniciarVista() {
@@ -37,6 +40,7 @@ public class PrincipalController implements ActionListener {
     public void panelInicio() {
         viewMenu.setVisible(true);
         viewMueble.setVisible(false);
+        viewInventario.setVisible(false);
 //        p2.setVisible(false);
         view.PnlContenedor.add(viewMenu);
         view.PnlContenedor.validate();
@@ -52,10 +56,20 @@ public class PrincipalController implements ActionListener {
         if (e.getSource() == viewMenu.btnBienes) {
             viewMenu.setVisible(false);
             viewMueble.setVisible(true);
+            viewInventario.setVisible(false);
 //            controllerMueble.iniciarVista();
             view.PnlContenedor.add(viewMueble);
             view.PnlContenedor.validate();
-            
+
+        }
+        if (e.getSource() == viewMenu.btnInventario) {
+            viewMenu.setVisible(false);
+            viewMueble.setVisible(false);
+            viewInventario.setVisible(true);
+//            controllerMueble.iniciarVista();
+            view.PnlContenedor.add(viewInventario);
+            view.PnlContenedor.validate();
+
         }
         if (e.getSource() == viewMueble.btnRegresar) {
             //Botón regresar a Inicio de la Vista Muebles

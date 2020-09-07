@@ -8,6 +8,8 @@ public class MueblesNuevoModel {
     private int CCID;
     private int TMID;
     private int ESTID;
+    private int ADID;
+    private int UBIID;
     private int USUXUBIID;
     private int MARID;
     private int COLID;
@@ -28,6 +30,24 @@ public class MueblesNuevoModel {
     private boolean MUEESTADO;
     private int comboID;
     private String comboTexto;
+
+    public int getADID() {
+        return ADID;
+    }
+
+    public void setADID(int ADID) {
+        this.ADID = ADID;
+    }
+
+    public int getUBIID() {
+        return UBIID;
+    }
+
+    public void setUBIID(int UBIID) {
+        this.UBIID = UBIID;
+    }
+    
+    
 
     public int getComboID() {
         return comboID;

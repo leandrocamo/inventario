@@ -29,7 +29,7 @@ public class MenuView extends javax.swing.JPanel {
         btnBienes = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jButton10 = new javax.swing.JButton();
+        btnInventario = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -88,10 +88,10 @@ public class MenuView extends javax.swing.JPanel {
 
         jPanel3.add(jPanel7);
 
-        jButton10.setText("Color");
-        jPanel3.add(jButton10);
+        btnInventario.setText("Inventario");
+        jPanel3.add(btnInventario);
 
-        jLabel4.setText("jLabel4");
+        jLabel4.setText("Administración Inventario");
         jPanel3.add(jLabel4);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -138,9 +138,9 @@ public class MenuView extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnBienes;
+    public javax.swing.JButton btnInventario;
     public javax.swing.JButton btnUsuario;
     public javax.swing.JButton jButton1;
-    public javax.swing.JButton jButton10;
     public javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

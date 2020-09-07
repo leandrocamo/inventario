@@ -1,6 +1,12 @@
 package A_Vista;
 
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
 
 public class MueblesPrincipalView extends javax.swing.JPanel {
 
@@ -29,6 +35,8 @@ public class MueblesPrincipalView extends javax.swing.JPanel {
         cbxCuentaContableID = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         cbxCustodioID = new javax.swing.JComboBox<>();
+        txtTotalRegistros = new javax.swing.JLabel();
+        btnExportarCSV = new javax.swing.JButton();
 
         jLabel1.setText("Buscar:");
 
@@ -128,6 +136,16 @@ public class MueblesPrincipalView extends javax.swing.JPanel {
 
         pnlCodigos.add(cbxCustodioID);
 
+        txtTotalRegistros.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        txtTotalRegistros.setText("jLabel6");
+
+        btnExportarCSV.setText("Exportar CSV");
+        btnExportarCSV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarCSVActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,7 +156,11 @@ public class MueblesPrincipalView extends javax.swing.JPanel {
                     .addComponent(pnlBuscarTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlBuscarCombo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
-                    .addComponent(pnlCodigos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlCodigos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtTotalRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnExportarCSV)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -148,7 +170,11 @@ public class MueblesPrincipalView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlBuscarCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTotalRegistros)
+                    .addComponent(btnExportarCSV))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlCodigos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -165,10 +191,46 @@ public class MueblesPrincipalView extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtBuscarKeyPressed
 
+    private void btnExportarCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarCSVActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        int resultado = fileChooser.showSaveDialog(this);
+        if (resultado == JFileChooser.CANCEL_OPTION) {
+            return;
+        }
+        File archivoCSV = fileChooser.getSelectedFile();
+        try {
+            //File archivo = new File("datos.xls");
+            TableModel modelo = jTableMuebles.getModel();
+            FileWriter excel = new FileWriter(archivoCSV + ".xls");
+            for (int i = 0; i < modelo.getColumnCount()-2; i++) {
+                excel.write(modelo.getColumnName(i) + ";");
+            }
+            excel.write("\n");
+            for (int i = 0; i < modelo.getRowCount(); i++) {
+                for (int j = 0; j < modelo.getColumnCount()-2; j++) {
+                    String data = "" + modelo.getValueAt(i, j);
+                    if (data == "null") {
+                        data = "";
+                    }
+                    excel.write(data + ";");
+                }
+                excel.write("\n");
+            }
+
+            excel.close();
+            JOptionPane.showMessageDialog(null, "Archivo Creado");
+
+        } catch (IOException ex) {
+            System.err.println(ex);
+        }
+    }//GEN-LAST:event_btnExportarCSVActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnBuscarPorParametro;
     public javax.swing.JButton btnBuscarPorTexto;
+    private javax.swing.JButton btnExportarCSV;
     public javax.swing.JComboBox<String> cbxCuentaContable;
     public javax.swing.JComboBox<String> cbxCuentaContableID;
     public javax.swing.JComboBox<String> cbxCustodio;
@@ -184,5 +246,6 @@ public class MueblesPrincipalView extends javax.swing.JPanel {
     public javax.swing.JPanel pnlBuscarTexto;
     public javax.swing.JPanel pnlCodigos;
     public javax.swing.JTextField txtBuscar;
+    public javax.swing.JLabel txtTotalRegistros;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,24 +1,21 @@
 package A_Controller;
 
 import A_ClasesUtilizadas.ClasesUtilizadas;
-import A_Modelo.AreaDependenciaModel;
+
 import A_Modelo.MueblesNuevoModel;
 import A_Modelo.MueblesNuevoQuery;
-import A_Modelo.UbicacionModel;
-import A_Modelo.UsuarioModel;
 import A_Vista.MueblesNuevoView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
-public class MueblesNuevoController implements ActionListener {
+public class MueblesNuevoController implements ActionListener {//], ItemListener {
 
     private MueblesNuevoView view;
     private MueblesNuevoModel model;
     private MueblesNuevoQuery query;
-    private UsuarioModel modelUsuario = new UsuarioModel();
+//    private UsuarioModel modelUsuario = new UsuarioModel();
     private ClasesUtilizadas clases = new ClasesUtilizadas();
 
     private ArrayList<String> lista = new ArrayList<>();
@@ -31,24 +28,66 @@ public class MueblesNuevoController implements ActionListener {
 
         cargarCombos();
         this.view.cbxColor.addActionListener(this);
+        this.view.cbxColorID.addActionListener(this);
         this.view.cbxCuentaContable.addActionListener(this);
+        this.view.cbxCuentaContableID.addActionListener(this);
         this.view.cbxEstado.addActionListener(this);
+        this.view.cbxEstadoID.addActionListener(this);
         this.view.cbxMarca.addActionListener(this);
+        this.view.cbxMarcaID.addActionListener(this);
         this.view.cbxTipoMueble.addActionListener(this);
-        this.view.cbxAreaDependencia.addActionListener(this);
-        this.view.cbxUbicacion.addActionListener(this);
-        this.view.cbxUsuario.addActionListener(this);
+        this.view.cbxTipoMuebleID.addActionListener(this);
+
+//        this.view.cbxAreaDependencia.addActionListener(this);
+//        this.view.cbxAreaDependenciaID.addActionListener(this);
+//        this.view.cbxUbicacion.addActionListener(this);
+//        this.view.cbxUsuario.addActionListener(this);
+//        this.view.cbxAreaDependencia.addItemListener(this);
+//        this.view.cbxUbicacion.addItemListener(this);
+//        this.view.cbxUsuario.addItemListener(this);
         this.view.btnGuardar.addActionListener(this);
-        limpiarPantallaMueble();
+    }
+
+    public void cargarDatosMueble() {
+        view.txtMueID.setText("" + model.getMUEID());
+        view.txtCantidad.setText("" + model.getMUECANTIDAD());
+        view.txtCodigoEtiqueta.setText("" + model.getMUECODIGOETIQUETA());
+        view.txtDescripcion.setText("" + model.getMUEDESCRIPCION());
+        view.txtFD.setText("" + model.getMUEFD());
+        view.txtFO.setText("" + model.getMUEFO());
+        view.txtSerie.setText("" + model.getMUESERIE());
+        view.txtValorComercial.setText("" + model.getMUEVALORCOMERCIAL());
+        view.txtValorNuevo.setText("" + model.getMUEVALORNUEVO());
+        view.txtValorRemanente.setText("" + model.getMUEVALORREMANENTE());
+        view.txtValorTotal.setText("" + model.getMUEVALORTOTAL());
+        view.txtValorUnitario.setText("" + model.getMUEVALORUNITARIO());
+
+        view.txtFechaCompra.setDate(model.getMUEFECHACOMPRA());
+        view.txtFechaExpiracion.setDate(model.getMUEFECHAEXPIRACION());
+        view.txtFechaFabricacion.setDate(model.getMUEFECHAFABRICACION());
+
+        view.cbxColorID.setSelectedItem("" + model.getCOLID());
+        view.cbxCuentaContableID.setSelectedItem("" + model.getCCID());
+        view.cbxEstadoID.setSelectedItem("" + model.getESTID());
+        view.cbxMarcaID.setSelectedItem("" + model.getMARID());
+        view.cbxTipoMuebleID.setSelectedItem("" + model.getTMID());
+
+        view.cargarComboAreadependenciaUbicacionCustodio("" + model.getUSUXUBIID(), "" + model.getUBIID(), "" + model.getADID());
+        view.cbxAreaDependenciaID.setSelectedItem("" + model.getADID());
+        view.cbxUbicacionID.setSelectedItem("" + model.getUBIID());
+        view.cbxUsuarioID.setSelectedItem("" + model.getUSUXUBIID());
+
     }
 
     public void cargarCombos() {
+
         cargarComboColor();
         cargarComboCuentaContable();
         cargarComboEstado();
         cargarComboMarca();
         cargarComboTipoMueble();
-        cargarComboAreaDependencia();
+//        cargarComboAreaDependenciaConModel();
+//        cargarComboAreaDependencia();
     }
 
     public void cargarComboColor() {
@@ -143,20 +182,82 @@ public class MueblesNuevoController implements ActionListener {
         }
     }
 
-    public void cargarComboAreaDependencia() {
-        AreaDependenciaModel modelArea = new AreaDependenciaModel();
-        DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel(modelArea.cargarAreaDependencia());
-        view.cbxAreaDependencia.setModel(modeloCombo);
+//    public void cargarComboAreaDependencia() {
+//        String sql = "SELECT * FROM areadependencia WHERE ADESTADO = 1 ORDER BY ADNOMBRE ASC";
+//        String columna1 = "ADNOMBRE";
+//        String columna2 = "ADID";
+//        String combo = "cbxAreaDependencia";
+//        lista = query.buscarRegistrosCombos(sql, columna1, columna2, combo);
+//
+//        for (int i = 0; i < lista.size(); i++) {
+//            view.cbxAreaDependencia.addItem(lista.get(i));
+//        }
+//
+//        lista = query.buscarRegistrosCombosID();
+//
+//        for (int i = 0; i < lista.size(); i++) {
+//            view.cbxAreaDependenciaID.addItem(lista.get(i));
+//        }
+//    }
+    public void cargarComboUbicacion(String ADID) {
+        String sql = "SELECT * FROM ubicacion WHERE UBIESTADO = 1 AND ADID = " + ADID + " ORDER BY UBINOMBRE ASC";
+        String columna1 = "UBINOMBRE";
+        String columna2 = "UBIID";
+        String combo = "cbxUbicacion";
+        lista = query.buscarRegistrosCombos(sql, columna1, columna2, combo);
+
+        view.cbxUbicacion.removeAllItems();
+        view.cbxUbicacionID.removeAllItems();
+
+        for (int i = 0; i < lista.size(); i++) {
+            view.cbxUbicacion.addItem(lista.get(i));
+        }
+
+        lista = query.buscarRegistrosCombosID();
+
+        for (int i = 0; i < lista.size(); i++) {
+            view.cbxUbicacionID.addItem(lista.get(i));
+        }
     }
 
+    public void cargarComboUsuario(String UBIID) {
+        String sql = "SELECT * FROM usuxubi UXU \n"
+                + "INNER JOIN usuario USU ON USU.USUID=UXU.USUID \n"
+                + "WHERE UXU.UBIID = " + UBIID + " AND UXU.USUXUBIESTADO=1 \n"
+                + "ORDER BY USU.USUAPELLIDOS ASC";
+        String columna1 = "USU.USUAPELLIDOS";
+        String columna2 = "UXU.USUXUBIID";
+        String combo = "cbxUbicacion";
+        lista = query.buscarRegistrosCombos(sql, columna1, columna2, combo);
+
+        view.cbxUbicacion.removeAllItems();
+        view.cbxUbicacionID.removeAllItems();
+
+        for (int i = 0; i < lista.size(); i++) {
+            view.cbxUbicacion.addItem(lista.get(i));
+        }
+
+        lista = query.buscarRegistrosCombosID();
+
+        for (int i = 0; i < lista.size(); i++) {
+            view.cbxUbicacionID.addItem(lista.get(i));
+        }
+    }
+
+//    public void cargarComboAreaDependenciaConModel() {
+//        AreaDependenciaModel modelArea = new AreaDependenciaModel();
+//        DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel(modelArea.cargarAreaDependencia());
+//        view.cbxAreaDependencia.setModel(modeloCombo);
+//    }
     public void limpiarPantallaMueble() {
-        view.cbxAreaDependencia.setSelectedIndex(0);
+//        view.cbxAreaDependencia.setSelectedIndex(0);
         view.cbxColor.setSelectedIndex(0);
         view.cbxCuentaContable.setSelectedIndex(0);
         view.cbxEstado.setSelectedIndex(0);
         view.cbxMarca.setSelectedIndex(0);
         view.cbxTipoMueble.setSelectedIndex(0);
 
+        view.txtMueID.setText("");
         view.txtDescripcion.setText("");
         view.txtSerie.setText("");
         view.txtFD.setText("");
@@ -198,8 +299,8 @@ public class MueblesNuevoController implements ActionListener {
         boolean cantidad = false;
 
         //SE VALIDA SI LOS CAMPOS SI ESTAN VACIOS
-        if (clases.validarCombo(view.cbxColor.getSelectedIndex(), "Cuenta Contable")) {
-            model.setCCID(Integer.parseInt("" + view.cbxColorID.getSelectedItem()));
+        if (clases.validarCombo(view.cbxCuentaContable.getSelectedIndex(), "Cuenta Contable")) {
+            model.setCCID(Integer.parseInt("" + view.cbxCuentaContableID.getSelectedItem()));
             cuentacontable = true;
         }
 
@@ -215,14 +316,12 @@ public class MueblesNuevoController implements ActionListener {
         if (clases.validarCombo(view.cbxAreaDependencia.getSelectedIndex(), "Área Dependencia")
                 && clases.validarCombo(view.cbxUbicacion.getSelectedIndex(), "Ubicación")
                 && clases.validarCombo(view.cbxUsuario.getSelectedIndex(), "Custodio")) {
-            AreaDependenciaModel modelAreaDependencia = (AreaDependenciaModel) view.cbxAreaDependencia.getSelectedItem();
-            UbicacionModel modelUbicacion = (UbicacionModel) view.cbxUbicacion.getSelectedItem();
-            UsuarioModel modelUsuario = (UsuarioModel) view.cbxUsuario.getSelectedItem();
-            model.setUSUXUBIID(modelUsuario.getUSUID());
+//            AreaDependenciaModel modelAreaDependencia = (AreaDependenciaModel) view.cbxAreaDependencia.getSelectedItem();
+//            UbicacionModel modelUbicacion = (UbicacionModel) view.cbxUbicacion.getSelectedItem();
+//            UsuarioModel modelUsuario = (UsuarioModel) view.cbxUsuario.getSelectedItem();
+//            model.setUSUXUBIID(modelUsuario.getUSUID());
+            model.setUSUXUBIID(Integer.parseInt("" + view.cbxUsuarioID.getSelectedItem()));
             areadependencia = true;
-//            JOptionPane.showMessageDialog(null, "> " + clases.validarCombo(view.cbxAreaDependencia.getSelectedIndex(), "Área Dependencia")
-//                    + " - " + clases.validarCombo(view.cbxUbicacion.getSelectedIndex(), "Ubicación")
-//                    + " - " + clases.validarCombo(view.cbxUsuario.getSelectedIndex(), "Custodio"));
         }
         if (clases.validarCombo(view.cbxMarca.getSelectedIndex(), "Marca")) {
             model.setMARID(Integer.parseInt("" + view.cbxMarcaID.getSelectedItem()));
@@ -309,15 +408,26 @@ public class MueblesNuevoController implements ActionListener {
                 && valorunitario
                 && valortotal
                 && cantidad) {
-            if (query.guardarMueble(model)) {
-                if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(null, "Registro guardado. Desea guardar otro registro?", "Confirmación", JOptionPane.YES_NO_OPTION)) {
-                    limpiarPantallaMueble();
-                    marcaGlobal = false;
+            if (model.getMUEID() == 0) {
+                if (query.guardarMueble(model)) {
+                    if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(null, "Registro guardado. Desea guardar otro registro?", "Confirmación", JOptionPane.YES_NO_OPTION)) {
+                        limpiarPantallaMueble();
+                        marcaGlobal = false;
+                    } else {
+                        marcaGlobal = true;
+                    }
                 } else {
-                    marcaGlobal = true;
+                    JOptionPane.showMessageDialog(null, "Hubo un problema al guardar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Hubo un problema al guardar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
+                //ACTUALIZAR
+                if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(null, "Está seguro que desea modificar el registro?", "Confirmación", JOptionPane.YES_NO_OPTION)) {
+                    if (query.actualizarMueble(model)) {
+                        marcaGlobal = true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Hubo un problema al actualizar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }
         }
         return marcaGlobal;
@@ -328,17 +438,32 @@ public class MueblesNuevoController implements ActionListener {
         if (e.getSource() == view.cbxColor) {
             view.cbxColorID.setSelectedIndex(view.cbxColor.getSelectedIndex());
         }
+        if (e.getSource() == view.cbxColorID) {
+            view.cbxColor.setSelectedIndex(view.cbxColorID.getSelectedIndex());
+        }
         if (e.getSource() == view.cbxCuentaContable) {
             view.cbxCuentaContableID.setSelectedIndex(view.cbxCuentaContable.getSelectedIndex());
+        }
+        if (e.getSource() == view.cbxCuentaContableID) {
+            view.cbxCuentaContable.setSelectedIndex(view.cbxCuentaContableID.getSelectedIndex());
         }
         if (e.getSource() == view.cbxEstado) {
             view.cbxEstadoID.setSelectedIndex(view.cbxEstado.getSelectedIndex());
         }
+        if (e.getSource() == view.cbxEstadoID) {
+            view.cbxEstado.setSelectedIndex(view.cbxEstadoID.getSelectedIndex());
+        }
         if (e.getSource() == view.cbxMarca) {
             view.cbxMarcaID.setSelectedIndex(view.cbxMarca.getSelectedIndex());
         }
+        if (e.getSource() == view.cbxMarcaID) {
+            view.cbxMarca.setSelectedIndex(view.cbxMarcaID.getSelectedIndex());
+        }
         if (e.getSource() == view.cbxTipoMueble) {
             view.cbxTipoMuebleID.setSelectedIndex(view.cbxTipoMueble.getSelectedIndex());
+        }
+        if (e.getSource() == view.cbxTipoMuebleID) {
+            view.cbxTipoMueble.setSelectedIndex(view.cbxTipoMuebleID.getSelectedIndex());
         }
         if (e.getSource() == view.btnGuardar) {
             if (guardarMueble()) {
@@ -347,4 +472,14 @@ public class MueblesNuevoController implements ActionListener {
 
         }
     }
+//
+//    @Override
+//    public void itemStateChanged(ItemEvent e) {
+//        if (e.getSource() == view.cbxCuentaContable) {
+//            view.cbxCuentaContableID.setSelectedIndex(view.cbxCuentaContable.getSelectedIndex());
+//        }
+//        if (e.getSource() == view.cbxCuentaContableID) {
+//            view.cbxCuentaContable.setSelectedIndex(view.cbxCuentaContableID.getSelectedIndex());
+//        }
+//    }
 }

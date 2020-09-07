@@ -159,4 +159,43 @@ public class MueblesPrincipalQuery extends Conexion {
         }
         return list;
     }
+
+    public int totalRegistros() {
+        int index = 1;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+        String sql = "SELECT * FROM mueble MUE "
+                + "INNER JOIN usuxubi UXU ON UXU.USUXUBIID=MUE.USUXUBIID \n"
+                + "INNER JOIN usuario USU ON UXU.USUID=USU.USUID \n"
+                + "INNER JOIN ubicacion UBI ON UXU.UBIID=UBI.UBIID \n"
+                + "INNER JOIN areadependencia AXD ON AXD.ADID=UBI.ADID \n"
+                + "INNER JOIN color as COL ON COL.COLID = MUE.COLID \n"
+                + "INNER JOIN cuentacontable as CC ON CC.CCID = MUE.CCID \n"
+                + "INNER JOIN tipomueble as TM ON TM.TMID = MUE.TMID \n"
+                + "INNER JOIN estado as EST ON EST.ESTID = MUE.ESTID \n"
+                + "INNER JOIN marca as MAR ON MAR.MARID = MUE.MARID \n"
+                + "WHERE MUE.MUEESTADO = 1 ";
+//        System.out.println(""+sql);
+
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                index++;
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e);
+
+        } finally {
+            try {
+                con.close();
+                System.out.println("Conexión cerrada - totalRegistros()" );
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+        return index;
+    }
 }
