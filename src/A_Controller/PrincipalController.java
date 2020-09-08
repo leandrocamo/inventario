@@ -23,8 +23,6 @@ public class PrincipalController implements ActionListener {
 
     public PrincipalController(PrincipalView view) {
         this.view = view;
-
-        this.viewMenu.btnUsuario.addActionListener(this);
         this.viewMenu.btnBienes.addActionListener(this);
         this.viewMueble.btnRegresar.addActionListener(this);
         this.viewMenu.btnInventario.addActionListener(this);
@@ -50,10 +48,10 @@ public class PrincipalController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         //OPCION USUARIOS
-        if (e.getSource() == viewMenu.btnUsuario) {
-            //viewMenu.setVisible(false);
-            JOptionPane.showMessageDialog(null, "Programar Pnl Usuario", "Información", JOptionPane.INFORMATION_MESSAGE);
-        }
+//        if (e.getSource() == viewMenu.btnUsuario) {
+//            //viewMenu.setVisible(false);
+//            JOptionPane.showMessageDialog(null, "Programar Pnl Usuario", "Información", JOptionPane.INFORMATION_MESSAGE);
+//        }
         if (e.getSource() == viewMenu.btnBienes) {
             viewMenu.setVisible(false);
             viewMueble.setVisible(true);

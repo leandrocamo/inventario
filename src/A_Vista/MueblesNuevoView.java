@@ -18,6 +18,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
     public MueblesNuevoView() {
         initComponents();
         cargarComboAreadependencia();
+        pnlCombosIDs.setVisible(false);
 //        AreaDependenciaModel modelArea = new AreaDependenciaModel();
 //        cbxUbicacion.setVisible(false);
 //        lblUbicacion.setVisible(false);

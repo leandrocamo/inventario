@@ -23,6 +23,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.ListModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -41,7 +42,10 @@ public class InventarioView extends javax.swing.JPanel {
         btnGuardarCSV.setVisible(true);
         cargarDocumentoInventariado();
         lstDocumentoInventarioID.setVisible(false);
+        cargarInventariado(null);
     }
+
+    
 
     public void cargarDocumentoInventariado() {
         PreparedStatement ps = null;
@@ -238,7 +242,6 @@ public class InventarioView extends javax.swing.JPanel {
 //        String nombreCSV = "" + cbxArchivo.getSelectedItem();
 
         DefaultTableModel m;
-        Conexion conexion = new Conexion();
         Connection con = conexion.getConexion();
 
         PreparedStatement ps = null;
@@ -294,23 +297,24 @@ public class InventarioView extends javax.swing.JPanel {
             System.err.println(e);
         }
         try {
-
-            sql = "SELECT * FROM mueble MUE "
-                    + "INNER JOIN usuxubi UXU ON UXU.USUXUBIID=MUE.USUXUBIID \n"
-                    + "INNER JOIN usuario USU ON UXU.USUID=USU.USUID \n"
-                    + "INNER JOIN ubicacion UBI ON UXU.UBIID=UBI.UBIID \n"
-                    + "INNER JOIN areadependencia AXD ON AXD.ADID=UBI.ADID \n"
-                    + "INNER JOIN color as COL ON COL.COLID = MUE.COLID \n"
-                    + "INNER JOIN cuentacontable as CC ON CC.CCID = MUE.CCID \n"
-                    + "INNER JOIN tipomueble as TM ON TM.TMID = MUE.TMID \n"
-                    + "INNER JOIN estado as EST ON EST.ESTID = MUE.ESTID \n"
-                    + "INNER JOIN marca as MAR ON MAR.MARID = MUE.MARID \n"
-                    + "WHERE MUE.MUEESTADO = 1 "
-                    + "AND MUE.MUECODIGOETIQUETA NOT IN (SELECT D.EIEVIDENTIFIER FROM documentoinventario as B "
-                    + "INNER JOIN equipoinventariado as D ON B.DIID=D.DIID "
-                    + "WHERE B.DIID = " + id + ") "
-                    + "ORDER BY MUE.MUEDESCRIPCION ASC";
-//            System.out.println(""+sql);
+            if (id != null) {
+                sql = "SELECT * FROM mueble MUE "
+                        + "INNER JOIN usuxubi UXU ON UXU.USUXUBIID=MUE.USUXUBIID \n"
+                        + "INNER JOIN usuario USU ON UXU.USUID=USU.USUID \n"
+                        + "INNER JOIN ubicacion UBI ON UXU.UBIID=UBI.UBIID \n"
+                        + "INNER JOIN areadependencia AXD ON AXD.ADID=UBI.ADID \n"
+                        + "INNER JOIN color as COL ON COL.COLID = MUE.COLID \n"
+                        + "INNER JOIN cuentacontable as CC ON CC.CCID = MUE.CCID \n"
+                        + "INNER JOIN tipomueble as TM ON TM.TMID = MUE.TMID \n"
+                        + "INNER JOIN estado as EST ON EST.ESTID = MUE.ESTID \n"
+                        + "INNER JOIN marca as MAR ON MAR.MARID = MUE.MARID \n"
+                        + "WHERE MUE.MUEESTADO = 1 "
+                        + "AND MUE.MUECODIGOETIQUETA NOT IN (SELECT D.EIEVIDENTIFIER FROM documentoinventario as B "
+                        + "INNER JOIN equipoinventariado as D ON B.DIID=D.DIID "
+                        + "WHERE B.DIID = " + id + ") "
+                        + "ORDER BY MUE.MUEDESCRIPCION ASC";
+            }
+//            System.out.println("" + sql);
 
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -363,9 +367,10 @@ public class InventarioView extends javax.swing.JPanel {
         lstDocumentoInventario = new javax.swing.JList<>();
         lstDocumentoInventarioID = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnEliminarCSVCargado = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         btnExportarCSV = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         btnRegresarInventario = new javax.swing.JButton();
 
         jTableCSV.setModel(new javax.swing.table.DefaultTableModel(
@@ -458,7 +463,12 @@ public class InventarioView extends javax.swing.JPanel {
 
         jLabel1.setText("Archivo CSV cargado:");
 
-        jButton1.setText("jButton1");
+        btnEliminarCSVCargado.setText("Eliminar");
+        btnEliminarCSVCargado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarCSVCargadoActionPerformed(evt);
+            }
+        });
 
         btnExportarCSV.setText("Exportar CSV");
         btnExportarCSV.addActionListener(new java.awt.event.ActionListener() {
@@ -467,6 +477,14 @@ public class InventarioView extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btnExportarCSV);
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1);
 
         javax.swing.GroupLayout pnlInventariarLayout = new javax.swing.GroupLayout(pnlInventariar);
         pnlInventariar.setLayout(pnlInventariarLayout);
@@ -479,11 +497,11 @@ public class InventarioView extends javax.swing.JPanel {
                     .addGroup(pnlInventariarLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
+                        .addComponent(btnEliminarCSVCargado))
                     .addComponent(lstDocumentoInventarioID, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlInventariarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -497,7 +515,7 @@ public class InventarioView extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlInventariarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jButton1))
+                            .addComponent(btnEliminarCSVCargado))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
                     .addGroup(pnlInventariarLayout.createSequentialGroup()
@@ -530,7 +548,7 @@ public class InventarioView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(btnRegresarInventario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -550,7 +568,7 @@ public class InventarioView extends javax.swing.JPanel {
     private void btnGuardarCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCSVActionPerformed
         if (jTableCSV.getRowCount() > 0) {
             guardarCVSaBDD();
-//            cargarDatosBatch();
+            cargarDocumentoInventariado();
         } else {
             JOptionPane.showMessageDialog(null, "Por favor cargue valores para guardar en la Base de datos.", "Error", JOptionPane.WARNING_MESSAGE);
         }
@@ -558,7 +576,12 @@ public class InventarioView extends javax.swing.JPanel {
 
     private void lstDocumentoInventarioValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstDocumentoInventarioValueChanged
         lstDocumentoInventarioID.setSelectedIndex(lstDocumentoInventario.getSelectedIndex());
-        cargarInventariado("" + lstDocumentoInventarioID.getSelectedItem());
+//        JOptionPane.showMessageDialog(null, lstDocumentoInventario.getSelectedIndex());
+        if (lstDocumentoInventario.getSelectedIndex() == -1) {
+            cargarInventariado(null);       
+        } else {
+            cargarInventariado("" + lstDocumentoInventarioID.getSelectedItem());
+        }
     }//GEN-LAST:event_lstDocumentoInventarioValueChanged
 
     private void btnExportarCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarCSVActionPerformed
@@ -597,8 +620,48 @@ public class InventarioView extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnExportarCSVActionPerformed
 
+    private void btnEliminarCSVCargadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCSVCargadoActionPerformed
+        /*if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(null, "Desea eliminar este registro", "Confirmar", JOptionPane.YES_NO_OPTION)) {
+                                modelMueblesNuevo.setMUEID(mueID);
+                                queryMueblesNuevo.eliminarMueble(modelMueblesNuevo);
+                                controllerMueblesPrincipal.renderizarTabla();
+                            }*/
+        if (lstDocumentoInventarioID.getSelectedIndex() > -1 && JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(null, "Desea eliminar este registro", "Confirmar", JOptionPane.YES_NO_OPTION)) {
+            PreparedStatement ps = null;
+            PreparedStatement ps2 = null;
+            Connection con = conexion.getConexion();
+            String sql = "DELETE FROM equipoinventariado WHERE DIID=" + lstDocumentoInventarioID.getSelectedItem();
+            String sql2 = "DELETE FROM documentoinventario WHERE DIID=" + lstDocumentoInventarioID.getSelectedItem();
+
+            try {
+                ps = con.prepareStatement(sql);
+                ps.execute();
+                ps2 = con.prepareStatement(sql2);
+                ps2.execute();
+                cargarInventariado(null);
+                cargarDocumentoInventariado();
+            } catch (SQLException e) {
+                System.err.println(e);
+            } finally {
+                try {
+                    con.close();
+                    System.out.println("Conexión cerrada - btnEliminarCSVCargado");
+                } catch (SQLException e) {
+                    System.err.println(e);
+                }
+            }
+        }else
+            JOptionPane.showMessageDialog(null, "No hay registros a eliminar","Error",JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_btnEliminarCSVCargadoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        cargarInventariado(null);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEliminarCSVCargado;
     private javax.swing.JButton btnExaminar;
     private javax.swing.JButton btnExportarCSV;
     private javax.swing.JButton btnGuardarCSV;
