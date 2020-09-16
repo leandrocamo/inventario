@@ -1,14 +1,26 @@
 package A_Vista;
 
+import A_ClasesUtilizadas.Conexion;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+
 import javax.swing.JOptionPane;
-import javax.swing.table.TableModel;
 
 public class MueblesPrincipalView extends javax.swing.JPanel {
+
+    Conexion conexion = new Conexion();
 
     public MueblesPrincipalView() {
         initComponents();
@@ -192,7 +204,26 @@ public class MueblesPrincipalView extends javax.swing.JPanel {
     }//GEN-LAST:event_txtBuscarKeyPressed
 
     private void btnExportarCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarCSVActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = conexion.getConexion();
+        String sql = "SELECT * FROM mueble";
+        try {
+
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se obtuvo los registros del documentoinventario.\n" + ex, "Error", JOptionPane.WARNING_MESSAGE);
+        } finally {
+            try {
+                con.close();
+                System.out.println("Conexión cerrada - btnExportarCSVAction().");
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+        /*JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int resultado = fileChooser.showSaveDialog(this);
         if (resultado == JFileChooser.CANCEL_OPTION) {
@@ -223,7 +254,8 @@ public class MueblesPrincipalView extends javax.swing.JPanel {
 
         } catch (IOException ex) {
             System.err.println(ex);
-        }
+        }*/
+
     }//GEN-LAST:event_btnExportarCSVActionPerformed
 
 

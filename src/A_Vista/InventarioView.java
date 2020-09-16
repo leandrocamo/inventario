@@ -171,53 +171,75 @@ public class InventarioView extends javax.swing.JPanel {
     }
 
     public void guardarCVSaBDD() {
+        //Inicializamos las variables Statement
         PreparedStatement ps = null;
+        //Abrimos la conexion a la BDD
         Connection con = conexion.getConexion();
+        //Guardamos en una varibale la ubicación del arhivo CSV
         String path = txtPath.getText();
-        String idBatch = null;
+        //Guardamos en un string el id null del documento inventariado.
+        String idDi = null;
+        //Guardamos en una variable la fecha y hora actual
         String fecha = capturarfechayhora();
-
+        //Guardamos en una variable la sentencia SQL para insertar en la tabla documentoindentario
         String sql = "INSERT INTO documentoinventario (DIID, DIFECHA, DIARCHIVOIMPORTADO, DITESTADO) "
                 + "VALUES (NULL, '" + fecha + "', '" + path + "', '1')";
         try {
+            //Ejecutamos el Statement con la SQL
             ps = con.prepareStatement(sql);
+            //Ejecutamos el SQL
             ps.execute();
         } catch (SQLException e) {
+            //Si hay un error en el try, presenta el error
             System.err.println(e);
         }
-
+        //Inicializamos las variables ResultSet para consultar el id del documentoinventariado
         ResultSet rs = null;
+        //Guardamos en una variable la sentencia SQL para consulta el ID del documentoindentario guardado
         sql = "SELECT * FROM documentoinventario WHERE DIARCHIVOIMPORTADO='" + path + "' AND DIFECHA = '" + fecha + "' ";
         try {
+            //Ejecutamos el Statement con la SQL
             ps = con.prepareStatement(sql);
+            //Ejecutamos el SQL
             rs = ps.executeQuery();
+            //Si existe un id guardar en idDi, gracias al rs
             while (rs.next()) {
-                idBatch = "" + rs.getObject("DIID");
+                idDi = "" + rs.getObject("DIID");
             }
         } catch (SQLException ex) {
+            //Si hay un error en el try, presenta el error
             JOptionPane.showMessageDialog(null, "No se obtuvo el ID del documentoinventario.\n" + ex, "Error", JOptionPane.WARNING_MESSAGE);
         }
-
+//Con este for recorremos en el Jtable, los registros cargados.
         for (int i = 0; i < jTableCSV.getRowCount(); i++) {
+            //Por cada fila del JTable empezamos a ingresar el mueble capturado con la máquina de etiquetas.
             sql = "INSERT INTO equipoinventariado (EIID, DIID, EITYPE, EIEVIDENTIFIER, EISIGNAL, EISEENCOUNT, EIFIRSTSEEN, EILASTSEEN, EIASCII, EIESTADO) "
-                    + "VALUES (NULL, '" + idBatch + "', '" + jTableCSV.getValueAt(i, 0) + "', "
+                    + "VALUES (NULL, '" + idDi + "', '" + jTableCSV.getValueAt(i, 0) + "', "
                     + "'" + jTableCSV.getValueAt(i, 1) + "', '" + jTableCSV.getValueAt(i, 2) + "', "
                     + "'" + jTableCSV.getValueAt(i, 3) + "', '" + jTableCSV.getValueAt(i, 4) + "', "
                     + "'" + jTableCSV.getValueAt(i, 5) + "', '" + jTableCSV.getValueAt(i, 6) + "', '1');";
             try {
+                //Ejecutamos el Statement con la SQL
                 ps = con.prepareStatement(sql);
+                //Ejecutamos el SQL
                 ps.execute();
             } catch (SQLException e) {
+                //Si hay un error en el try, presenta el error
                 System.err.println(e);
             }
         }
+        //Si todo sale bien aparece un mensaje de OK
         JOptionPane.showMessageDialog(null, "Operación realizada correctamente");
+        //Eleiminar los datos que contiene el JTable
         eliminarDatosImportar();
 
         try {
+            //Cerramos la conexión de la base de datos
             con.close();
+            //Imprimimos por consola que se cerró la conexxión
             System.out.println("Conexión cerrada - guardarCVSaBDD().");
         } catch (SQLException e) {
+            //Si hay un error en el try, presenta el error
             System.err.println(e);
         }
     }
