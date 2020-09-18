@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="inventario" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5f179c96-c7de-4159-af60-cc51eebed85b">
+	<property name="ireport.zoom" value="1.0000000000000029"/>
+	<property name="ireport.x" value="114"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="New Dataset 1" uuid="56123a5d-e476-4882-88fd-d487666561c1"/>
+	<queryString>
+		<![CDATA[SELECT * FROM mueble MUE INNER JOIN usuxubi UXU ON UXU.USUXUBIID=MUE.USUXUBIID 
+INNER JOIN usuario USU ON UXU.USUID=USU.USUID 
+INNER JOIN ubicacion UBI ON UXU.UBIID=UBI.UBIID 
+INNER JOIN areadependencia AXD ON AXD.ADID=UBI.ADID 
+INNER JOIN color as COL ON COL.COLID = MUE.COLID 
+INNER JOIN cuentacontable as CC ON CC.CCID = MUE.CCID 
+INNER JOIN tipomueble as TM ON TM.TMID = MUE.TMID 
+INNER JOIN estado as EST ON EST.ESTID = MUE.ESTID 
+INNER JOIN marca as MAR ON MAR.MARID = MUE.MARID 
+WHERE MUE.MUEESTADO = 1 ORDER BY MUE.MUEDESCRIPCION ASC]]>
+	</queryString>
+	<field name="MUEID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CCID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TMID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ESTID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MARID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COLID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="USUXUBIID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MUECODIGOETIQUETA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MUEDESCRIPCION" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MUESERIE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MUEFECHACOMPRA" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MUEFECHAFABRICACION" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MUEFECHAEXPIRACION" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MUEFD" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MUEFO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MUEVALORNUEVO" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MUEVALORCOMERCIAL" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MUEVALORREMANENTE" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MUECANTIDAD" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MUEVALORUNITARIO" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MUEVALORTOTAL" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MUEESTADO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="UBIID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="USUID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="USUXUBIESTADO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="USUNOMBRES" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="USUAPELLIDOS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="USUEMAIL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="USUCONTRASENIA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="USUAUTHKEY" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="USUACCESOTOKEN" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="USUESTADO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ROLE" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ADID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="UBINOMBRE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="UBIESTADO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ADNOMBRE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ADDESCRIPCION" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ADESTADO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COLNOMBRE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COLDESCRIPCION" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COLESTADO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CCNOMBRE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CCDESCRIPCION" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CCCODIGOCUENTACONTABLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CCESTADO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TMNOMBRE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TMDESCRIPCION" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TMESTADO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ESTNOMBRE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ESTESTADO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MARNOMBRE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MARDESCRIPCION" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MARESTADO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="97" y="0" width="705" height="23" uuid="5a85bb9e-bf36-4c21-bbee-f0f22cd65107"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidad Educativa "Don Bosco" La Tola]]></text>
+			</staticText>
+			<image>
+				<reportElement x="18" y="2" width="79" height="73" uuid="15e4647f-9d3a-49ea-b83d-5c5ee4e5f6f8"/>
+				<imageExpression><![CDATA["D:\\camo\\Documents\\Google Drive\\Jonathan\\proyecto\\inventario\\src\\Imagen\\UEDB.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="97" y="50" width="705" height="20" uuid="8e081d4b-13eb-4b7c-a361-7dd993c6d047"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Reporte]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="642" y="30" width="160" height="20" uuid="0f962fcf-fa05-4d80-a2ac-20cf2c674b06"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="5" width="30" height="20" uuid="4ba5c6a5-3606-4753-babf-25f5725cb14d"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COD.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="97" y="5" width="52" height="20" uuid="ce16efe2-2e90-4f94-86e2-7a8f8e1477bb"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUENTA CONTABLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="29" y="5" width="67" height="20" uuid="d9126e4a-172a-4b5f-847a-4eaeab8d6955"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COD. ETIQUETA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="219" y="5" width="41" height="20" uuid="b6a606d7-2412-4196-9732-e53ae6458eb4"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COLOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="5" width="30" height="20" uuid="5fdb9de7-3645-44ac-b126-d555f45a4eae"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SERIE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="5" width="30" height="20" uuid="05810c8f-3b1e-4e10-bb48-2feb59104bd5"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MARCA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="5" width="37" height="20" uuid="35ba9143-464e-42aa-bb75-7a5b48d14ce5"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ÁREA DEPENDENCIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="5" width="70" height="20" uuid="b6e388a7-ced9-4644-a803-d71a1a84a894"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MUEDESCRIPCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="357" y="5" width="45" height="20" uuid="3804a1dd-ec06-4098-8122-bf13875bd62f"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UBICACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="5" width="36" height="20" uuid="d1422011-c6fe-4dc8-8e33-6c5b63763be8"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="438" y="5" width="40" height="20" uuid="8ff7849f-e7e1-4a25-b91d-ae79b28956c7"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MUEFECHAFABRICACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="478" y="5" width="47" height="20" uuid="2867c7a9-f7f3-4564-9772-6ac74b2339b3"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MUEFECHAFABRICACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="525" y="5" width="41" height="20" uuid="fc341f66-9aa7-4dde-8ee9-a9770121ea30"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MUEFECHAEXPIRACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="566" y="5" width="37" height="20" uuid="6dbeb84d-4723-4dfb-84bf-89660a7d1b3d"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MUEFD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="603" y="5" width="39" height="20" uuid="fdf04192-30a6-4d06-98fe-3953d604279c"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MUEFO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="642" y="5" width="34" height="20" uuid="1c282f3b-abf2-45ed-a228-801ad25bb5f4"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MUEVALORNUEVO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="676" y="5" width="39" height="20" uuid="50adabae-f430-4392-b0e3-f219a2aea273"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MUEVALORCOMERCIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="715" y="5" width="34" height="20" uuid="c081a48f-7fa4-43c0-8ff4-6b01befc782b"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MUEVALORREMANENTE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="30" height="20" uuid="8267c14f-a0aa-4137-81e4-303a7fde01b5"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MUEID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="97" y="0" width="52" height="20" uuid="5eb80d29-4870-40d2-b0e9-a6b947f72aff"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CCNOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="29" y="0" width="67" height="20" uuid="f7cfd239-9156-4b8b-a34c-6a5ad40d4796"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MUECODIGOETIQUETA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="219" y="0" width="41" height="20" uuid="b659c488-3f3f-4897-9e50-d35721ecafc7"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COLNOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="0" width="30" height="20" uuid="0a286f6e-f74a-4f5c-a5a9-eb8422824e5d"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MUESERIE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="0" width="30" height="20" uuid="e11b1410-5a97-4124-998a-25a6a62c4ce3"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MARNOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="0" width="37" height="20" uuid="a4c963c9-266f-4628-b2e3-8afa4edb918f"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ADNOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="149" y="0" width="70" height="20" uuid="a64bec77-3a26-4cfe-95f3-92105275052b"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MUEDESCRIPCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="357" y="0" width="45" height="20" uuid="3bf35acd-8d2e-41e6-8f9c-02fb0d421fb1"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{UBINOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="0" width="36" height="20" uuid="0f4a45ce-61b1-429b-bfe6-b01165450eab"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ESTNOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="438" y="0" width="40" height="20" uuid="dd88f14a-a054-4ea0-b98e-766b1c6c3f22"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MUEFECHAFABRICACION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="478" y="0" width="47" height="20" uuid="a8b3e2a9-2c18-45c9-9181-34bad9d02e00"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MUEFECHAFABRICACION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="525" y="0" width="41" height="20" uuid="1617a532-9dea-450b-a0bf-3fd0e695e2c6"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MUEFECHAEXPIRACION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="566" y="0" width="37" height="20" uuid="f816290f-68ae-4852-9733-b0bd33923d50"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MUEFD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="603" y="0" width="39" height="20" uuid="4f8fb62f-0870-48c9-86a2-290b402e6dfc"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MUEFO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="642" y="0" width="34" height="20" uuid="ff9ab1d6-5f77-47ab-b151-0357aadda490"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MUEVALORNUEVO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="677" y="0" width="38" height="20" uuid="b2384e88-31ad-4736-b6cf-79dcddbf61c1"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MUEVALORCOMERCIAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="715" y="0" width="34" height="20" uuid="179c756b-828e-492f-b9d5-8f7de22bfe23"/>
+				<textElement verticalAlignment="Top">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MUEVALORREMANENTE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="29" splitType="Stretch">
+			<textField>
+				<reportElement x="337" y="1" width="153" height="20" uuid="4634042d-39a5-41b2-ba46-d86055a31338"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="496" y="1" width="40" height="20" uuid="1332aa17-9fc7-45a8-922d-06c367175f98"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

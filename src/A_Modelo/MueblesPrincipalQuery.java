@@ -127,7 +127,7 @@ public class MueblesPrincipalQuery extends Conexion {
 
         sql = sql + "ORDER BY MUE.MUEDESCRIPCION ASC";
 
-//        System.out.println("" + sql);
+        System.out.println("" + sql);
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();

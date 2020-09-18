@@ -6,6 +6,7 @@ import A_Vista.InventarioView;
 import A_Vista.MenuView;
 import A_Vista.MueblesView;
 import A_Vista.PrincipalView;
+import A_Vista.Reportes;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
@@ -21,12 +22,16 @@ public class PrincipalController implements ActionListener {
     private MueblesModel modelMueble = new MueblesModel();
     private MueblesController controllerMueble = new MueblesController(viewMueble, modelMueble, queryMueble);
 
+    private Reportes viewReportes = new Reportes();
+
     public PrincipalController(PrincipalView view) {
         this.view = view;
         this.viewMenu.btnBienes.addActionListener(this);
         this.viewMueble.btnRegresar.addActionListener(this);
         this.viewMenu.btnInventario.addActionListener(this);
         this.viewInventario.btnRegresarInventario.addActionListener(this);
+        this.viewMenu.btnReportes.addActionListener(this);
+        this.viewReportes.btnRegresar.addActionListener(this);
     }
 
     public void iniciarVista() {
@@ -67,6 +72,16 @@ public class PrincipalController implements ActionListener {
             viewInventario.setVisible(true);
 //            controllerMueble.iniciarVista();
             view.PnlContenedor.add(viewInventario);
+            view.PnlContenedor.validate();
+
+        }
+        if (e.getSource() == viewMenu.btnReportes) {
+            viewMenu.setVisible(false);
+            viewMueble.setVisible(false);
+            viewInventario.setVisible(false);
+            viewReportes.setVisible(true);
+
+            view.PnlContenedor.add(viewReportes);
             view.PnlContenedor.validate();
 
         }
