@@ -152,10 +152,13 @@
             <Property name="text" type="java.lang.String" value="Administraci&#xf3;n de Estado"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton5">
+        <Component class="javax.swing.JButton" name="btnMarca">
           <Properties>
             <Property name="text" type="java.lang.String" value="Marca"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
