@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-09-2020 a las 02:49:21
+-- Tiempo de generación: 19-09-2020 a las 17:44:48
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.2.3
 
@@ -116,9 +116,7 @@ CREATE TABLE `documentoinventario` (
 --
 
 INSERT INTO `documentoinventario` (`DIID`, `DIFECHA`, `DIARCHIVOIMPORTADO`, `DITESTADO`) VALUES
-(1, '2020-09-06 15:18:01', 'Inventory_2020-06-12__15-47-02.20.csv', 1),
-(2, '2020-09-06 15:18:52', 'Inventory_2020-06-12__15-47-02.20.csv', 1),
-(3, '2020-09-06 15:19:59', 'Inventory_2020-06-12__15-47-02.20.csv', 1);
+(1, '2020-09-17 12:57:01', 'Inventory_2020-06-12__15-47-02.20.csv', 1);
 
 -- --------------------------------------------------------
 
@@ -144,10 +142,10 @@ CREATE TABLE `equipoinventariado` (
 --
 
 INSERT INTO `equipoinventariado` (`EIID`, `DIID`, `EITYPE`, `EIEVIDENTIFIER`, `EISIGNAL`, `EISEENCOUNT`, `EIFIRSTSEEN`, `EILASTSEEN`, `EIASCII`, `EIESTADO`) VALUES
-(1, 3, 'T', '300833B2DDD9014000000000', '0', 25, '6/12/2020 3:31:41 PM', '6/12/2020 3:31:41 PM', '', 1),
-(2, 3, 'T', '300833B2DDD9014000000002', '1', 11, '6/12/2020 3:31:41 PM', '6/12/2020 3:46:44 PM', '', 1),
-(3, 3, 'T', '300833B2DDD9014000000001', '0', 9, '6/12/2020 3:31:41 PM', '6/12/2020 3:46:44 PM', '', 1),
-(4, 3, 'T', '300833B2DDD9014000000006', '1', 9, '6/12/2020 3:31:41 PM', '6/12/2020 3:46:44 PM', '', 1);
+(1, 1, 'T', '300833B2DDD9014000000000', '0', 25, '6/12/2020 3:31:41 PM', '6/12/2020 3:31:41 PM', '', 1),
+(2, 1, 'T', '300833B2DDD9014000000002', '1', 11, '6/12/2020 3:31:41 PM', '6/12/2020 3:46:44 PM', '', 1),
+(3, 1, 'T', '300833B2DDD9014000000001', '0', 9, '6/12/2020 3:31:41 PM', '6/12/2020 3:46:44 PM', '', 1),
+(4, 1, 'T', '300833B2DDD9014000000006', '1', 9, '6/12/2020 3:31:41 PM', '6/12/2020 3:46:44 PM', '', 1);
 
 -- --------------------------------------------------------
 
@@ -619,7 +617,7 @@ ALTER TABLE `cuentacontable`
 -- AUTO_INCREMENT de la tabla `documentoinventario`
 --
 ALTER TABLE `documentoinventario`
-  MODIFY `DIID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `DIID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `equipoinventariado`
@@ -649,7 +647,7 @@ ALTER TABLE `marca`
 -- AUTO_INCREMENT de la tabla `mueble`
 --
 ALTER TABLE `mueble`
-  MODIFY `MUEID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=278;
+  MODIFY `MUEID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=275;
 
 --
 -- AUTO_INCREMENT de la tabla `tipomueble`
