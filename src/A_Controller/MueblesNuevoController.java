@@ -182,23 +182,6 @@ public class MueblesNuevoController implements ActionListener {//], ItemListener
         }
     }
 
-//    public void cargarComboAreaDependencia() {
-//        String sql = "SELECT * FROM areadependencia WHERE ADESTADO = 1 ORDER BY ADNOMBRE ASC";
-//        String columna1 = "ADNOMBRE";
-//        String columna2 = "ADID";
-//        String combo = "cbxAreaDependencia";
-//        lista = query.buscarRegistrosCombos(sql, columna1, columna2, combo);
-//
-//        for (int i = 0; i < lista.size(); i++) {
-//            view.cbxAreaDependencia.addItem(lista.get(i));
-//        }
-//
-//        lista = query.buscarRegistrosCombosID();
-//
-//        for (int i = 0; i < lista.size(); i++) {
-//            view.cbxAreaDependenciaID.addItem(lista.get(i));
-//        }
-//    }
     public void cargarComboUbicacion(String ADID) {
         String sql = "SELECT * FROM ubicacion WHERE UBIESTADO = 1 AND ADID = " + ADID + " ORDER BY UBINOMBRE ASC";
         String columna1 = "UBINOMBRE";
@@ -244,13 +227,7 @@ public class MueblesNuevoController implements ActionListener {//], ItemListener
         }
     }
 
-//    public void cargarComboAreaDependenciaConModel() {
-//        AreaDependenciaModel modelArea = new AreaDependenciaModel();
-//        DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel(modelArea.cargarAreaDependencia());
-//        view.cbxAreaDependencia.setModel(modeloCombo);
-//    }
     public void limpiarPantallaMueble() {
-//        view.cbxAreaDependencia.setSelectedIndex(0);
         view.cbxColor.setSelectedIndex(0);
         view.cbxCuentaContable.setSelectedIndex(0);
         view.cbxEstado.setSelectedIndex(0);
@@ -262,7 +239,7 @@ public class MueblesNuevoController implements ActionListener {//], ItemListener
         view.txtSerie.setText("");
         view.txtFD.setText("");
         view.txtFO.setText("");
-        view.txtCodigoEtiqueta.setText("");
+        view.txtCodigoEtiqueta.setText(query.generarCodigoEtiqueta());
         view.txtValorNuevo.setText("");
         view.txtValorComercial.setText("");
         view.txtValorRemanente.setText("");

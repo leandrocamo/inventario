@@ -182,6 +182,48 @@ public class MueblesNuevoQuery extends Conexion {
         }
     }
 
+    public String generarCodigoEtiqueta() {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+        String sql = "SELECT MAX(MUEID) as id FROM mueble";
+        String idCadena = "";
+        String aux = "";
+        String codigoEtiqueta = "300833B2DDD9014";
+
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                idCadena = rs.getString("id");
+                int id = Integer.parseInt(idCadena) + 1;
+                if (id == 0) {
+                    id = 1;
+                    JOptionPane.showMessageDialog(null, "ERROR id");
+                } else {
+                    int size = idCadena.length();
+                    idCadena = "" + id;
+                    for (int i = 1; i < 9 - size; i++) {
+                        aux = aux + "0";
+                    }
+                    idCadena = aux + idCadena;
+                    codigoEtiqueta = codigoEtiqueta + idCadena;
+                }
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex, "Error", JOptionPane.WARNING_MESSAGE);
+        } finally {
+            try {
+                con.close();
+                System.out.println("Conexión cerrada - generarCodigoEtiqueta()");
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+        return codigoEtiqueta;
+    }
+
 //    public Vector<MueblesNuevoModel> cargarRegistrosCombos(String sql, String columna1, String columna2, String combo) {
 //        PreparedStatement ps = null;
 //        ResultSet rs = null;

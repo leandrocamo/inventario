@@ -19,6 +19,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         initComponents();
         cargarComboAreadependencia();
         pnlCombosIDs.setVisible(false);
+
 //        AreaDependenciaModel modelArea = new AreaDependenciaModel();
 //        cbxUbicacion.setVisible(false);
 //        lblUbicacion.setVisible(false);
@@ -260,7 +261,13 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         jLabel2.setText("Código etiqueta:");
         jPanel1.add(jLabel2);
 
+        txtCodigoEtiqueta.setEditable(false);
         txtCodigoEtiqueta.setText("300833B2DDD9014000000103");
+        txtCodigoEtiqueta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoEtiquetaActionPerformed(evt);
+            }
+        });
         jPanel1.add(txtCodigoEtiqueta);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -952,7 +959,7 @@ public class MueblesNuevoView extends javax.swing.JPanel {
         txtFechaExpiracion.setDate(fecha);
         txtFechaFabricacion.setDate(fecha);
 
-        txtCodigoEtiqueta.setText("No aplica");
+//        txtCodigoEtiqueta.setText("No aplica");
         txtDescripcion.setText("No aplica");
         txtSerie.setText("No aplica");
         txtFD.setText("No aplica");
@@ -999,6 +1006,10 @@ public class MueblesNuevoView extends javax.swing.JPanel {
             //cargarComboUbicacion("" + cbxAreaDependenciaID.getSelectedItem());
         }
     }//GEN-LAST:event_cbxUsuarioIDActionPerformed
+
+    private void txtCodigoEtiquetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoEtiquetaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoEtiquetaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
