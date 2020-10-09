@@ -1,9 +1,12 @@
 package A_Controller;
 
+import A_Modelo.ColorQuery;
 import A_Modelo.MarcaModel;
 import A_Modelo.MarcaQuery;
 import A_Modelo.MueblesModel;
 import A_Modelo.MueblesQuery;
+import A_Vista.ColorEdicionView;
+import A_Vista.ColorView;
 import A_Vista.InventarioView;
 import A_Vista.MarcaEdicionView;
 import A_Vista.MarcaView;
@@ -34,6 +37,11 @@ public class PrincipalController implements ActionListener {
     private MarcaEdicionView viewMarcaEdicion = new MarcaEdicionView();
     private MarcaController controllerMarca = new MarcaController(viewMarca, modelMarca, queryMarca, viewMarcaEdicion);
 
+    private ColorView viewColor = new ColorView();
+    private ColorEdicionView viewColorEdicion = new ColorEdicionView();
+    private ColorQuery queryColor = new ColorQuery();
+    private ColorController controllerColor = new ColorController(viewColor, modelMarca, queryColor, viewColorEdicion);
+
     public PrincipalController(PrincipalView view) {
         this.view = view;
         this.viewMenu.btnBienes.addActionListener(this);
@@ -46,9 +54,13 @@ public class PrincipalController implements ActionListener {
 
         this.viewMenu.btnMarca.addActionListener(this);
         this.viewMarca.btnRegresarMarca.addActionListener(this);
-        
         this.viewMarca.btnNuevoMarca.addActionListener(this);
         this.viewMarcaEdicion.btnCancelar.addActionListener(this);
+
+        this.viewMenu.btnColor.addActionListener(this);
+        this.viewColor.btnRegresarColor.addActionListener(this);
+        this.viewColor.btnNuevoColor.addActionListener(this);
+        this.viewColorEdicion.btnCancelar.addActionListener(this);
 
     }
 
@@ -56,83 +68,61 @@ public class PrincipalController implements ActionListener {
         view.setVisible(true);
         view.setExtendedState(6);
         view.setTitle("SGI || Sistema de Gestión de Inventario");
-        panelInicio();
+        panelInicioMenu();
     }
 
-    public void panelInicio() {
+    public void panelInicioMenu() {
         viewMenu.setVisible(true);
-        viewMueble.setVisible(false);
-        viewInventario.setVisible(false);
-        viewReportes.setVisible(false);
-        viewMarca.setVisible(false);
-//        p2.setVisible(false);
         view.PnlContenedor.add(viewMenu);
         view.PnlContenedor.validate();
     }
 
+    public void panelMenu() {
+        viewMenu.setVisible(false);
+        viewMueble.setVisible(false);
+        viewInventario.setVisible(false);
+        viewReportes.setVisible(false);
+        viewMarca.setVisible(false);
+        viewMarcaEdicion.setVisible(false);
+        viewColor.setVisible(false);
+        viewColorEdicion.setVisible(false);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        //OPCION USUARIOS
-//        if (e.getSource() == viewMenu.btnUsuario) {
-//            //viewMenu.setVisible(false);
-//            JOptionPane.showMessageDialog(null, "Programar Pnl Usuario", "Información", JOptionPane.INFORMATION_MESSAGE);
-//        }
         if (e.getSource() == viewMenu.btnBienes) {
-            viewMenu.setVisible(false);
+            panelMenu();
             viewMueble.setVisible(true);
-            viewInventario.setVisible(false);
-            viewReportes.setVisible(false);
-            viewMarca.setVisible(false);
-            viewMarcaEdicion.setVisible(false);
 
             view.PnlContenedor.add(viewMueble);
             view.PnlContenedor.validate();
-
         }
         if (e.getSource() == viewMenu.btnInventario) {
-            viewMenu.setVisible(false);
-            viewMueble.setVisible(false);
+            panelMenu();
             viewInventario.setVisible(true);
-            viewReportes.setVisible(false);
-            viewMarca.setVisible(false);
-            viewMarcaEdicion.setVisible(false);
 
             view.PnlContenedor.add(viewInventario);
             view.PnlContenedor.validate();
 
         }
         if (e.getSource() == viewMenu.btnReportes) {
-            viewMenu.setVisible(false);
-            viewMueble.setVisible(false);
-            viewInventario.setVisible(false);
+            panelMenu();
             viewReportes.setVisible(true);
-            viewMarca.setVisible(false);
-            viewMarcaEdicion.setVisible(false);
 
             view.PnlContenedor.add(viewReportes);
             view.PnlContenedor.validate();
 
         }
         if (e.getSource() == viewMenu.btnMarca) {
-            viewMenu.setVisible(false);
-            viewMueble.setVisible(false);
-            viewInventario.setVisible(false);
-            viewReportes.setVisible(false);
+            panelMenu();
             viewMarca.setVisible(true);
-            viewMarcaEdicion.setVisible(false);
 
             view.PnlContenedor.add(viewMarca);
             view.PnlContenedor.validate();
-
         }
         if (e.getSource() == viewMarca.btnNuevoMarca) {
-            viewMenu.setVisible(false);
-            viewMueble.setVisible(false);
-            viewInventario.setVisible(false);
-            viewReportes.setVisible(false);
-            viewMarca.setVisible(false);
+            panelMenu();
             viewMarcaEdicion.setVisible(true);
-
             view.PnlContenedor.add(viewMarcaEdicion);
             view.PnlContenedor.validate();
 
@@ -140,11 +130,36 @@ public class PrincipalController implements ActionListener {
         if (e.getSource() == viewMarcaEdicion.btnCancelar) {
             viewMenu.btnMarca.doClick();
         }
-        if (e.getSource() == viewMueble.btnRegresar || e.getSource() == viewInventario.btnRegresarInventario
-                || e.getSource() == viewReportes.btnRegresar || e.getSource() == viewMarca.btnRegresarMarca) {
-            //Botón regresar a Inicio de la Vista Muebles
-            panelInicio();
+
+        //========== COLOR
+        //Cuando el usuario presiona Color en el Menú, muestra la administración de color
+        if (e.getSource() == viewMenu.btnColor) {
+            panelMenu();
+            viewColor.setVisible(true);
+            view.PnlContenedor.add(viewColor);
+            view.PnlContenedor.validate();
         }
+        //Cuando el usuario presiona Color Nuevo, muestra la ventana para ingresar color.
+        if (e.getSource() == viewColor.btnNuevoColor) {
+            panelMenu();
+            viewColorEdicion.setVisible(true);
+            view.PnlContenedor.add(viewColorEdicion);
+            view.PnlContenedor.validate();
+        }
+        if (e.getSource() == viewColorEdicion.btnCancelar) {
+            viewMenu.btnColor.doClick();
+        }
+
+        if (e.getSource() == viewMueble.btnRegresar
+                || e.getSource() == viewInventario.btnRegresarInventario
+                || e.getSource() == viewReportes.btnRegresar
+                || e.getSource() == viewMarca.btnRegresarMarca
+                || e.getSource() == viewColor.btnRegresarColor) {
+
+            panelMenu();
+            panelInicioMenu();
+        }
+
     }
 
 }

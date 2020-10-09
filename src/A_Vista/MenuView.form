@@ -122,10 +122,13 @@
             <Property name="text" type="java.lang.String" value="Administraci&#xf3;n de &#xc1;rea de Dependencia"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="btnColor">
           <Properties>
             <Property name="text" type="java.lang.String" value="Color"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
