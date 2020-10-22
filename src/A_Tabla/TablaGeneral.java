@@ -1,5 +1,7 @@
 package A_Tabla;
 
+import A_Modelo.GeneralModel;
+import A_Modelo.GeneralQuery;
 import A_Modelo.MarcaModel;
 import A_Modelo.MarcaQuery;
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-public class TablaMarca {
+public class TablaGeneral {
 
     private int totalRegistros;
 
@@ -23,7 +25,7 @@ public class TablaMarca {
         this.totalRegistros = totalRegistros;
     }
 
-    public void cargandoRegistrosMarca(JTable jTable, String textoBuscar) {
+    public void cargandoRegistros(JTable jTable, String sql) {
 
         jTable.setDefaultRenderer(Object.class, new A_Tabla.Render());
         DefaultTableModel dt = new DefaultTableModel() {
@@ -43,17 +45,16 @@ public class TablaMarca {
         JButton btn_eliminar = new JButton("Eliminar");
         btn_eliminar.setName("e");
 
-        MarcaQuery query = new MarcaQuery();
-        MarcaModel model = new MarcaModel();
-        ArrayList<MarcaModel> list = null;
-        
-        
+        GeneralQuery query = new GeneralQuery();
+        GeneralModel model = new GeneralModel();
+        ArrayList<GeneralModel> list = null;
 
-        if (textoBuscar == null) {
-            list = query.listarMarcas(null);
-        } else {
-           list = query.listarMarcas(textoBuscar);
-        }
+//        if (SentenciaSQL == null) {
+//            list = query.listarMarcas(null);
+//        } else {
+        list = query.listarGeneral(sql);
+//        }
+
         if (list.size() == 0) {
             setTotalRegistros(0);
             JOptionPane.showMessageDialog(null, "No se encontró registros.", "Información", JOptionPane.INFORMATION_MESSAGE);
@@ -65,9 +66,9 @@ public class TablaMarca {
                 Object fila[] = new Object[6];
                 model = list.get(i);
                 fila[0] = model.getNroRegistros();
-                fila[1] = model.getMARID();
-                fila[2] = model.getMARNOMBRE();
-                fila[3] = model.getMARDESCRIPCION();
+                fila[1] = model.getId();
+                fila[2] = model.getNombre();
+                fila[3] = model.getDescripcion();
                 fila[4] = btn_modificar;
                 fila[5] = btn_eliminar;
                 setTotalRegistros(model.getNroRegistros());

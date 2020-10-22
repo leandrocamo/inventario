@@ -2,49 +2,44 @@ package A_Modelo;
 
 import A_ClasesUtilizadas.Conexion;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class MarcaQuery extends Conexion {
+public class GeneralQuery extends Conexion {
 
-    public ArrayList<MarcaModel> listarMarcas(String textoBuscar) {
+    public ArrayList<GeneralModel> listarGeneral(String sql) {
 
-        ArrayList<MarcaModel> list = new ArrayList<MarcaModel>();
+        ArrayList<GeneralModel> list = new ArrayList<GeneralModel>();
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
-        String opcion = "Todo";
 
-        String sql = "";
-        int totalRegistros = 0;
-        if (textoBuscar == null) {
-            sql = "SELECT * FROM marca WHERE MARESTADO = 1 ";
-        } else {
-            sql = "SELECT * FROM marca WHERE MARESTADO = 1 "
-                    + "AND (MARNOMBRE LIKE '%" + textoBuscar + "%' OR MARDESCRIPCION LIKE '%" + textoBuscar + "%')";
-        }
-
+//        String sql = textoBuscar;
+//        int totalRegistros = 0;
+//        if (textoBuscar == null) {
+//            sql = "SELECT * FROM marca WHERE MARESTADO = 1 ";
+//        } else {
+//            sql = "SELECT * FROM marca WHERE MARESTADO = 1 "
+//                    + "AND (MARNOMBRE LIKE '%" + textoBuscar + "%' OR MARDESCRIPCION LIKE '%" + textoBuscar + "%')";
+//        }
 //        int totalRegistros = totalRegistrosMarca(sql);
-//        System.out.println("" + sql);
+//        System.out.println("listarGeneral: " + sql);
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             int index = 1;
 
             while (rs.next()) {
-                MarcaModel model = new MarcaModel();
+                GeneralModel model = new GeneralModel();
 
                 model.setNroRegistros(index++);
-                model.setMARID(Integer.parseInt(rs.getString("MARID")));
-                model.setMARNOMBRE(rs.getString("MARNOMBRE"));
-                model.setMARDESCRIPCION(rs.getString("MARDESCRIPCION"));
-                model.setTotalRegistros(totalRegistros);
+                model.setId(Integer.parseInt("" + rs.getObject(1)));
+                model.setNombre("" + rs.getObject(2));
+                model.setDescripcion("" + rs.getObject(3));
+//                model.setTotalRegistros(totalRegistros);
                 list.add(model);
             }
         } catch (SQLException e) {
@@ -52,7 +47,7 @@ public class MarcaQuery extends Conexion {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada - listarMarcas()");
+                System.out.println("Conexión cerrada - listarGenerals()");
             } catch (SQLException e) {
                 System.err.println(e);
             }
@@ -60,13 +55,13 @@ public class MarcaQuery extends Conexion {
         return list;
     }
 
-    public int totalRegistros() {
+    public int totalRegistros(String sql) {
         int index = 0;
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
-        String sql = "SELECT * FROM marca WHERE MARESTADO = 1 ";
-//        System.out.println("totalRegistrosMarca " + sql);
+//        String sql = "SELECT * FROM marca WHERE MARESTADO = 1 ";
+//        System.out.println("totalRegistrosGeneral " + sql);
 
         try {
             ps = con.prepareStatement(sql);
@@ -81,7 +76,7 @@ public class MarcaQuery extends Conexion {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada - totalRegistrosMarca");
+                System.out.println("Conexión cerrada - totalRegistrosGeneral(" + index + ")");
             } catch (SQLException e) {
                 System.err.println(e);
             }
@@ -89,16 +84,16 @@ public class MarcaQuery extends Conexion {
         return index;
     }
 
-    public boolean guardarRegistro(MarcaModel modelo) {
+    public boolean guardarRegistro(GeneralModel modelo, String sql) {
         PreparedStatement ps = null;
         Connection con = getConexion();
-        String sql = "INSERT INTO marca (MARNOMBRE, MARDESCRIPCION, MARESTADO) "
-                + "VALUES (?, ?, ?);";
+//        String sql = "INSERT INTO marca (MARNOMBRE, MARDESCRIPCION, MARESTADO) "
+//                + "VALUES (?, ?, ?);";
 
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, modelo.getMARNOMBRE());
-            ps.setString(2, modelo.getMARDESCRIPCION());
+            ps.setString(1, modelo.getNombre());
+            ps.setString(2, modelo.getDescripcion());
             ps.setBoolean(3, true);
             ps.execute();
             return true;
@@ -109,7 +104,7 @@ public class MarcaQuery extends Conexion {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada - guardarRegistro(MARCA).");
+                System.out.println("Conexión cerrada - guardarRegistro().");
             } catch (SQLException e) {
                 System.err.println(e);
                 return false;
@@ -117,20 +112,20 @@ public class MarcaQuery extends Conexion {
         }
     }
 
-    public void buscarRegistroID(MarcaModel model) {
+    public void buscarRegistroID(GeneralModel model, String sql) {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
 
-        String sql = "SELECT * FROM marca WHERE MARESTADO = 1 AND MARID=" + model.getMARID();
-
-//        System.out.println("" + sql);
+//        String sql = "SELECT * FROM marca WHERE MARESTADO = 1 AND MARID=" + model.getId();
+//        System.out.println("MENSAJE001" + sql);
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                model.setMARDESCRIPCION(rs.getString("MARDESCRIPCION"));
-                model.setMARNOMBRE(rs.getString("MARNOMBRE"));
+                model.setNombre("" + rs.getObject(2));
+                model.setDescripcion("" + rs.getObject(3));
+
             }
         } catch (SQLException e) {
             System.err.println(e);
@@ -144,16 +139,16 @@ public class MarcaQuery extends Conexion {
         }
     }
 
-    public boolean actualizarRegistro(MarcaModel model) {
+    public boolean actualizarRegistro(GeneralModel model, String sql) {
         PreparedStatement ps = null;
         Connection con = getConexion();
-        String sql = "UPDATE marca SET MARNOMBRE=?, MARDESCRIPCION=? WHERE MARID=?";
+//        String sql = "UPDATE marca SET MARNOMBRE=?, MARDESCRIPCION=? WHERE MARID=?";
 
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, model.getMARNOMBRE());
-            ps.setString(2, model.getMARDESCRIPCION());
-            ps.setInt(3, model.getMARID());
+            ps.setString(1, model.getNombre());
+            ps.setString(2, model.getDescripcion());
+            ps.setInt(3, model.getId());
             ps.execute();
             return true;
 
@@ -163,7 +158,7 @@ public class MarcaQuery extends Conexion {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada - actualizarRegistro(MARCA).");
+                System.out.println("Conexión cerrada - actualizarRegistro().");
             } catch (SQLException e) {
                 System.err.println(e);
                 return false;
@@ -171,14 +166,14 @@ public class MarcaQuery extends Conexion {
         }
     }
 
-    public boolean eliminarRegistro(MarcaModel model) {
+    public boolean eliminarRegistro(GeneralModel model,String sql) {
         PreparedStatement ps = null;
         Connection con = getConexion();
-        String sql = "DELETE FROM marca WHERE MARID=?";
+//        String sql = "DELETE FROM marca WHERE MARID=?";
 
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, model.getMARID());
+            ps.setInt(1, model.getId());
             ps.execute();
             return true;
 
@@ -189,10 +184,10 @@ public class MarcaQuery extends Conexion {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada - eliminarRegistro(MARCA).");
+                System.out.println("Conexión cerrada - eliminarRegistro().");
             } catch (SQLException e) {
                 System.err.println(e);
-                return false;
+//                return false;
             }
         }
     }

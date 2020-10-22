@@ -17,7 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 public final class MarcaController implements ActionListener {
-
+    
     private final MarcaView view;
     private final MarcaModel model;
     private final MarcaQuery query;
@@ -25,7 +25,7 @@ public final class MarcaController implements ActionListener {
     private final TablaMarca tabla = new TablaMarca();
     private final ClasesUtilizadas clases = new ClasesUtilizadas();
     private int clic_tabla = 0;
-
+    
     public MarcaController(MarcaView view, MarcaModel model, MarcaQuery query, MarcaEdicionView viewMarcaEdicion) {
         this.view = view;
         this.model = model;
@@ -35,13 +35,16 @@ public final class MarcaController implements ActionListener {
         this.viewMarcaEdicion.btnNoAplica.addActionListener(this);
         this.viewMarcaEdicion.btnGuardarRegistro.addActionListener(this);
         clicJTableMarca();
+        
+        this.view.btnBuscar.addActionListener(this);
+        this.view.lblTotalRegistros.setText("Se encontraron " + tabla.getTotalRegistros() + " de " + query.totalRegistros() + " registros.");
     }
-
+    
     public void renderizarTabla() {
-        tabla.cargandoRegistrosMarca(this.view.jTableMarca);
-        view.lblTotalRegistros.setText("Se encontraron " + this.model.getNroRegistros() + " de " + model.getTotalRegistros() + " registros.");
+        tabla.cargandoRegistrosMarca(this.view.jTableMarca, null);
+        //view.lblTotalRegistros.setText("Se encontraron " + this.model.getNroRegistros() + " de " + model.getTotalRegistros() + " registros.");
     }
-
+    
     public boolean guardarMarca() {
 //        model.setMARID(Integer.parseInt(viewMarcaEdicion.txtCodigo.getText()));
         boolean MARNOMBRE = false, MARDESCRIPCION = false;
@@ -83,39 +86,39 @@ public final class MarcaController implements ActionListener {
             return false;
         }
     }
-
+    
     public void limpiarParametrosMarca() {
         viewMarcaEdicion.txtDescripcion.setText("");
         viewMarcaEdicion.txtNombre.setText("");
     }
-
+    
     public void clicJTableMarca() {
         view.jTableMarca.addMouseListener(new MouseAdapter() {
-
+            
             public void mouseClicked(MouseEvent evt) {
                 clic_tabla = view.jTableMarca.rowAtPoint(evt.getPoint());
-
+                
                 int id = Integer.parseInt("" + view.jTableMarca.getValueAt(clic_tabla, 1));
                 int column = view.jTableMarca.getColumnModel().getColumnIndexAtX(evt.getX());
                 int row = evt.getY() / view.jTableMarca.getRowHeight();
-
+                
                 if (row < view.jTableMarca.getRowCount() && row >= 0
                         && column < view.jTableMarca.getColumnCount() && column >= 0) {
                     Object value = view.jTableMarca.getValueAt(row, column);
                     if (value instanceof JButton) {
                         ((JButton) value).doClick();
                         JButton boton = (JButton) value;
-
+                        
                         if (boton.getName().equals("m")) {
 //                            System.out.println("presionó editar");
                             viewMarcaEdicion.lblTitulo.setText("Actualización de Marca");
                             model.setMARID(id);
-
+                            
                             query.buscarRegistroID(model);
                             viewMarcaEdicion.txtCodigo.setText("" + model.getMARID());
                             viewMarcaEdicion.txtNombre.setText("" + model.getMARNOMBRE());
                             viewMarcaEdicion.txtDescripcion.setText("" + model.getMARDESCRIPCION());
-
+                            
                             view.btnNuevoMarca.doClick();
                         }
                         if (boton.getName().equals("e")) {
@@ -123,23 +126,36 @@ public final class MarcaController implements ActionListener {
                                 model.setMARID(id);
                                 query.eliminarRegistro(model);
                                 renderizarTabla();
-
+                                
                             }
                         }
                     }
                 }
             }
-
+            
         });
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == viewMarcaEdicion.btnGuardarRegistro) {
             if (guardarMarca()) {
+                view.txtBuscar.setText("");
+                view.btnBuscar.doClick();
                 viewMarcaEdicion.btnCancelar.doClick();
+                
             }
         }
+        if (e.getSource() == view.btnBuscar) {
+            String textoBuscar = view.txtBuscar.getText();
+            tabla.cargandoRegistrosMarca(this.view.jTableMarca, textoBuscar);
+            this.view.lblTotalRegistros.setText("Se encontraron " + tabla.getTotalRegistros() + " de " + query.totalRegistros() + " registros.");
+        }
+//        if (e.getSource() == view.btnBuscarPorTexto) {
+//            String textoBuscar = view.txtBuscar.getText();
+//            tabla.cargandoRegistrosMuebles(this.view.jTableMuebles, textoBuscar, "NoAplica", "NoAplica");
+//            this.view.txtTotalRegistros.setText("Se encontraron " + tabla.getTotalRegistros() + " de " + query.totalRegistros() + " registros.");
+//        }
     }
-
+    
 }

@@ -7,6 +7,7 @@ public class MarcaModel {
     private String MARNOMBRE;
     private String MARDESCRIPCION;
     private boolean MARESTADO;
+    private String textoBuscar;
     private int totalRegistros;
 
     public int getTotalRegistros() {
@@ -55,6 +56,14 @@ public class MarcaModel {
 
     public void setMARESTADO(boolean MARESTADO) {
         this.MARESTADO = MARESTADO;
+    }
+
+    public String getTextoBuscar() {
+        return textoBuscar;
+    }
+
+    public void setTextoBuscar(String textoBuscar) {
+        this.textoBuscar = textoBuscar;
     }
 
 }

@@ -1,10 +1,10 @@
 
 package A_Vista;
 
-public class MarcaEdicionView extends javax.swing.JPanel {
+public class CuentaContableEdicionView extends javax.swing.JPanel {
 
 
-    public MarcaEdicionView() {
+    public CuentaContableEdicionView() {
         initComponents();
     }
 
@@ -23,6 +23,9 @@ public class MarcaEdicionView extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtDescripcion = new javax.swing.JTextField();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtCuentaContable = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnGuardarRegistro = new javax.swing.JButton();
@@ -88,6 +91,24 @@ public class MarcaEdicionView extends javax.swing.JPanel {
         jLabel4.setText("Descripción:");
         jPanel1.add(jLabel4);
         jPanel1.add(txtDescripcion);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 137, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 51, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel6);
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setText("Código Cuenta Contable:");
+        jPanel1.add(jLabel1);
+        jPanel1.add(txtCuentaContable);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -159,6 +180,7 @@ public class MarcaEdicionView extends javax.swing.JPanel {
     public javax.swing.JButton btnCancelar;
     public javax.swing.JButton btnGuardarRegistro;
     public javax.swing.JButton btnNoAplica;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -167,8 +189,10 @@ public class MarcaEdicionView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     public javax.swing.JLabel lblTitulo;
     public javax.swing.JTextField txtCodigo;
+    public javax.swing.JTextField txtCuentaContable;
     public javax.swing.JTextField txtDescripcion;
     public javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables

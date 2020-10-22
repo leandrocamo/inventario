@@ -8,17 +8,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class ColorQuery extends Conexion {
+public class CuentaContableQuery extends Conexion {
 
-    public ArrayList<MarcaModel> listarColores() {
+    private String marca = "CuentaContable";
 
-        ArrayList<MarcaModel> list = new ArrayList<MarcaModel>();
+    public ArrayList<CuentaContableModel> listarRegistros() {
+
+        ArrayList<CuentaContableModel> list = new ArrayList<CuentaContableModel>();
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
 
-        String sql = "SELECT * FROM color WHERE COLESTADO = 1 ";
-        int totalRegistros = totalRegistrosColores(sql);
+        String sql = "SELECT * FROM cuentacontable WHERE CCESTADO = 1 ";
+        int totalRegistros = totalRegistros(sql);
 //        System.out.println("" + sql);
         try {
             ps = con.prepareStatement(sql);
@@ -26,11 +28,12 @@ public class ColorQuery extends Conexion {
             int index = 1;
 
             while (rs.next()) {
-                MarcaModel model = new MarcaModel();
+                CuentaContableModel model = new CuentaContableModel();
                 model.setNroRegistros(index++);
-                model.setMARID(Integer.parseInt(rs.getString("COLID")));
-                model.setMARNOMBRE(rs.getString("COLNOMBRE"));
-                model.setMARDESCRIPCION(rs.getString("COLDESCRIPCION"));
+                model.setId(Integer.parseInt(rs.getString("CCID")));
+                model.setNombre(rs.getString("CCNOMBRE"));
+                model.setDescripcion(rs.getString("CCDESCRIPCION"));
+                model.setIdcuentacontable(rs.getString("CCCODIGOCUENTACONTABLE"));
                 model.setTotalRegistros(totalRegistros);
                 list.add(model);
             }
@@ -39,7 +42,7 @@ public class ColorQuery extends Conexion {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada - listarColores()");
+                System.out.println("Conexión cerrada - listarRegistros(" + marca + ")");
             } catch (SQLException e) {
                 System.err.println(e);
             }
@@ -47,13 +50,12 @@ public class ColorQuery extends Conexion {
         return list;
     }
 
-    public int totalRegistrosColores(String sql) {
+    public int totalRegistros(String sql) {
         int index = 1;
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
 //        System.out.println("totalRegistrosColores "+sql);
-
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -67,7 +69,7 @@ public class ColorQuery extends Conexion {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada - totalRegistrosColores()");
+                System.out.println("Conexión cerrada - totalRegistros(" + marca + ")");
             } catch (SQLException e) {
                 System.err.println(e);
             }
@@ -75,17 +77,18 @@ public class ColorQuery extends Conexion {
         return index;
     }
 
-    public boolean guardarRegistro(MarcaModel modelo) {
+    public boolean guardarRegistro(CuentaContableModel modelo) {
         PreparedStatement ps = null;
         Connection con = getConexion();
-        String sql = "INSERT INTO color (COLNOMBRE, COLDESCRIPCION, COLESTADO) "
-                + "VALUES (?, ?, ?);";
+        String sql = "INSERT INTO cuentacontable (CCNOMBRE, CCDESCRIPCION, CCCODIGOCUENTACONTABLE, CCESTADO) "
+                + "VALUES (?, ?, ?, ?);";
 
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, modelo.getMARNOMBRE());
-            ps.setString(2, modelo.getMARDESCRIPCION());
-            ps.setBoolean(3, true);
+            ps.setString(1, modelo.getNombre());
+            ps.setString(2, modelo.getDescripcion());
+            ps.setString(3, modelo.getIdcuentacontable());
+            ps.setBoolean(4, true);
             ps.execute();
             return true;
 
@@ -95,7 +98,7 @@ public class ColorQuery extends Conexion {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada - guardarRegistro(COLOR).");
+                System.out.println("Conexión cerrada - guardarRegistro(" + marca + ")");
             } catch (SQLException e) {
                 System.err.println(e);
                 return false;
@@ -103,42 +106,44 @@ public class ColorQuery extends Conexion {
         }
     }
 
-    public void buscarRegistroID(MarcaModel model) {
+    public void buscarRegistroID(CuentaContableModel model) {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
 
-        String sql = "SELECT * FROM color WHERE COLESTADO = 1 AND COLID=" + model.getMARID();
+        String sql = "SELECT * FROM cuentacontable WHERE CCESTADO = 1 AND CCID=" + model.getId();
 //        System.out.println("" + sql);
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                model.setMARDESCRIPCION(rs.getString("COLDESCRIPCION"));
-                model.setMARNOMBRE(rs.getString("COLNOMBRE"));
+                model.setDescripcion(rs.getString("CCDESCRIPCION"));
+                model.setNombre(rs.getString("CCNOMBRE"));
+                model.setIdcuentacontable(rs.getString("CCCODIGOCUENTACONTABLE"));
             }
         } catch (SQLException e) {
             System.err.println(e);
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada - buscarRegistroID(COLOR)");
+                System.out.println("Conexión cerrada - buscarRegistroID(" + marca + ")");
             } catch (SQLException e) {
                 System.err.println(e);
             }
         }
     }
 
-    public boolean actualizarRegistro(MarcaModel model) {
+    public boolean actualizarRegistro(CuentaContableModel model) {
         PreparedStatement ps = null;
         Connection con = getConexion();
-        String sql = "UPDATE color SET COLNOMBRE=?, COLDESCRIPCION=? WHERE COLID=?";
+        String sql = "UPDATE cuentacontable SET CCNOMBRE=?, CCDESCRIPCION=?, CCCODIGOCUENTACONTABLE=? WHERE CCID=?";
 
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, model.getMARNOMBRE());
-            ps.setString(2, model.getMARDESCRIPCION());
-            ps.setInt(3, model.getMARID());
+            ps.setString(1, model.getNombre());
+            ps.setString(2, model.getDescripcion());
+            ps.setString(3, model.getIdcuentacontable());
+            ps.setInt(4, model.getId());
             ps.execute();
             return true;
 
@@ -148,7 +153,7 @@ public class ColorQuery extends Conexion {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada - actualizarRegistro(COLOR).");
+                System.out.println("Conexión cerrada - actualizarRegistro(" + marca + ")");
             } catch (SQLException e) {
                 System.err.println(e);
                 return false;
@@ -156,14 +161,14 @@ public class ColorQuery extends Conexion {
         }
     }
 
-    public boolean eliminarRegistro(MarcaModel model) {
+    public boolean eliminarRegistro(CuentaContableModel model) {
         PreparedStatement ps = null;
         Connection con = getConexion();
-        String sql = "DELETE FROM color WHERE COLID=?";
+        String sql = "DELETE FROM cuentacontable WHERE CCID=?";
 
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, model.getMARID());
+            ps.setInt(1, model.getId());
             ps.execute();
             return true;
 
@@ -174,7 +179,7 @@ public class ColorQuery extends Conexion {
         } finally {
             try {
                 con.close();
-                System.out.println("Conexión cerrada - eliminarRegistro(COLOR).");
+                System.out.println("Conexión cerrada - eliminarRegistro(" + marca + ")");
             } catch (SQLException e) {
                 System.err.println(e);
                 return false;

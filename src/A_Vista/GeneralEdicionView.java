@@ -1,12 +1,14 @@
 
 package A_Vista;
 
-public class ColorEdicionView extends javax.swing.JPanel {
+import java.awt.event.KeyEvent;
+
+public class GeneralEdicionView extends javax.swing.JPanel {
 
 
-    public ColorEdicionView() {
+    public GeneralEdicionView() {
         initComponents();
-        System.out.println("MarcaEdicionView");
+        txtNombre.requestFocus();
     }
 
 
@@ -32,7 +34,7 @@ public class ColorEdicionView extends javax.swing.JPanel {
 
         lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("REGISTRO");
+        lblTitulo.setText("Registro de XXXX");
 
         jPanel1.setLayout(new java.awt.GridLayout(4, 3));
 
@@ -70,6 +72,11 @@ public class ColorEdicionView extends javax.swing.JPanel {
                 txtNombreActionPerformed(evt);
             }
         });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombreKeyPressed(evt);
+            }
+        });
         jPanel1.add(txtNombre);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -88,6 +95,12 @@ public class ColorEdicionView extends javax.swing.JPanel {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Descripción:");
         jPanel1.add(jLabel4);
+
+        txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyPressed(evt);
+            }
+        });
         jPanel1.add(txtDescripcion);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -154,6 +167,18 @@ public class ColorEdicionView extends javax.swing.JPanel {
         txtDescripcion.setText("No Aplica");
         txtNombre.setText("No Aplica");
     }//GEN-LAST:event_btnNoAplicaActionPerformed
+
+    private void txtNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtDescripcion.requestFocus();
+        }
+    }//GEN-LAST:event_txtNombreKeyPressed
+
+    private void txtDescripcionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnGuardarRegistro.doClick();
+        }
+    }//GEN-LAST:event_txtDescripcionKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

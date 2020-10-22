@@ -9,12 +9,12 @@ package A_Vista;
  *
  * @author camo
  */
-public class ColorView extends javax.swing.JPanel {
+public class CuentaContableView extends javax.swing.JPanel {
 
     /**
      * Creates new form ColorView
      */
-    public ColorView() {
+    public CuentaContableView() {
         initComponents();
     }
 
@@ -28,21 +28,21 @@ public class ColorView extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        btnNuevoColor = new javax.swing.JButton();
-        btnRegresarColor = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableColor = new javax.swing.JTable();
+        jTable = new javax.swing.JTable();
         lblTotalRegistros = new javax.swing.JLabel();
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Administración de Color");
+        jLabel2.setText("Administración de Cuenta Contable");
 
-        btnNuevoColor.setText("Nuevo");
+        btnNuevo.setText("Nuevo");
 
-        btnRegresarColor.setText("Regresar");
+        btnRegresar.setText("Regresar");
 
-        jTableColor.setModel(new javax.swing.table.DefaultTableModel(
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -53,7 +53,7 @@ public class ColorView extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTableColor);
+        jScrollPane1.setViewportView(jTable);
 
         lblTotalRegistros.setText("jLabel1");
 
@@ -66,9 +66,9 @@ public class ColorView extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnNuevoColor)
+                        .addComponent(btnNuevo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnRegresarColor)
+                        .addComponent(btnRegresar)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(lblTotalRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -81,8 +81,8 @@ public class ColorView extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNuevoColor)
-                    .addComponent(btnRegresarColor))
+                    .addComponent(btnNuevo)
+                    .addComponent(btnRegresar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -93,11 +93,11 @@ public class ColorView extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton btnNuevoColor;
-    public javax.swing.JButton btnRegresarColor;
+    public javax.swing.JButton btnNuevo;
+    public javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JTable jTableColor;
+    public javax.swing.JTable jTable;
     public javax.swing.JLabel lblTotalRegistros;
     // End of variables declaration//GEN-END:variables
 }

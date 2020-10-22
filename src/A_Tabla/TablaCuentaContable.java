@@ -1,7 +1,7 @@
 package A_Tabla;
 
-import A_Modelo.ColorQuery;
-import A_Modelo.MarcaModel;
+import A_Modelo.CuentaContableModel;
+import A_Modelo.CuentaContableQuery;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -11,8 +11,7 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-public class TablaColor {
-
+public class TablaCuentaContable {
     private int totalRegistros;
 
     public int getTotalRegistros() {
@@ -23,7 +22,8 @@ public class TablaColor {
         this.totalRegistros = totalRegistros;
     }
 
-    public void cargandoRegistrosColor(JTable jTable) {
+
+    public void cargandoRegistros(JTable jTable) {
 
         jTable.setDefaultRenderer(Object.class, new A_Tabla.Render());
         DefaultTableModel dt = new DefaultTableModel() {
@@ -35,18 +35,19 @@ public class TablaColor {
         dt.addColumn("CÓDIGO");
         dt.addColumn("NOMBRE");
         dt.addColumn("DESCRIPCIÓN");
-        dt.addColumn("ACCIÓN");
-        dt.addColumn("ACCIÓN");
+        dt.addColumn("CUENTA CONTABLE");
+        dt.addColumn("EDICIÓN");
+        dt.addColumn("ELIMINACIÓN");
 
         JButton btn_modificar = new JButton("Editar");
         btn_modificar.setName("m");
         JButton btn_eliminar = new JButton("Eliminar");
         btn_eliminar.setName("e");
 
-        ColorQuery query = new ColorQuery();
-        MarcaModel model = new MarcaModel();
-        ArrayList<MarcaModel> list = null;
-        list = query.listarColores();
+        CuentaContableQuery query = new CuentaContableQuery();
+        CuentaContableModel model = new CuentaContableModel();
+        ArrayList<CuentaContableModel> list = null;
+        list = query.listarRegistros();
 
         if (list.size() == 0) {
             setTotalRegistros(0);
@@ -56,21 +57,22 @@ public class TablaColor {
 
             for (int i = 0; i < list.size(); i++) {
 
-                Object fila[] = new Object[6];
+                Object fila[] = new Object[7];
                 model = list.get(i);
                 fila[0] = model.getNroRegistros();
-                fila[1] = model.getMARID();
-                fila[2] = model.getMARNOMBRE();
-                fila[3] = model.getMARDESCRIPCION();
-                fila[4] = btn_modificar;
-                fila[5] = btn_eliminar;
+                fila[1] = model.getId();
+                fila[2] = model.getNombre();
+                fila[3] = model.getDescripcion();
+                fila[4] = model.getIdcuentacontable();
+                fila[5] = btn_modificar;
+                fila[6] = btn_eliminar;
                 setTotalRegistros(model.getNroRegistros());
                 dt.addRow(fila);
             }
             jTable.setModel(dt);
             TableRowSorter<TableModel> ordenar = new TableRowSorter<TableModel>(dt);
             jTable.setRowSorter(ordenar);
-            TableColumnModel columnModel = jTable.getColumnModel();
+//            TableColumnModel columnModel = jTable.getColumnModel();
         }
     }
 

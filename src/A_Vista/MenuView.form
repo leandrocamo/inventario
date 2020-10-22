@@ -112,10 +112,13 @@
             <Property name="text" type="java.lang.String" value="Generaci&#xf3;n de reportes"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btnAreaDependencia">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#xc1;rea de Dependencia"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
@@ -135,10 +138,13 @@
             <Property name="text" type="java.lang.String" value="Administraci&#xf3;n de Color"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="btnCuentaContable">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cuenta Contable"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
@@ -149,6 +155,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Estado"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
@@ -168,10 +177,13 @@
             <Property name="text" type="java.lang.String" value="Administraci&#xf3;n de Marca"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton6">
+        <Component class="javax.swing.JButton" name="btnTipoMueble">
           <Properties>
             <Property name="text" type="java.lang.String" value="Tipo de Mueble"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
@@ -182,6 +194,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Ubicaci&#xf3;n"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel11">
           <Properties>
@@ -192,6 +207,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Usuario"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel12">
           <Properties>
