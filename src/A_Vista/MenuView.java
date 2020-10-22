@@ -37,7 +37,7 @@ public class MenuView extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         btnCuentaContable = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        btnEstado = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         btnMarca = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
@@ -122,8 +122,8 @@ public class MenuView extends javax.swing.JPanel {
         jLabel7.setText("Administración de Cuenta Contable");
         jPanel3.add(jLabel7);
 
-        jButton4.setText("Estado");
-        jPanel3.add(jButton4);
+        btnEstado.setText("Estado");
+        jPanel3.add(btnEstado);
 
         jLabel8.setText("Administración de Estado");
         jPanel3.add(jLabel8);
@@ -161,11 +161,11 @@ public class MenuView extends javax.swing.JPanel {
     public javax.swing.JButton btnBienes;
     public javax.swing.JButton btnColor;
     public javax.swing.JButton btnCuentaContable;
+    public javax.swing.JButton btnEstado;
     public javax.swing.JButton btnInventario;
     public javax.swing.JButton btnMarca;
     public javax.swing.JButton btnReportes;
     public javax.swing.JButton btnTipoMueble;
-    public javax.swing.JButton jButton4;
     public javax.swing.JButton jButton7;
     public javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;

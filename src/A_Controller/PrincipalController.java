@@ -95,6 +95,7 @@ public class PrincipalController implements ActionListener {
 
         this.viewMenu.btnTipoMueble.addActionListener(this);
         this.viewMenu.btnAreaDependencia.addActionListener(this);
+        this.viewMenu.btnEstado.addActionListener(this);
         clicJTableGeneral();
 
     }
@@ -148,6 +149,11 @@ public class PrincipalController implements ActionListener {
                                 + "AND (ADNOMBRE LIKE '%" + viewGeneral.txtBuscar.getText() + "%' "
                                 + "OR ADDESCRIPCION LIKE '%" + viewGeneral.txtBuscar.getText() + "%') ORDER BY ADNOMBRE";
                         break;
+                    case "Estado":
+                        sql = "SELECT *FROM estado WHERE ESTESTADO=1 "
+                                + "AND (ESTNOMBRE LIKE '%" + viewGeneral.txtBuscar.getText() + "%' "
+                                + "OR ESTDESCRIPCION LIKE '%" + viewGeneral.txtBuscar.getText() + "%') ORDER BY ESTNOMBRE";
+                        break;
                 }
                 break;
             case "Editar":
@@ -160,6 +166,9 @@ public class PrincipalController implements ActionListener {
                         break;
                     case "Área de Dependencia":
                         sql = "SELECT *FROM areadependencia WHERE ADESTADO=1 AND ADID =";
+                        break;
+                    case "Estado":
+                        sql = "SELECT *FROM estado WHERE ESTESTADO=1 AND ESTID =";
                         break;
                 }
                 break;
@@ -174,6 +183,9 @@ public class PrincipalController implements ActionListener {
                     case "Área de Dependencia":
                         sql = "DELETE FROM areadependencia WHERE ADID = ?";
                         break;
+                    case "Estado":
+                        sql = "DELETE FROM estado WHERE ESTID = ?";
+                        break;
                 }
                 break;
             case "Insertar":
@@ -186,6 +198,9 @@ public class PrincipalController implements ActionListener {
                         break;
                     case "Área de Dependencia":
                         sql = "INSERT INTO areadependencia (ADNOMBRE, ADDESCRIPCION, ADESTADO) VALUES (?, ?, ?);";
+                        break;
+                    case "Estado":
+                        sql = "INSERT INTO estado (ESTNOMBRE, ESTDESCRIPCION, ESTESTADO) VALUES (?, ?, ?);";
                         break;
                 }
                 break;
@@ -200,6 +215,10 @@ public class PrincipalController implements ActionListener {
                     case "Área de Dependencia":
                         sql = "UPDATE areadependencia SET ADNOMBRE=?, ADDESCRIPCION=? WHERE ADID=?";
                         break;
+                    case "Estado":
+                        sql = "UPDATE estado SET ESTNOMBRE=?, ESTDESCRIPCION=? WHERE ESTID=?";
+                        break;
+
                 }
                 break;
         }
@@ -362,7 +381,20 @@ public class PrincipalController implements ActionListener {
 
             sentenciaSelectAll = "SELECT *FROM areadependencia WHERE ADESTADO=1 ORDER BY ADNOMBRE";
             controllerGeneral = new GeneralController(viewGeneral, modelGeneral, queryGeneral, viewGeneralEdicion, sentenciaSelectAll);
-//            clicJTableGeneral();
+            renderizarTotalRegistros();
+        }
+        // E S T A D O   D E L   M U E B L E ================================
+        //Cuando el usuario presiona Color en el Menú, muestra la administración de color
+        if (e.getSource() == viewMenu.btnEstado) {
+            opcion = "Estado";
+            panelMenu();
+            viewGeneral.setVisible(true);
+            viewGeneral.lblTitulo.setText("Administración de " + opcion);
+            view.PnlContenedor.add(viewGeneral);
+            view.PnlContenedor.validate();
+
+            sentenciaSelectAll = "SELECT *FROM estado WHERE ESTESTADO=1 ORDER BY ESTNOMBRE";
+            controllerGeneral = new GeneralController(viewGeneral, modelGeneral, queryGeneral, viewGeneralEdicion, sentenciaSelectAll);
             renderizarTotalRegistros();
         }
         if (e.getSource() == viewGeneralEdicion.btnCancelar) {
@@ -375,6 +407,9 @@ public class PrincipalController implements ActionListener {
                     break;
                 case "Área de Dependencia":
                     viewMenu.btnAreaDependencia.doClick();
+                    break;
+                case "Estado":
+                    viewMenu.btnEstado.doClick();
                     break;
             }
         }

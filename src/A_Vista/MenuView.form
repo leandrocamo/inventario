@@ -151,7 +151,7 @@
             <Property name="text" type="java.lang.String" value="Administraci&#xf3;n de Cuenta Contable"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton4">
+        <Component class="javax.swing.JButton" name="btnEstado">
           <Properties>
             <Property name="text" type="java.lang.String" value="Estado"/>
           </Properties>
