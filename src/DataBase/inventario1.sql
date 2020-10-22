@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-09-2020 a las 17:44:48
+-- Tiempo de generación: 22-10-2020 a las 03:58:53
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.2.3
 
@@ -65,11 +65,22 @@ CREATE TABLE `color` (
 
 INSERT INTO `color` (`COLID`, `COLNOMBRE`, `COLDESCRIPCION`, `COLESTADO`) VALUES
 (1, 'Negro', 'COLDESCRIPCION', 1),
-(2, 'Azul', 'COLDESCRIPCION', 1),
+(2, 'Azul', 'COLDESCRIPCION AZUL', 1),
 (3, 'Verde', 'COLDESCRIPCION', 1),
 (4, 'Blanco', 'COLDESCRIPCION', 1),
 (5, 'Gris', 'COLDESCRIPCION', 1),
-(6, 'No aplica', NULL, 1);
+(6, 'No aplica', 'Este color aplica cuando no sepa describir el color', 1),
+(24, '11111', '111111', 1),
+(25, '1111', '11111', 1),
+(26, '2222', '2222', 1),
+(27, '33333333', '3', 1),
+(28, '4', '4', 1),
+(29, '5', '5', 1),
+(30, '101010', '202020', 1),
+(31, '10', '10', 1),
+(32, '30', '30', 1),
+(33, '12', '23', 1),
+(34, '1', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -156,6 +167,7 @@ INSERT INTO `equipoinventariado` (`EIID`, `DIID`, `EITYPE`, `EIEVIDENTIFIER`, `E
 CREATE TABLE `estado` (
   `ESTID` int(11) NOT NULL,
   `ESTNOMBRE` mediumtext NOT NULL,
+  `ESTDESCRIPCION` mediumtext NOT NULL,
   `ESTESTADO` smallint(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -163,14 +175,14 @@ CREATE TABLE `estado` (
 -- Volcado de datos para la tabla `estado`
 --
 
-INSERT INTO `estado` (`ESTID`, `ESTNOMBRE`, `ESTESTADO`) VALUES
-(1, 'Bueno', 1),
-(2, 'Malo', 1),
-(3, 'Excelente', 1),
-(4, 'Maltratado', 1),
-(5, 'No funciona', 1),
-(6, 'Regular', 1),
-(7, 'No aplica', 1);
+INSERT INTO `estado` (`ESTID`, `ESTNOMBRE`, `ESTDESCRIPCION`, `ESTESTADO`) VALUES
+(1, 'Bueno', '', 1),
+(2, 'Malo', '', 1),
+(3, 'Excelente', '', 1),
+(4, 'Maltratado', '', 1),
+(5, 'No funciona', '', 1),
+(6, 'Regular', '', 1),
+(7, 'No aplica', '', 1);
 
 -- --------------------------------------------------------
 
@@ -205,13 +217,16 @@ CREATE TABLE `marca` (
 --
 
 INSERT INTO `marca` (`MARID`, `MARNOMBRE`, `MARDESCRIPCION`, `MARESTADO`) VALUES
-(1, 'Pionner', 'Descripción de la marca', 1),
+(1, 'Pionner', 'ppp', 1),
 (2, 'Sony', 'Descripción de la marca', 1),
-(3, 'HUAWEI', 'Descripción de la marca', 1),
-(4, 'AIWA', 'Descripción de la marca', 1),
-(5, 'GoldStar', 'Descripción de la marca', 1),
+(3, 'HUAWEI', 'Empresa China', 1),
+(4, 'AIWA', 'Japonesa', 1),
+(5, 'GoldStar', 'AAa', 1),
 (6, 'Marca 1', 'Descripción de la marca', 0),
-(8, 'No aplica', 'Esta opción aplica para los bienes que no necesitan de esta característica.', 1);
+(8, 'No aplica', 'Esta opción aplica para los bienes que no necesitan de esta característica.', 1),
+(9, '11111', '1111', 1),
+(10, '22222', '22222', 1),
+(11, '3333', '3333', 1);
 
 -- --------------------------------------------------------
 
@@ -371,7 +386,10 @@ INSERT INTO `mueble` (`MUEID`, `CCID`, `TMID`, `ESTID`, `MARID`, `COLID`, `USUXU
 (270, 5, 2, 5, 5, 4, 11, '300833B2DDD901400000000120', 'TV SAMSUNG 70Inch TU7000 Crystal UHD 4K Smart LED Series 7 2HDMI 1USB BT WIFI5', 'U606CSP98', '2020-08-01', '2020-08-01', '2020-08-01', 'MUEFD', 'MUEFO', '1692.00', '1100.00', '50.00', '4', '1692.00', '6768.00', 1),
 (271, 6, 3, 6, 6, 5, 12, '300833B2DDD901400000000121', 'MONITOR SAMSUNG LC27R500FHL 27Inc. Curved FHD-1920X1080 HDMI VGA Black', 'T749AER45', '2020-08-01', '2020-08-01', '2020-08-01', 'MUEFD', 'MUEFO', '2110.00', '2233.00', '50.00', '5', '2110.00', '10550.00', 1),
 (273, 6, 4, 7, 8, 6, 1, 'No aplica', 'No aplica', 'No aplica', '2020-09-06', '2020-09-06', '2020-09-06', 'No aplica', 'No aplica', '0.00', '0.00', '0.00', '0', '0.00', '0.00', 1),
-(274, 6, 4, 7, 8, 6, 7, 'No aplica', 'No aplica', 'No aplica', '2020-09-06', '2020-09-06', '2020-09-06', 'No aplica', 'No aplica', '0.00', '0.00', '0.00', '0', '0.00', '0.00', 1);
+(274, 6, 4, 7, 8, 6, 7, 'No aplica', 'No aplica', 'No aplica', '2020-09-06', '2020-09-06', '2020-09-06', 'No aplica', 'No aplica', '0.00', '0.00', '0.00', '0', '0.00', '0.00', 1),
+(275, 7, 4, 7, 8, 6, 1, '300833B2DDD901400000275', 'No aplica', 'No aplica', '2020-09-21', '2020-09-21', '2020-09-21', 'No aplica', 'No aplica', '0.00', '0.00', '0.00', '0', '0.00', '0.00', 1),
+(276, 7, 4, 7, 8, 6, 1, '300833B2DDD901400000276', 'No aplica', 'No aplica', '2020-09-21', '2020-09-21', '2020-09-21', 'No aplica', 'No aplica', '0.00', '0.00', '0.00', '0', '0.00', '0.00', 1),
+(277, 7, 4, 7, 8, 6, 1, '300833B2DDD901400000277', 'No aplica', 'No aplica', '2020-09-21', '2020-09-21', '2020-09-21', 'No aplica', 'No aplica', '0.00', '0.00', '0.00', '0', '0.00', '0.00', 1);
 
 -- --------------------------------------------------------
 
@@ -394,7 +412,9 @@ INSERT INTO `tipomueble` (`TMID`, `TMNOMBRE`, `TMDESCRIPCION`, `TMESTADO`) VALUE
 (1, 'Electrónico', 'Descripción Tipo de Mueble', 1),
 (2, 'Magnético', 'Descripción Tipo de Mueble', 1),
 (3, 'Material Didáctico', 'Descripción Tipo de Mueble', 1),
-(4, 'No aplica', 'Esta opción aplica para los bienes que no necesitan de esta característica.', 1);
+(4, 'No aplica', 'Esta opción aplica para los bienes que no necesitan de esta característica.', 1),
+(15, '111', '111', 1),
+(16, '222', '222', 1);
 
 -- --------------------------------------------------------
 
@@ -599,13 +619,13 @@ ALTER TABLE `usuxubi`
 -- AUTO_INCREMENT de la tabla `areadependencia`
 --
 ALTER TABLE `areadependencia`
-  MODIFY `ADID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ADID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `color`
 --
 ALTER TABLE `color`
-  MODIFY `COLID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `COLID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de la tabla `cuentacontable`
@@ -629,7 +649,7 @@ ALTER TABLE `equipoinventariado`
 -- AUTO_INCREMENT de la tabla `estado`
 --
 ALTER TABLE `estado`
-  MODIFY `ESTID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ESTID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `inventario`
@@ -641,19 +661,19 @@ ALTER TABLE `inventario`
 -- AUTO_INCREMENT de la tabla `marca`
 --
 ALTER TABLE `marca`
-  MODIFY `MARID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `MARID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `mueble`
 --
 ALTER TABLE `mueble`
-  MODIFY `MUEID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=275;
+  MODIFY `MUEID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=278;
 
 --
 -- AUTO_INCREMENT de la tabla `tipomueble`
 --
 ALTER TABLE `tipomueble`
-  MODIFY `TMID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `TMID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `ubicacion`
