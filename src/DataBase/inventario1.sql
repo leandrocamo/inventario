@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-10-2020 a las 03:58:53
+-- Tiempo de generación: 03-11-2020 a las 17:16:41
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.2.3
 
@@ -44,7 +44,8 @@ INSERT INTO `areadependencia` (`ADID`, `ADNOMBRE`, `ADDESCRIPCION`, `ADESTADO`) 
 (2, 'Sistemas', '', 1),
 (3, 'Primaria', '', 1),
 (4, 'Secundaria', '', 1),
-(5, 'Fisica', '', 1);
+(5, 'Fisica', '', 1),
+(6, 'No aplica', 'No Aplica', 1);
 
 -- --------------------------------------------------------
 
@@ -176,13 +177,14 @@ CREATE TABLE `estado` (
 --
 
 INSERT INTO `estado` (`ESTID`, `ESTNOMBRE`, `ESTDESCRIPCION`, `ESTESTADO`) VALUES
-(1, 'Bueno', '', 1),
+(1, 'Bueno', 'Descripción de bueno', 1),
 (2, 'Malo', '', 1),
 (3, 'Excelente', '', 1),
 (4, 'Maltratado', '', 1),
 (5, 'No funciona', '', 1),
 (6, 'Regular', '', 1),
-(7, 'No aplica', '', 1);
+(7, 'No aplica', '', 1),
+(8, 'JUAN', 'JUAN', 1);
 
 -- --------------------------------------------------------
 
@@ -444,9 +446,9 @@ INSERT INTO `ubicacion` (`UBIID`, `ADID`, `UBINOMBRE`, `UBIESTADO`) VALUES
 (8, 3, 'Cuarto B', 1),
 (9, 3, 'Cuarto C', 0),
 (10, 4, 'Octavo A', 1),
-(14, 5, '1ro. de Bachillerato B', 1),
 (21, 4, 'Octavo B', 1),
-(22, 4, 'Octavo C', 0);
+(22, 4, 'Octavo C', 0),
+(24, 1, 'No aplica', 1);
 
 -- --------------------------------------------------------
 
@@ -460,8 +462,6 @@ CREATE TABLE `usuario` (
   `USUAPELLIDOS` mediumtext NOT NULL,
   `USUEMAIL` mediumtext NOT NULL,
   `USUCONTRASENIA` mediumtext NOT NULL,
-  `USUAUTHKEY` mediumtext NOT NULL,
-  `USUACCESOTOKEN` mediumtext NOT NULL,
   `USUESTADO` smallint(6) NOT NULL,
   `ROLE` decimal(10,0) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -470,11 +470,11 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`USUID`, `USUNOMBRES`, `USUAPELLIDOS`, `USUEMAIL`, `USUCONTRASENIA`, `USUAUTHKEY`, `USUACCESOTOKEN`, `USUESTADO`, `ROLE`) VALUES
-(1, 'Juan', 'Moran', 'jm@gmail.com', 'jm@gmail.com', 'Pendiente', 'Pendiente', 1, '1'),
-(2, 'Paola', 'Pérez', 'pp@gmail.com', 'pp@gmail.com', 'Pendiente', 'Pendiente', 1, '1'),
-(3, 'Lalo', 'Cabrera', 'lc@gmail.com', 'lc@gmail.com', 'Pendiente', 'Pendiente', 1, '2'),
-(4, 'Marcelo', 'Juarez', 'mj@gmail.com', 'mj@gmail.com', 'Pendiente', 'Pendiente', 1, '0');
+INSERT INTO `usuario` (`USUID`, `USUNOMBRES`, `USUAPELLIDOS`, `USUEMAIL`, `USUCONTRASENIA`, `USUESTADO`, `ROLE`) VALUES
+(1, 'Juan', 'Moran', 'jm@gmail.com', 'jm@gmail.com', 1, '1'),
+(2, 'Paola', 'Pérez', 'pp@gmail.com', 'pp@gmail.com', 1, '1'),
+(3, 'usuario3', 'usu3', 'usu@gmail.com', 'lc@gmail.com', 1, '2'),
+(4, 'Marcelo', 'Juarez', 'mj@gmail.com', 'mj@gmail.com', 1, '0');
 
 -- --------------------------------------------------------
 
@@ -619,7 +619,7 @@ ALTER TABLE `usuxubi`
 -- AUTO_INCREMENT de la tabla `areadependencia`
 --
 ALTER TABLE `areadependencia`
-  MODIFY `ADID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ADID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `color`
@@ -649,7 +649,7 @@ ALTER TABLE `equipoinventariado`
 -- AUTO_INCREMENT de la tabla `estado`
 --
 ALTER TABLE `estado`
-  MODIFY `ESTID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ESTID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `inventario`
@@ -679,7 +679,7 @@ ALTER TABLE `tipomueble`
 -- AUTO_INCREMENT de la tabla `ubicacion`
 --
 ALTER TABLE `ubicacion`
-  MODIFY `UBIID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `UBIID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`

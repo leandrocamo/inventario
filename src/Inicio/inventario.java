@@ -1,9 +1,9 @@
 package Inicio;
 
-import A_Modelo.InicioSesionModel;
-import A_Modelo.InicioSesionQuery;
-import A_Vista.InicioSesionView;
-import A_Controller.InicioSesionController;
+import Modelo.InicioSesionModel;
+import Modelo.InicioSesionQuery;
+import Vista.InicioSesionView;
+import Controller.InicioSesionController;
 
 public class inventario {
 

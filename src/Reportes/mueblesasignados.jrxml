@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f216557d-930a-44e9-90d1-23ba25ca341f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idUsuario" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     areadependencia.`ADNOMBRE` AS areadependencia_ADNOMBRE,
+     ubicacion.`UBINOMBRE` AS ubicacion_UBINOMBRE,
+     usuario.`USUNOMBRES` AS usuario_USUNOMBRES,
+     usuario.`USUAPELLIDOS` AS usuario_USUAPELLIDOS,
+     mueble.`MUEID` AS mueble_MUEID,
+     mueble.`MUECODIGOETIQUETA` AS mueble_MUECODIGOETIQUETA,
+     mueble.`MUEDESCRIPCION` AS mueble_MUEDESCRIPCION,
+     mueble.`MUESERIE` AS mueble_MUESERIE,
+     mueble.`MUEFECHACOMPRA` AS mueble_MUEFECHACOMPRA,
+     mueble.`MUEFECHAFABRICACION` AS mueble_MUEFECHAFABRICACION,
+     mueble.`MUEFECHAEXPIRACION` AS mueble_MUEFECHAEXPIRACION,
+     mueble.`MUEFD` AS mueble_MUEFD,
+     mueble.`MUEFO` AS mueble_MUEFO,
+     mueble.`MUEVALORNUEVO` AS mueble_MUEVALORNUEVO,
+     mueble.`MUEVALORCOMERCIAL` AS mueble_MUEVALORCOMERCIAL,
+     mueble.`MUEVALORREMANENTE` AS mueble_MUEVALORREMANENTE,
+     mueble.`MUECANTIDAD` AS mueble_MUECANTIDAD,
+     mueble.`MUEVALORUNITARIO` AS mueble_MUEVALORUNITARIO,
+     mueble.`MUEVALORTOTAL` AS mueble_MUEVALORTOTAL,
+     mueble.`MUEESTADO` AS mueble_MUEESTADO
+FROM
+     `areadependencia` areadependencia INNER JOIN `ubicacion` ubicacion ON areadependencia.`ADID` = ubicacion.`ADID`
+     INNER JOIN `usuxubi` usuxubi ON ubicacion.`UBIID` = usuxubi.`UBIID`
+     INNER JOIN `usuario` usuario ON usuxubi.`USUID` = usuario.`USUID`
+     INNER JOIN `mueble` mueble ON usuxubi.`USUXUBIID` = mueble.`USUXUBIID`
+WHERE
+     usuario.USUESTADO = 1
+ AND usuario.USUID = $P!{idUsuario}]]>
+	</queryString>
+	<field name="areadependencia_ADNOMBRE" class="java.lang.String"/>
+	<field name="ubicacion_UBINOMBRE" class="java.lang.String"/>
+	<field name="usuario_USUNOMBRES" class="java.lang.String"/>
+	<field name="usuario_USUAPELLIDOS" class="java.lang.String"/>
+	<field name="mueble_MUEID" class="java.lang.Integer"/>
+	<field name="mueble_MUECODIGOETIQUETA" class="java.lang.String"/>
+	<field name="mueble_MUEDESCRIPCION" class="java.lang.String"/>
+	<field name="mueble_MUESERIE" class="java.lang.String"/>
+	<field name="mueble_MUEFECHACOMPRA" class="java.sql.Date"/>
+	<field name="mueble_MUEFECHAFABRICACION" class="java.sql.Date"/>
+	<field name="mueble_MUEFECHAEXPIRACION" class="java.sql.Date"/>
+	<field name="mueble_MUEFD" class="java.lang.String"/>
+	<field name="mueble_MUEFO" class="java.lang.String"/>
+	<field name="mueble_MUEVALORNUEVO" class="java.math.BigDecimal"/>
+	<field name="mueble_MUEVALORCOMERCIAL" class="java.math.BigDecimal"/>
+	<field name="mueble_MUEVALORREMANENTE" class="java.math.BigDecimal"/>
+	<field name="mueble_MUECANTIDAD" class="java.math.BigDecimal"/>
+	<field name="mueble_MUEVALORUNITARIO" class="java.math.BigDecimal"/>
+	<field name="mueble_MUEVALORTOTAL" class="java.math.BigDecimal"/>
+	<field name="mueble_MUEESTADO" class="java.lang.Integer"/>
+	<variable name="ubicacion_UBINOMBRE_1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{ubicacion_UBINOMBRE}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="109" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="79" height="73" uuid="c3eed3a1-8017-4c4f-81db-7d0e706fa71e"/>
+				<imageExpression><![CDATA["D:\\camo\\Documents\\Google Drive\\Jonathan\\proyecto\\inventario\\src\\Imagen\\UEDB.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="79" y="0" width="476" height="23" uuid="21ba8dc0-9aab-4b9a-8705-e12f1c44268b"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidad Educativa "Don Bosco" La Tola]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="53" width="476" height="20" uuid="a19b0412-2e80-4871-a4d7-4f49903e9f37"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Reporte]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="395" y="33" width="160" height="20" uuid="4178a614-065f-4fa1-ba96-3cfee45e39ac"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="249" y="2" width="100" height="20" uuid="83579f37-acea-431c-8968-7663740ef5e9"/>
+				<text><![CDATA[CÓDIGO ETIQUETA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="2" width="100" height="20" uuid="6e1c4e25-7aba-4c65-b02d-aa22f7b1a891"/>
+				<text><![CDATA[DESCRIPCIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="2" width="100" height="20" uuid="d896a915-2d94-403a-9823-4a57e6288392"/>
+				<text><![CDATA[SERIE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="2" width="100" height="20" uuid="e7498273-ae4b-446f-bf35-98acb7921c2d"/>
+				<text><![CDATA[CÓDIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="2" width="100" height="20" uuid="0f1e7cd4-b0f9-41c3-9e9d-04b3e493ba61"/>
+				<text><![CDATA[UBICACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="555" y="2" width="100" height="20" uuid="6a72678b-fa3e-447d-a729-72962bccadb1"/>
+				<text><![CDATA[APELLIDOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="655" y="2" width="100" height="20" uuid="b322e051-3ca8-4641-8b57-7e172720122b"/>
+				<text><![CDATA[NOMBRES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="49" height="20" uuid="9642cb34-7be4-420d-8005-57d11ca2718e"/>
+				<text><![CDATA[Nro.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="349" y="0" width="100" height="20" uuid="460165fc-7e38-4a50-a34d-6c33602dce0d"/>
+				<textFieldExpression><![CDATA[$F{mueble_MUEDESCRIPCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="149" y="1" width="100" height="20" uuid="441c79d0-1ddb-4933-a558-e202b1cb8a65"/>
+				<textFieldExpression><![CDATA[$F{mueble_MUESERIE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="49" y="1" width="100" height="20" uuid="aad2a0b8-9411-434d-9f80-f6d2e7298dc1"/>
+				<textFieldExpression><![CDATA[$F{mueble_MUEID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="1" width="100" height="20" uuid="78ebf6d5-8a49-4a82-b728-8040cec9cb35"/>
+				<textFieldExpression><![CDATA[$F{ubicacion_UBINOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="1" width="49" height="20" uuid="93e71ee1-f9c5-4d7f-bbb9-f8d74b3bf919"/>
+				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="249" y="1" width="100" height="20" uuid="8c9e1b60-93c7-4444-997d-9dc749021bcc"/>
+				<textFieldExpression><![CDATA[$F{mueble_MUECODIGOETIQUETA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="555" y="1" width="100" height="20" uuid="234143b9-4264-4330-bb2a-6058ff9725bc"/>
+				<textFieldExpression><![CDATA[$F{usuario_USUAPELLIDOS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="655" y="1" width="100" height="20" uuid="be20ffe4-326d-45fc-aff7-10b6e1e02ebb"/>
+				<textFieldExpression><![CDATA[$F{usuario_USUNOMBRES}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="196" y="5" width="153" height="20" uuid="0c39e3c3-95a2-4b9a-b820-95b6919deba3"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="349" y="5" width="40" height="20" uuid="af20033b-9023-4693-b060-86605c470fad"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
