@@ -189,7 +189,7 @@ public class MueblesNuevoQuery extends Conexion {
         String sql = "SELECT MAX(MUEID) as id FROM mueble";
         String idCadena = "";
         String aux = "";
-        String codigoEtiqueta = "300833B2DDD9014";
+        String codigoEtiqueta = "";
 
         try {
             ps = con.prepareStatement(sql);
